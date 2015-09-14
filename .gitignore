@@ -13,6 +13,10 @@ hs_err_pid*
 
 
 
+!slf4j-api-1.7.12.jar
+!log4j-core-2.3.jar
+!log4j-api-2.3.jar
+!log4j-slf4j-impl-2.3.jar
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 
