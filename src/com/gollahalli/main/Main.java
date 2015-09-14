@@ -19,10 +19,15 @@
 package com.gollahalli.main;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public class Main extends Application{
 
@@ -36,14 +41,13 @@ public class Main extends Application{
 
     static double getVersion(){
         String version = System.getProperty("java.version");
-        System.out.println(version);
         int pos = version.indexOf('.');
         pos = version.indexOf('.', pos+1);
         return Double.parseDouble (version.substring (0, pos));
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         if (JAVA_VERSION < 1.8){
             logger.error("Java version error. version " + JAVA_VERSION + " installed");
 
@@ -55,5 +59,21 @@ public class Main extends Application{
             alert.showAndWait();
 
         }
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/resource/JCal-gui.fxml"));
+            logger.info("JCal-gui loaded successfully");
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("couldn't load JCal-gui. Ended with exception " + e);
+        }
+
+        Scene scene = new Scene(root, 800, 600);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("JCal");
+        primaryStage.show();
+
+
     }
 }
