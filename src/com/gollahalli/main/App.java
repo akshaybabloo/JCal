@@ -29,10 +29,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class Main extends Application{
+public class App extends Application{
 
     public static double JAVA_VERSION = getVersion();
-    public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static final Logger logger = LoggerFactory.getLogger(App.class);
 
 
     public static void main(String[] args) {
@@ -65,7 +65,7 @@ public class Main extends Application{
             logger.info("JCal-gui loaded successfully");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.error("couldn't load JCal-gui. Ended with exception " + e);
+//            logger.error("couldn't load JCal-gui. Ended with exception " + e);
         }
 
         Scene scene = new Scene(root, 800, 600);
