@@ -39,7 +39,7 @@ public class Controller {
             System.out.println(test);
         });
 
-        repayment_type.getItems().addAll("Monthly", "Bi-Monthly", "Fortnightly", "Yearly", "Quarterly", "Weekly");
+        repayment_type.getItems().addAll("Monthly", "Bi-Monthly", "Fortnightly", "Yearly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -92,7 +92,7 @@ public class Controller {
 
                 case "Fortnightly":
                     logger.info("Fortnightly payments selected");
-                    double[] fortnightly_output = calculate.compound_interest(loan_amount_text,interest_text,years_text,52.0);
+                    double[] fortnightly_output = calculate.compound_interest(loan_amount_text,interest_text,years_text,26.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
                             " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + fortnightly_output[1] +
                             ". The total amount you wold have to pay would be $" + fortnightly_output[0]);
@@ -101,14 +101,25 @@ public class Controller {
 
                 case "Bi-Monthly":
                     logger.info("Bi-Monthly payments selected");
-                    double[] bimonthly_output = calculate.compound_interest(loan_amount_text,interest_text,years_text,52.0);
+                    double[] bimonthly_output = calculate.compound_interest(loan_amount_text,interest_text,years_text,6.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
                             " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + bimonthly_output[1] +
                             ". The total amount you wold have to pay would be $" + bimonthly_output[0]);
                     summary.getChildren().add(final_text);
                     break;
+
+                case "Daily":
+                    logger.info("Bi-Monthly payments selected");
+                    double[] daily_output = calculate.compound_interest(loan_amount_text,interest_text,years_text,365.0);
+                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
+                            " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + daily_output[1] +
+                            ". The total amount you wold have to pay would be $" + daily_output[0]);
+                    summary.getChildren().add(final_text);
+                    break;
             }
         });
+
+
 
     }
 }
