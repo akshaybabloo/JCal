@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
    <children>
       <MenuBar fx:id="JCal_menu" prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -63,9 +62,10 @@
             </TextField>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="interest" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Text fx:id="repayment_type" strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ComboBox fx:id="repayment_type" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <TextFlow fx:id="summary" layoutX="177.0" layoutY="247.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
