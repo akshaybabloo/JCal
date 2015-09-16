@@ -1,15 +1,16 @@
 package com.gollahalli.gui;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class PaymentsTable {
 
-    public SimpleDoubleProperty year = new SimpleDoubleProperty();
+    public SimpleIntegerProperty year = new SimpleIntegerProperty();
     public SimpleDoubleProperty interest = new SimpleDoubleProperty();
     public SimpleDoubleProperty principal = new SimpleDoubleProperty();
     public SimpleDoubleProperty balance = new SimpleDoubleProperty();
 
-    public double getYear() {
+    public int getYear() {
         return year.get();
     }
 
