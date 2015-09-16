@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -66,6 +67,68 @@
             <ComboBox fx:id="repayment_type" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <TextFlow fx:id="summary" layoutX="177.0" layoutY="247.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TextFlow fx:id="summary" layoutX="10.0" layoutY="161.0" prefHeight="59.0" prefWidth="780.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TabPane layoutX="14.0" layoutY="220.0" prefHeight="373.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <tabs>
+          <Tab text="Table">
+               <content>
+                  <TableView fx:id="paymentsAnnual" prefHeight="237.0" prefWidth="780.0">
+                    <columns>
+                      <TableColumn fx:id="yearColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Year" />
+                      <TableColumn fx:id="interestColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Interest" />
+                        <TableColumn fx:id="principalColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Principal" />
+                        <TableColumn fx:id="balanceColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Balance" />
+                    </columns>
+                  </TableView>
+               </content>
+            </Tab>
+          <Tab text="Graph">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <StackedAreaChart fx:id="test" prefHeight="340.0" prefWidth="246.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedAreaChart>
+                        <StackedAreaChart prefHeight="340.0" prefWidth="272.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedAreaChart>
+                        <StackedAreaChart prefHeight="340.0" prefWidth="257.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedAreaChart>
+                     </children>
+                  </HBox>
+               </content>
+            </Tab>
+            <Tab text="Floating">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="155.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" />
+                            <TableColumn prefWidth="75.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
