@@ -1,51 +1,31 @@
 package com.gollahalli.gui;
 
-/**
- * Created by akshayrajgollahalli on 16/09/15.
- */
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class PaymentsTable {
 
-    private String year;
-    private String interest;
-    private String principal;
-    private String balance;
+    public SimpleDoubleProperty year = new SimpleDoubleProperty();
+    public SimpleDoubleProperty interest = new SimpleDoubleProperty();
+    public SimpleDoubleProperty principal = new SimpleDoubleProperty();
+    public SimpleDoubleProperty balance = new SimpleDoubleProperty();
 
-    public PaymentsTable(String year, String interest, String principal, String balance) {
-        this.year = year;
-        this.interest = interest;
-        this.principal = principal;
-        this.balance = balance;
+    public double getYear() {
+        return year.get();
     }
 
-    public String getYear() {
-        return year;
+
+    public double getInterest() {
+        return interest.get();
     }
 
-    public void setYear(String year) {
-        this.year = year;
+
+    public double getPrincipal() {
+        return principal.get();
     }
 
-    public String getInterest() {
-        return interest;
+
+    public double getBalance() {
+        return balance.get();
     }
 
-    public void setInterest(String interest) {
-        this.interest = interest;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
 }
