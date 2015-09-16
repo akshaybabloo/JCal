@@ -28,13 +28,16 @@ public class Calculate {
         return total;
     }
 
-    public double[] compound_interest(double principal, double rate, double duration, double compounded){
+    public double[][] compound_interest(double principal, double rate, double duration, double compounded){
         logger.info("compound interest called with principal = " + principal +", rate = " + rate + ", duration = " + duration +
         " and compounded for " + compounded);
-        double[] total = new double[2];
+        int durationInt = (int)duration;
+        double[][] total = new double[2][durationInt+1];
         double percent_rate = percentage(rate);
-        total[0] =  principal * Math.pow(1 + (percent_rate/compounded), compounded * duration);
-        total[1] = total[0] - principal;
+        for (int i = 0; i < duration+1; i++) {
+            total[0][i] =  principal * Math.pow(1 + (percent_rate/compounded), compounded * i);
+            total[1][i] = total[0][i] - principal;
+        }
         return total;
     }
 }
