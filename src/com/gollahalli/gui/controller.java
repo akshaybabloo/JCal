@@ -1,13 +1,17 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * Created by akshayrajgollahalli on 15/09/15.
@@ -29,15 +33,50 @@ public class Controller {
     @FXML
     private TextFlow summary;
 
+    @FXML
+    private TableView<PaymentsTable> paymentsAnnual;
+    @FXML
+    private TableColumn yearColumn;
+    @FXML
+    private TableColumn interestColumn;
+    @FXML
+    private TableColumn principalColumn;
+    @FXML
+    private TableColumn balanceColumn;
+
+
+    @FXML
+    private StackedAreaChart test;
+
+    ObservableList<PaymentsTable> data;
+
+    private double loan_amount_text = 0;
+    private double weeks_text = 0;
+    private double years_text = 0;
+    private double interest_text = 0;
+
+
     public static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
     public void initialize(){
         logger.info("controller started");
 
-        loan_amount.setOnAction(event -> {
-            String test = loan_amount.getText();
-            System.out.println(test);
-        });
+        data = FXCollections.observableArrayList(
+//                new PaymentsTable("Jacob", "Smith", "jacob.smith@example.com", "Smith"),
+//                new PaymentsTable("Isabella", "Johnson", "isabella.johnson@example.com", "Smith"),
+//                new PaymentsTable("Ethan", "Williams", "ethan.williams@example.com", "Smith"),
+//                new PaymentsTable("Emma", "Jones", "emma.jones@example.com", "Smith"),
+//                new PaymentsTable("Michael", "Brown", "michael.brown@example.com", "Smith")
+
+//                new PaymentsTable("Michael", "Brown", "michael.brown@example.com", "Smith")
+        );
+
+        yearColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Year"));
+        interestColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Interest"));
+        principalColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Principal"));
+        balanceColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Balance"));
+
+        paymentsAnnual.setItems(data);
 
         repayment_type.getItems().addAll("Monthly", "Bi-Monthly", "Fortnightly", "Yearly", "Quarterly", "Weekly", "Daily");
 
@@ -46,10 +85,24 @@ public class Controller {
         repayment_type.setOnAction(event -> {
             summary.getChildren().clear();
             String repayment_type_text = repayment_type.getValue().toString();
-            double loan_amount_text = Double.parseDouble(loan_amount.getText());
-            double weeks_text = Double.parseDouble(weeks.getText());
-            double years_text = Double.parseDouble(years.getText());
-            double interest_text = Double.parseDouble(interest.getText());
+            String loan_amount_string = loan_amount.getText();
+            String weeks_text_string = weeks.getText();
+            String years_text_string = years.getText();
+            String interest_text_string = interest.getText();
+
+            if (loan_amount_string.isEmpty() || weeks_text_string.isEmpty() || years_text_string.isEmpty() || interest_text_string.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("There seems to be an error!");
+                alert.setContentText("Please make sure there are no empty fields.");
+                alert.showAndWait();
+                return;
+            }
+            loan_amount_text = Double.parseDouble(loan_amount_string);
+            weeks_text = Double.parseDouble(weeks_text_string);
+            years_text = Double.parseDouble(years_text_string);
+            interest_text = Double.parseDouble(interest_text_string);
+
             Text final_text = new Text();
 
             switch (repayment_type_text){
@@ -118,8 +171,7 @@ public class Controller {
                     break;
             }
         });
-
-
-
     }
+
+
 }
