@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Controller {
 
+    public static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    ObservableList<PaymentsTable> data;
     @FXML
     private TextField loan_amount;
     @FXML
@@ -26,13 +28,10 @@ public class Controller {
     private TextField weeks;
     @FXML
     private TextField interest;
-
     @FXML
     private ComboBox repayment_type;
-
     @FXML
     private TextFlow summary;
-
     @FXML
     private TableView<PaymentsTable> paymentsAnnual;
     @FXML
@@ -43,20 +42,13 @@ public class Controller {
     private TableColumn principalColumn;
     @FXML
     private TableColumn balanceColumn;
-
-
     @FXML
     private StackedAreaChart test;
-
-    ObservableList<PaymentsTable> data;
-
     private double loan_amount_text = 0;
     private double weeks_text = 0;
     private double years_text = 0;
     private double interest_text = 0;
-
-
-    public static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    private int someNum = 1;
 
     public void initialize() {
         logger.info("controller started");
@@ -71,7 +63,7 @@ public class Controller {
         balanceColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Balance"));
 
         paymentsAnnual.setItems(data);
-        
+
 
         repayment_type.getItems().addAll("Monthly", "Bi-Monthly", "Fortnightly", "Yearly", "Quarterly", "Weekly", "Daily");
 
@@ -112,8 +104,9 @@ public class Controller {
 
                     for (int i = 1; i < monthly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(monthly_output[0][i]);
-                        paymentsTable.principal.setValue(monthly_output[1][i]);
+                        paymentsTable.year.setValue(someNum++);
+                        paymentsTable.principal.setValue(monthly_output[0][i]);
+                        paymentsTable.interest.setValue(monthly_output[1][i]);
                         data.add(paymentsTable);
                     }
                     break;
