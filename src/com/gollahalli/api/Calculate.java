@@ -17,7 +17,7 @@ public class Calculate {
         return rate / 100;
     }
 
-    public double[] simple_interest(double principal, double rate, double duration) {
+    public double[] simpleInterest(double principal, double rate, double duration) {
         logger.info("simple interest called with principal = " + principal + ", rate = " + rate + " and duration = " + duration);
         double[] total = new double[2];
         if (rate == 0) {
@@ -29,7 +29,7 @@ public class Calculate {
         return total;
     }
 
-    public double[][] compound_interest(double principal, double rate, double duration, double compounded) {
+    public double[][] compoundInterest(double principal, double rate, double duration, double compounded) {
         logger.info("compound interest called with principal = " + principal + ", rate = " + rate + ", duration = " + duration +
                 " and compounded for " + compounded);
         int durationInt = (int) duration;
@@ -46,5 +46,21 @@ public class Calculate {
             total[1][i] = bd1.doubleValue();
         }
         return total;
+    }
+
+    public double fixedRateMortgage(int loanAmount, int termInYears, double interestRate){
+
+        interestRate /= 100.0;
+
+        double monthlyRate = interestRate / 12.0;
+
+        int termInMonths = termInYears * 12;
+
+
+        double monthlyPayment =
+                (loanAmount*monthlyRate) /
+                        (1-Math.pow(1+monthlyRate, -termInMonths));
+
+        return monthlyPayment;
     }
 }
