@@ -86,7 +86,15 @@
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <StackedAreaChart fx:id="graph1" prefHeight="340.0" prefWidth="246.0">
+                        <AreaChart fx:id="graph1" prefHeight="340.0" prefWidth="260.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                        <StackedAreaChart prefHeight="340.0" prefWidth="260.0">
                           <xAxis>
                             <NumberAxis side="BOTTOM" />
                           </xAxis>
@@ -94,15 +102,7 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </StackedAreaChart>
-                        <StackedAreaChart prefHeight="340.0" prefWidth="272.0">
-                          <xAxis>
-                            <NumberAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </StackedAreaChart>
-                        <StackedAreaChart prefHeight="340.0" prefWidth="257.0">
+                        <StackedAreaChart prefHeight="340.0" prefWidth="260.0">
                           <xAxis>
                             <NumberAxis side="BOTTOM" />
                           </xAxis>
