@@ -67,7 +67,7 @@ public class App extends Application {
 //            logger.error("couldn't load JCal-gui. Ended with exception " + e);
         }
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 800, 800);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.setTitle("JCal");
