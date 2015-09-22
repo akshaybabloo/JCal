@@ -50,32 +50,32 @@ public class Calculate {
 
     public double fixedRateMortgageMonthly(double loanAmount, double termInMonths, double interestRate){
 
-        interestRate /= 100.0;
+        BigDecimal bd;
 
-        double monthlyRate = interestRate / 12.0;
+        double initalInterestRate = interestRate/100;
 
-        double monthlyPayment =
-                (loanAmount*monthlyRate) /
-                        (1-Math.pow(1+monthlyRate, -termInMonths));
+        double monthlyRate = initalInterestRate / 12.0;
 
-        return monthlyPayment;
+        bd = new BigDecimal((loanAmount*monthlyRate) / (1-Math.pow(1+monthlyRate, -termInMonths))).setScale(2, RoundingMode.HALF_DOWN);
+
+        return bd.doubleValue();
     }
 
-    public double fixedRateMortgageYearly(double loanAmount, int termInYears, double interestRate){
-
-        interestRate /= 100.0;
-
-        double monthlyRate = interestRate;
-
-        int termInMonths = termInYears;
-
-
-        double monthlyPayment =
-                (loanAmount*monthlyRate) /
-                        (1-Math.pow(1+monthlyRate, -termInMonths));
-
-        return monthlyPayment;
-    }
+//    public double fixedRateMortgageYearly(double loanAmount, int termInYears, double interestRate){
+//
+//        interestRate /= 100.0;
+//
+//        double monthlyRate = interestRate;
+//
+//        int termInMonths = termInYears;
+//
+//
+//        double monthlyPayment =
+//                (loanAmount*monthlyRate) /
+//                        (1-Math.pow(1+monthlyRate, -termInMonths));
+//
+//        return monthlyPayment;
+//    }
 
     public double[][] fixedRateMortgageMonthlyChart(double principal, double interest, double term){
 
