@@ -117,15 +117,15 @@ public class Controller {
                             ". The total amount you wold have to pay would be $" + (bd.doubleValue() + loan_amount_text));
                     summary.getChildren().add(final_text);
 
-                    PaymentsTable paymentsTable1 = new PaymentsTable();
+                    PaymentsTable paymentsTablePrimary = new PaymentsTable();
                     double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month);
-                    paymentsTable1.year.setValue(1);
-                    paymentsTable1.principal.setValue(monthly_chart[2][0]);
-                    paymentsTable1.interest.setValue(monthly_chart[1][0]);
+                    paymentsTablePrimary.year.setValue(1);
+                    paymentsTablePrimary.principal.setValue(monthly_chart[2][0]);
+                    paymentsTablePrimary.interest.setValue(monthly_chart[1][0]);
                     series.getData().add(new XYChart.Data(0, monthly_chart[1][0]));
-                    paymentsTable1.balance.setValue(monthly_chart[3][0]);
+                    paymentsTablePrimary.balance.setValue(monthly_chart[3][0]);
 
-                    data.add(paymentsTable1);
+                    data.add(paymentsTablePrimary);
 
                     for (int i = 1; i < years_text_month; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -137,7 +137,6 @@ public class Controller {
                         paymentsTable.balance.setValue(monthly_chart[3][0]);
                         data.addAll(paymentsTable);
                     }
-
                     break;
 
                 case "Yearly":
