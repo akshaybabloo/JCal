@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
    <children>
       <MenuBar fx:id="JCal_menu" prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -56,9 +56,9 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="weeks" prefHeight="26.0" prefWidth="58.0" promptText="Weeks" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="months" prefHeight="26.0" prefWidth="71.0" promptText="Months" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="82.0" />
+                  <Insets left="79.0" />
                </GridPane.margin>
             </TextField>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -74,9 +74,9 @@
                <content>
                   <TableView fx:id="paymentsAnnual" prefHeight="237.0" prefWidth="780.0">
                     <columns>
-                      <TableColumn fx:id="yearColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Year" />
-                      <TableColumn fx:id="interestColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Interest" />
+                      <TableColumn fx:id="primaryColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Year" />
                         <TableColumn fx:id="principalColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Principal" />
+                      <TableColumn fx:id="interestColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Interest" />
                         <TableColumn fx:id="balanceColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Balance" />
                     </columns>
                   </TableView>
