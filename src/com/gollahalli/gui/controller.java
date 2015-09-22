@@ -13,6 +13,9 @@ import javafx.scene.text.TextFlow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 /**
  * Created by akshayrajgollahalli on 15/09/15.
@@ -27,7 +30,7 @@ public class Controller {
     @FXML
     private TextField years;
     @FXML
-    private TextField weeks;
+    private TextField months;
     @FXML
     private TextField interest;
     @FXML
@@ -37,7 +40,7 @@ public class Controller {
     @FXML
     private TableView<PaymentsTable> paymentsAnnual;
     @FXML
-    private TableColumn yearColumn;
+    private TableColumn primaryColumn;
     @FXML
     private TableColumn interestColumn;
     @FXML
@@ -47,10 +50,11 @@ public class Controller {
     @FXML
     private StackedAreaChart<Number, Number> graph1;
     private double loan_amount_text = 0;
-    private double weeks_text = 0;
+    private double months_text = 0;
     private double years_text = 0;
     private double interest_text = 0;
-    private int someNum = 1;
+    private double years_text_month = 0;
+    private int someNum = 2;
 
     public void initialize() {
         logger.info("controller started");
@@ -60,7 +64,7 @@ public class Controller {
         data = FXCollections.observableArrayList();
 
 
-        yearColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Year"));
+        primaryColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Year"));
         interestColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Interest"));
         principalColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Principal"));
         balanceColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Balance"));
@@ -76,11 +80,11 @@ public class Controller {
             summary.getChildren().clear();
             String repayment_type_text = repayment_type.getValue().toString();
             String loan_amount_string = loan_amount.getText();
-            String weeks_text_string = weeks.getText();
+            String months_text_string = months.getText();
             String years_text_string = years.getText();
             String interest_text_string = interest.getText();
 
-            if (loan_amount_string.isEmpty() || weeks_text_string.isEmpty() || years_text_string.isEmpty() || interest_text_string.isEmpty()) {
+            if (loan_amount_string.isEmpty() || months_text_string.isEmpty() || years_text_string.isEmpty() || interest_text_string.isEmpty()) {
                 logger.error("values were missing.");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
@@ -90,7 +94,7 @@ public class Controller {
                 return;
             }
             loan_amount_text = Double.parseDouble(loan_amount_string);
-            weeks_text = Double.parseDouble(weeks_text_string);
+            months_text = Double.parseDouble(months_text_string);
             years_text = Double.parseDouble(years_text_string);
             interest_text = Double.parseDouble(interest_text_string);
 
@@ -103,20 +107,37 @@ public class Controller {
                     series.getData().clear();
                     graph1.setTitle("Monthly interest");
                     graph1.setLegendVisible(false);
-                    double[][] monthly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 12.0);
+
+                    years_text_month = years_text * 12;
+                    double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text,years_text_month,interest_text);
+                    BigDecimal bd = new BigDecimal((monthly_output*years_text_month)-loan_amount_text).setScale(2, RoundingMode.HALF_DOWN);
+
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " weeks at an interest rate of " + interest_text + " % the interest you would have to pay is $" + monthly_output[1][monthly_output[1].length - 1] +
-                            ". The total amount you wold have to pay would be $" + monthly_output[0][monthly_output[0].length - 1]);
+                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay per month is $" + monthly_output +
+                            ". The total amount you wold have to pay would be $" + (bd.doubleValue() + loan_amount_text));
                     summary.getChildren().add(final_text);
 
-                    for (int i = 1; i < monthly_output[0].length; i++) {
+                    PaymentsTable paymentsTable1 = new PaymentsTable();
+                    double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month);
+                    paymentsTable1.year.setValue(1);
+                    paymentsTable1.principal.setValue(monthly_chart[2][0]);
+                    paymentsTable1.interest.setValue(monthly_chart[1][0]);
+                    series.getData().add(new XYChart.Data(0, monthly_chart[1][0]));
+                    paymentsTable1.balance.setValue(monthly_chart[3][0]);
+
+                    data.add(paymentsTable1);
+
+                    for (int i = 1; i < years_text_month; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
+                        monthly_chart = calculate.fixedRateMortgageMonthlyChart(monthly_chart[3][0], interest_text,years_text_month-i);
                         paymentsTable.year.setValue(someNum++);
-                        paymentsTable.principal.setValue(monthly_output[0][i]);
-                        paymentsTable.interest.setValue(monthly_output[1][i]);
-                        series.getData().add(new XYChart.Data(i, monthly_output[1][i]));
-                        data.add(paymentsTable);
+                        paymentsTable.principal.setValue(monthly_chart[2][0]);
+                        paymentsTable.interest.setValue(monthly_chart[1][0]);
+                        series.getData().add(new XYChart.Data(i, monthly_chart[1][0]));
+                        paymentsTable.balance.setValue(monthly_chart[3][0]);
+                        data.addAll(paymentsTable);
                     }
+
                     break;
 
                 case "Yearly":
@@ -125,7 +146,7 @@ public class Controller {
                     series.getData().clear();
                     double[][] yearly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 1.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " weeks at an interest rate of " + interest_text + " % the interest you would have to pay is $" + yearly_output[0][yearly_output[0].length - 1] +
+                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + yearly_output[0][yearly_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + yearly_output[0][yearly_output[0].length - 1]);
                     summary.getChildren().add(final_text);
 
@@ -144,7 +165,7 @@ public class Controller {
                     series.getData().clear();
                     double[][] quarterly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 4.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " weeks at an interest rate of " + interest_text + " % the interest you would have to pay is $" + quarterly_output[0][quarterly_output[0].length - 1] +
+                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + quarterly_output[0][quarterly_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + quarterly_output[0][quarterly_output[0].length - 1]);
                     summary.getChildren().add(final_text);
 
@@ -165,7 +186,7 @@ public class Controller {
                     double[][] weekly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 52.0);
                     Text weekly_text = new Text();
                     weekly_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " weeks at an interest rate of " + interest_text + " % the interest you would have to pay is $" + weekly_output[0][weekly_output[0].length - 1] +
+                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + weekly_output[0][weekly_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + weekly_output[0][weekly_output[0].length - 1]);
                     summary.getChildren().add(weekly_text);
 
@@ -184,7 +205,7 @@ public class Controller {
                     series.getData().clear();
                     double[][] fortnightly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 26.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + fortnightly_output[0][fortnightly_output[0].length - 1] +
+                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + fortnightly_output[0][fortnightly_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + fortnightly_output[0][fortnightly_output[0].length - 1]);
                     summary.getChildren().add(final_text);
 
@@ -204,7 +225,7 @@ public class Controller {
                     series.getData().clear();
                     double[][] bimonthly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 6.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + bimonthly_output[0][bimonthly_output[0].length - 1] +
+                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + bimonthly_output[0][bimonthly_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + bimonthly_output[0][bimonthly_output[0].length - 1]);
                     summary.getChildren().add(final_text);
 
@@ -223,7 +244,7 @@ public class Controller {
                     series.getData().clear();
                     double[][] daily_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 365.0);
                     final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + weeks_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + daily_output[0][daily_output[0].length - 1] +
+                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + daily_output[0][daily_output[0].length - 1] +
                             ". The total amount you wold have to pay would be $" + daily_output[0][daily_output[0].length - 1]);
                     summary.getChildren().add(final_text);
                     for (int i = 1; i < daily_output[0].length; i++) {
