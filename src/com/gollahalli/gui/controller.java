@@ -4,6 +4,7 @@ import com.gollahalli.api.Calculate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -24,7 +25,6 @@ public class Controller {
 
     public static final Logger logger = LoggerFactory.getLogger(Controller.class);
     ObservableList<PaymentsTable> data;
-    ObservableList<StackedAreaChart.Series> graph1Series;
     @FXML
     private TextField loan_amount;
     @FXML
@@ -48,7 +48,7 @@ public class Controller {
     @FXML
     private TableColumn balanceColumn;
     @FXML
-    private StackedAreaChart<Number, Number> graph1;
+    private AreaChart<Number, Number> graph1;
     private double loan_amount_text = 0;
     private double months_text = 0;
     private double years_text = 0;
@@ -58,9 +58,10 @@ public class Controller {
 
     public void initialize() {
         logger.info("controller started");
-        graph1Series = FXCollections.observableArrayList();
-        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+        XYChart.Series<Number, Number> series = new XYChart.Series();
+        XYChart.Series<Number, Number> series1 = new XYChart.Series();
         graph1.getData().add(series);
+        graph1.getData().add(series1);
         data = FXCollections.observableArrayList();
 
 
@@ -105,8 +106,11 @@ public class Controller {
                     logger.info("Monthly payments selected");
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
+                    series1.getData().clear();
+                    series.setName("Interest");
+                    series1.setName("Principal");
                     graph1.setTitle("Monthly interest");
-                    graph1.setLegendVisible(false);
+//                    graph1.setLegendVisible(false);
 
                     years_text_month = years_text * 12;
                     double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text,years_text_month,interest_text);
@@ -123,6 +127,7 @@ public class Controller {
                     paymentsTablePrimary.principal.setValue(monthly_chart[2][0]);
                     paymentsTablePrimary.interest.setValue(monthly_chart[1][0]);
                     series.getData().add(new XYChart.Data(0, monthly_chart[1][0]));
+                    series1.getData().add(new XYChart.Data(0, monthly_chart[2][0]));
                     paymentsTablePrimary.balance.setValue(monthly_chart[3][0]);
 
                     data.add(paymentsTablePrimary);
@@ -134,6 +139,7 @@ public class Controller {
                         paymentsTable.principal.setValue(monthly_chart[2][0]);
                         paymentsTable.interest.setValue(monthly_chart[1][0]);
                         series.getData().add(new XYChart.Data(i, monthly_chart[1][0]));
+                        series1.getData().add(new XYChart.Data(i, monthly_chart[2][0]));
                         paymentsTable.balance.setValue(monthly_chart[3][0]);
                         data.addAll(paymentsTable);
                     }
