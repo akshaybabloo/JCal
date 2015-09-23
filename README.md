@@ -1,6 +1,8 @@
 # JCal
 Mortgage calculator based on Java
 
+> **Note:** As of now only Montly mortgage is working.
+
 ## Snapshot
 
 * This snapshot shows how the GUI looks before any data is added.
