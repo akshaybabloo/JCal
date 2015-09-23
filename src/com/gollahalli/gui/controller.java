@@ -120,7 +120,7 @@ public class Controller {
                     series1.setName("Principal");
 
                     years_text_month = years_text * 12;
-                    double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text, years_text_month, interest_text);
+                    double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text, years_text_month + months_text, interest_text);
                     BigDecimal bd = new BigDecimal((monthly_output * years_text_month) - loan_amount_text).setScale(2, RoundingMode.HALF_DOWN);
 
                     loan_amount_label.setText(loan_amount_string);
@@ -131,7 +131,7 @@ public class Controller {
                     total_payments_label.setText(String.valueOf(bd.doubleValue() + loan_amount_text));
 
                     PaymentsTable paymentsTablePrimary = new PaymentsTable();
-                    double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month);
+                    double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month + months_text);
                     paymentsTablePrimary.year.setValue(1);
                     paymentsTablePrimary.principal.setValue(monthly_chart[2][0]);
                     paymentsTablePrimary.interest.setValue(monthly_chart[1][0]);
