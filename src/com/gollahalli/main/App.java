@@ -1,20 +1,20 @@
-/* JCal
- Copyright (C) 2015  Akshay Raj Gollahalli
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along
- with this program; if not, write to the Free Software Foundation, Inc.,
- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+/*
+ * Copyright (c) 2015 Akshay Raj Gollahalli
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
 
 package com.gollahalli.main;
 
@@ -29,6 +29,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * This class is the main class which starts the software.
+ *
+ * @author Akshay Raj Gollahalli
+ */
 public class App extends Application {
 
     public static final Logger logger = LoggerFactory.getLogger(App.class);
@@ -38,6 +43,11 @@ public class App extends Application {
         launch(args);
     }
 
+    /**
+     * This function returns a function number eg: 1.8
+     *
+     * @return double version number
+     */
     static double getVersion() {
         String version = System.getProperty("java.version");
         int pos = version.indexOf('.');
@@ -45,6 +55,12 @@ public class App extends Application {
         return Double.parseDouble(version.substring(0, pos));
     }
 
+    /**
+     * This function first check the Java version to be equal to 1.8 or more, if not an error is give.
+     * If no error is found, FXML file is loaded.
+     *
+     * @param primaryStage Primary stage.
+     */
     @Override
     public void start(Stage primaryStage) {
         if (JAVA_VERSION < 1.8) {
@@ -64,7 +80,7 @@ public class App extends Application {
             logger.info("JCal-gui loaded successfully");
         } catch (IOException e) {
             e.printStackTrace();
-//            logger.error("couldn't load JCal-gui. Ended with exception " + e);
+            logger.error("couldn't load JCal-gui. Ended with exception " + e);
         }
 
         Scene scene = new Scene(root, 800, 700);

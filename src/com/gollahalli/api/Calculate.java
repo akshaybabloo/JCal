@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2015 Akshay Raj Gollahalli
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 package com.gollahalli.api;
 
 import org.slf4j.Logger;
@@ -17,6 +35,25 @@ public class Calculate {
         return rate / 100;
     }
 
+    /**
+     * This function calculates simple interest as return on investment.
+     *
+     * To use this function, do the following:
+     *
+     * <pre>
+     *     {@code
+     *     Calculate calculate = new Calculate();
+     *     double[] simple = calculate.simpleInterest(10000, 5, 5);
+     *     System.out.println(simple[0]); // Simple interest
+     *     System.out.println(simple[1]); // Interest earned
+     *     }
+     * </pre>
+     *
+     * @param principal         Loan amount.
+     * @param rate              Anual rate of interest.
+     * @param duration          Duration in years.
+     * @return double[]         An double array is returned.
+     */
     public double[] simpleInterest(double principal, double rate, double duration) {
         logger.info("simple interest called with principal = " + principal + ", rate = " + rate + " and duration = " + duration);
         double[] total = new double[2];
