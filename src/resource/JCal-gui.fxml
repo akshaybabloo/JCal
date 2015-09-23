@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
    <children>
       <MenuBar fx:id="JCal_menu" prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -29,9 +29,8 @@
         </menus>
       </MenuBar>
       <Separator fx:id="jmark_separator" layoutY="28.0" prefHeight="4.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <GridPane layoutY="30.0" prefHeight="138.0" prefWidth="800.0" snapToPixel="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <GridPane layoutY="30.0" prefHeight="138.0" prefWidth="800.0" snapToPixel="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="5.0" prefWidth="5.0" />
           <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
             <ColumnConstraints fillWidth="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
@@ -48,26 +47,25 @@
           <RowConstraints maxHeight="191.0" minHeight="5.0" prefHeight="148.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loan amount" wrappingWidth="101.84146118164062" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="loan_amount" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time to repay" wrappingWidth="82.68292617797852" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="years" prefHeight="26.0" prefWidth="55.0" promptText="Years" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loan amount" wrappingWidth="101.84146118164062" GridPane.rowIndex="1" />
+            <TextField fx:id="loan_amount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time to repay" wrappingWidth="82.68292617797852" GridPane.rowIndex="2" />
+            <TextField fx:id="years" prefHeight="26.0" prefWidth="55.0" promptText="Years" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="months" prefHeight="26.0" prefWidth="71.0" promptText="Months" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="months" prefHeight="26.0" prefWidth="71.0" promptText="Months" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="79.0" />
                </GridPane.margin>
             </TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="interest" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <ComboBox fx:id="repayment_type" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.rowIndex="3" />
+            <TextField fx:id="interest" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ComboBox fx:id="repayment_type" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <TextFlow fx:id="summary" layoutX="10.0" layoutY="161.0" prefHeight="59.0" prefWidth="780.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
       <TabPane layoutX="14.0" layoutY="220.0" prefHeight="373.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <tabs>
           <Tab text="Table">
@@ -130,5 +128,81 @@
             </Tab>
         </tabs>
       </TabPane>
+      <GridPane fx:id="summary_grid" layoutX="239.0" layoutY="170.0" prefHeight="150.0" prefWidth="337.0" snapToPixel="false">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="663.0" minWidth="10.0" prefWidth="168.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Loan amount">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Years" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Months" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Monthly payments" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Total payments" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Total interest" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="loan_amount_label" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="years_label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="months_label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="monthly_payments_label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="total_interest_label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="total_payments_label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
