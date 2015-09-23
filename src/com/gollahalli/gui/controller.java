@@ -4,7 +4,9 @@ import com.gollahalli.api.Calculate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +25,7 @@ public class Controller {
 
     public static final Logger logger = LoggerFactory.getLogger(Controller.class);
     ObservableList<PaymentsTable> data;
+    ObservableList<PieChart.Data> pieChart_data;
     @FXML
     private TextField loan_amount;
     @FXML
@@ -57,9 +60,14 @@ public class Controller {
     private Label total_payments_label;
     @FXML
     private GridPane summary_grid;
-
     @FXML
     private AreaChart<Number, Number> graph1;
+    @FXML
+    private AreaChart<Number, Number> graph2;
+    @FXML
+    private AreaChart<Number, Number> graph3;
+    @FXML
+    private PieChart pieChart;
     private double loan_amount_text = 0;
     private double months_text = 0;
     private double years_text = 0;
@@ -71,9 +79,14 @@ public class Controller {
         logger.info("controller started");
         XYChart.Series<Number, Number> series = new XYChart.Series();
         XYChart.Series<Number, Number> series1 = new XYChart.Series();
+        XYChart.Series<Number, Number> seriesForBalance = new XYChart.Series();
+        XYChart.Series<Number, Number> seriesForInterest = new XYChart.Series();
         graph1.getData().add(series);
         graph1.getData().add(series1);
+        graph2.getData().add(seriesForBalance);
+        graph3.getData().add(seriesForInterest);
         data = FXCollections.observableArrayList();
+        pieChart_data = FXCollections.observableArrayList();
 
         summary_grid.setGridLinesVisible(true);
 
@@ -83,6 +96,10 @@ public class Controller {
         balanceColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Balance"));
 
         paymentsAnnual.setItems(data);
+        pieChart.setData(pieChart_data);
+
+        pieChart.setLabelLineLength(10);
+        pieChart.setLegendSide(Side.RIGHT);
 
 
         repayment_type.getItems().addAll("Monthly", "Bi-Monthly", "Fortnightly", "Yearly", "Quarterly", "Weekly", "Daily");
@@ -113,11 +130,20 @@ public class Controller {
             switch (repayment_type_text) {
                 case "Monthly":
                     logger.info("Monthly payments selected");
+                    pieChart_data.clear();
+
+                    primaryColumn.setText("Month");
+
                     paymentsAnnual.getItems().clear();
+
+                    seriesForBalance.getData().clear();
+                    seriesForInterest.getData().clear();
                     series.getData().clear();
                     series1.getData().clear();
                     series.setName("Interest");
                     series1.setName("Principal");
+                    seriesForBalance.setName("Balance");
+                    seriesForInterest.setName("Annual interest");
 
                     years_text_month = years_text * 12;
                     double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text, years_text_month + months_text, interest_text);
@@ -130,6 +156,9 @@ public class Controller {
                     total_interest_label.setText(String.valueOf(bd.doubleValue()));
                     total_payments_label.setText(String.valueOf(bd.doubleValue() + loan_amount_text));
 
+                    pieChart_data.add(new PieChart.Data("Principal", loan_amount_text));
+                    pieChart_data.add(new PieChart.Data("Interest", bd.doubleValue()));
+
                     PaymentsTable paymentsTablePrimary = new PaymentsTable();
                     double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month + months_text);
                     paymentsTablePrimary.year.setValue(1);
@@ -137,6 +166,8 @@ public class Controller {
                     paymentsTablePrimary.interest.setValue(monthly_chart[1][0]);
                     series.getData().add(new XYChart.Data(0, monthly_chart[1][0]));
                     series1.getData().add(new XYChart.Data(0, monthly_chart[2][0]));
+                    seriesForBalance.getData().add(new XYChart.Data(0, monthly_chart[3][0]));
+                    seriesForInterest.getData().add(new XYChart.Data(0, interest_text));
                     paymentsTablePrimary.balance.setValue(monthly_chart[3][0]);
 
                     data.add(paymentsTablePrimary);
@@ -149,6 +180,8 @@ public class Controller {
                         paymentsTable.interest.setValue(monthly_chart[1][0]);
                         series.getData().add(new XYChart.Data(i, monthly_chart[1][0]));
                         series1.getData().add(new XYChart.Data(i, monthly_chart[2][0]));
+                        seriesForBalance.getData().add(new XYChart.Data(i, monthly_chart[3][0]));
+                        seriesForInterest.getData().add(new XYChart.Data(i, interest_text));
                         paymentsTable.balance.setValue(monthly_chart[3][0]);
                         data.addAll(paymentsTable);
                     }
@@ -156,6 +189,8 @@ public class Controller {
 
                 case "Yearly":
                     logger.info("Yearly payments selected");
+
+
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] yearly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 1.0);
