@@ -22,16 +22,25 @@ import com.gollahalli.api.Calculate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -86,6 +95,10 @@ public class Controller {
     private AreaChart<Number, Number> graph3;
     @FXML
     private PieChart pieChart;
+    @FXML
+    private MenuItem jcalAbout;
+    @FXML
+    private AnchorPane jcalAnchor;
     private double loan_amount_text = 0;
     private double months_text = 0;
     private double years_text = 0;
@@ -299,6 +312,26 @@ public class Controller {
                     }
                     break;
             }
+        });
+
+        jcalAbout.setOnAction(event -> {
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                BoxBlur bb = new BoxBlur();
+                GaussianBlur gb = new GaussianBlur();
+                gb.setRadius(5.5);
+                jcalAnchor.setEffect(gb);
+                root = FXMLLoader.load(getClass().getResource("/resource/JCal-about.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
         });
 
     }

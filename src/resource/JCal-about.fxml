@@ -25,7 +25,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="about_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="206.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="about_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="206.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -43,18 +43,13 @@
               </rowConstraints>
                <children>
                   <Text fx:id="version_about" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 0.1a" textAlignment="CENTER" wrappingWidth="142.1646270751953" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="JMark" textAlignment="CENTER" wrappingWidth="143.7144317626953" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="JCal" textAlignment="CENTER" wrappingWidth="143.7144317626953" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
                   <ImageView fitHeight="127.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright 2015 Akshay Raj Gollahalli" textAlignment="CENTER" wrappingWidth="321.0141906738281" GridPane.rowIndex="3" />
-                  <ImageView fitHeight="121.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                     <image>
-                        <Image url="@resource/jc-256.png" />
-                     </image>
-                  </ImageView>
                </children>
             </GridPane>
          </center>
