@@ -19,6 +19,7 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -98,6 +99,8 @@ public class Controller {
     @FXML
     private MenuItem jcalAbout;
     @FXML
+    private MenuItem jcalClose;
+    @FXML
     private AnchorPane jcalAnchor;
     private double loan_amount_text = 0;
     private double months_text = 0;
@@ -138,6 +141,14 @@ public class Controller {
         Calculate calculate = new Calculate();
 
         repayment_type.setOnAction(event -> {
+            
+            loan_amount_text = 0;
+            months_text = 0;
+            years_text = 0;
+            interest_text = 0;
+            years_text_month = 0;
+            someNum = 2;
+
             String repayment_type_text = repayment_type.getValue().toString();
             String loan_amount_string = loan_amount.getText();
             String months_text_string = months.getText();
@@ -161,6 +172,7 @@ public class Controller {
             switch (repayment_type_text) {
                 case "Monthly":
                     logger.info("Monthly payments selected");
+
                     pieChart_data.clear();
 
                     primaryColumn.setText("Month");
@@ -318,7 +330,6 @@ public class Controller {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                BoxBlur bb = new BoxBlur();
                 GaussianBlur gb = new GaussianBlur();
                 gb.setRadius(5.5);
                 jcalAnchor.setEffect(gb);
@@ -329,9 +340,15 @@ public class Controller {
             Scene scene = new Scene(root);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
+        });
+
+        jcalClose.setOnAction(event -> {
+            logger.info("close button pressed from menu");
+            Platform.exit();
         });
 
     }
