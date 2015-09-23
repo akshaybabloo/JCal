@@ -12,7 +12,22 @@
 hs_err_pid*
 
 
+# temp
+/src/com/gollahalli/test
+/src/com/gollahalli/gui/test8.java
+/src/com/gollahalli/gui/test7.java
+/src/com/gollahalli/gui/test4.java
+/src/com/gollahalli/gui/test6.java
+/src/com/gollahalli/gui/test2.java
+/src/com/gollahalli/gui/test9.java
+/src/com/gollahalli/gui/test10.java
+/src/com/gollahalli/gui/test.java
+/src/com/gollahalli/gui/test5.java
 
+!slf4j-api-1.7.12.jar
+!log4j-core-2.3.jar
+!log4j-api-2.3.jar
+!log4j-slf4j-impl-2.3.jar
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 
@@ -26,6 +41,7 @@ hs_err_pid*
  .idea/workspace.xml
  .idea/tasks.xml
  .idea/dictionaries
+ .idea/misc.xml
 
 # Sensitive or high-churn files:
  .idea/dataSources.ids
