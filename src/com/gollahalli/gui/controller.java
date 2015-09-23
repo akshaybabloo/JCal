@@ -5,12 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +34,6 @@ public class Controller {
     @FXML
     private ComboBox repayment_type;
     @FXML
-    private TextFlow summary;
-    @FXML
     private TableView<PaymentsTable> paymentsAnnual;
     @FXML
     private TableColumn primaryColumn;
@@ -47,6 +43,21 @@ public class Controller {
     private TableColumn principalColumn;
     @FXML
     private TableColumn balanceColumn;
+    @FXML
+    private Label loan_amount_label;
+    @FXML
+    private Label years_label;
+    @FXML
+    private Label months_label;
+    @FXML
+    private Label monthly_payments_label;
+    @FXML
+    private Label total_interest_label;
+    @FXML
+    private Label total_payments_label;
+    @FXML
+    private GridPane summary_grid;
+
     @FXML
     private AreaChart<Number, Number> graph1;
     private double loan_amount_text = 0;
@@ -64,6 +75,7 @@ public class Controller {
         graph1.getData().add(series1);
         data = FXCollections.observableArrayList();
 
+        summary_grid.setGridLinesVisible(true);
 
         primaryColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Year"));
         interestColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Interest"));
@@ -78,7 +90,6 @@ public class Controller {
         Calculate calculate = new Calculate();
 
         repayment_type.setOnAction(event -> {
-            summary.getChildren().clear();
             String repayment_type_text = repayment_type.getValue().toString();
             String loan_amount_string = loan_amount.getText();
             String months_text_string = months.getText();
@@ -99,8 +110,6 @@ public class Controller {
             years_text = Double.parseDouble(years_text_string);
             interest_text = Double.parseDouble(interest_text_string);
 
-            Text final_text = new Text();
-
             switch (repayment_type_text) {
                 case "Monthly":
                     logger.info("Monthly payments selected");
@@ -109,17 +118,17 @@ public class Controller {
                     series1.getData().clear();
                     series.setName("Interest");
                     series1.setName("Principal");
-                    graph1.setTitle("Monthly interest");
-//                    graph1.setLegendVisible(false);
 
                     years_text_month = years_text * 12;
-                    double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text,years_text_month,interest_text);
-                    BigDecimal bd = new BigDecimal((monthly_output*years_text_month)-loan_amount_text).setScale(2, RoundingMode.HALF_DOWN);
+                    double monthly_output = calculate.fixedRateMortgageMonthly(loan_amount_text, years_text_month, interest_text);
+                    BigDecimal bd = new BigDecimal((monthly_output * years_text_month) - loan_amount_text).setScale(2, RoundingMode.HALF_DOWN);
 
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay per month is $" + monthly_output +
-                            ". The total amount you wold have to pay would be $" + (bd.doubleValue() + loan_amount_text));
-                    summary.getChildren().add(final_text);
+                    loan_amount_label.setText(loan_amount_string);
+                    years_label.setText(years_text_string);
+                    months_label.setText(months_text_string);
+                    monthly_payments_label.setText(String.valueOf(monthly_output));
+                    total_interest_label.setText(String.valueOf(bd.doubleValue()));
+                    total_payments_label.setText(String.valueOf(bd.doubleValue() + loan_amount_text));
 
                     PaymentsTable paymentsTablePrimary = new PaymentsTable();
                     double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month);
@@ -134,7 +143,7 @@ public class Controller {
 
                     for (int i = 1; i < years_text_month; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        monthly_chart = calculate.fixedRateMortgageMonthlyChart(monthly_chart[3][0], interest_text,years_text_month-i);
+                        monthly_chart = calculate.fixedRateMortgageMonthlyChart(monthly_chart[3][0], interest_text, years_text_month - i);
                         paymentsTable.year.setValue(someNum++);
                         paymentsTable.principal.setValue(monthly_chart[2][0]);
                         paymentsTable.interest.setValue(monthly_chart[1][0]);
@@ -150,10 +159,6 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] yearly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 1.0);
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + yearly_output[0][yearly_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + yearly_output[0][yearly_output[0].length - 1]);
-                    summary.getChildren().add(final_text);
 
                     for (int i = 1; i < yearly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -169,10 +174,6 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] quarterly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 4.0);
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + quarterly_output[0][quarterly_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + quarterly_output[0][quarterly_output[0].length - 1]);
-                    summary.getChildren().add(final_text);
 
                     for (int i = 1; i < quarterly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -189,11 +190,6 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] weekly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 52.0);
-                    Text weekly_text = new Text();
-                    weekly_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " months at an interest rate of " + interest_text + " % the interest you would have to pay is $" + weekly_output[0][weekly_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + weekly_output[0][weekly_output[0].length - 1]);
-                    summary.getChildren().add(weekly_text);
 
                     for (int i = 1; i < weekly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -209,10 +205,6 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] fortnightly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 26.0);
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + fortnightly_output[0][fortnightly_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + fortnightly_output[0][fortnightly_output[0].length - 1]);
-                    summary.getChildren().add(final_text);
 
                     for (int i = 1; i < fortnightly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -229,10 +221,6 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] bimonthly_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 6.0);
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + bimonthly_output[0][bimonthly_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + bimonthly_output[0][bimonthly_output[0].length - 1]);
-                    summary.getChildren().add(final_text);
 
                     for (int i = 1; i < bimonthly_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
@@ -248,10 +236,7 @@ public class Controller {
                     paymentsAnnual.getItems().clear();
                     series.getData().clear();
                     double[][] daily_output = calculate.compoundInterest(loan_amount_text, interest_text, years_text, 365.0);
-                    final_text.setText("For the loan amount of " + loan_amount_text + ", at time interval of " + years_text +
-                            " years and " + months_text + " at an interest rate of " + interest_text + " % the interest you would have to pay is $" + daily_output[0][daily_output[0].length - 1] +
-                            ". The total amount you wold have to pay would be $" + daily_output[0][daily_output[0].length - 1]);
-                    summary.getChildren().add(final_text);
+
                     for (int i = 1; i < daily_output[0].length; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
                         paymentsTable.year.setValue(daily_output[0][i]);
