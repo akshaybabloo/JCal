@@ -288,7 +288,6 @@ public class Controller {
                     double yearlyPrincipal = 0.0;
                     double yearlyInterest = 0.0;
                     double yearlyBalance = 0.0;
-                    System.out.println(newYearly[0].length);
                     for (int i = 0; i < newYearly[0].length; i++) {
                         PaymentsTable paymentsTableForYearly = new PaymentsTable();
                         if (i % 12 == 0 && i != 0) {
@@ -315,7 +314,6 @@ public class Controller {
                             paymentsTableForYearly.balance.setValue(newYearly[2][i]);
                             tableData.addAll(paymentsTableForYearly);
                             seriesMonthlyInterest.getData().add(new XYChart.Data(i - 12, yearlyInterest));
-                            System.out.println(yearlyInterest);
                             seriesNewPrincipal.getData().add(new XYChart.Data(i - 12, yearlyPrincipal));
                             seriesForBalance.getData().add(new XYChart.Data(i - 12, newYearly[2][i]));
                             seriesForInterest.getData().add(new XYChart.Data(i - 12, interestText));
