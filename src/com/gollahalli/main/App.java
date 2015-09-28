@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,9 +85,10 @@ public class App extends Application {
         }
 
         Scene scene = new Scene(root, 800, 700);
+        primaryStage.getIcons().add(new Image("/resource/JCal-logo.png"));
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JCal");
+        primaryStage.setTitle("JCal - Loan calculator");
         primaryStage.show();
 
 

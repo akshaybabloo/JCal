@@ -60,8 +60,8 @@ public class Calculate {
         if (rate == 0) {
             logger.error("Rate cannot be 0");
         }
-        double percent_rate = percentage(rate);
-        total[0] = principal * percent_rate * duration;
+        double percentRate = percentage(rate);
+        total[0] = principal * percentRate * duration;
         total[1] = total[0] - principal;
         return total;
     }
@@ -74,11 +74,11 @@ public class Calculate {
      * <pre>
      *     {@code
      *       Calculate calculate = new Calculate();
-     *       double[][] yearly_output = calculate.compoundInterest(10000, 5, 5, 12);
+     *       double[][] yearlyOutput = calculate.compoundInterest(10000, 5, 5, 12);
      *
-     *       for (int i = 1; i < yearly_output[0].length; i++) {
-     *           System.out.println(yearly_output[0][i]); // number of years
-     *           System.out.println(yearly_output[1][i]); // principal amount over the years
+     *       for (int i = 1; i < yearlyOutput[0].length; i++) {
+     *           System.out.println(yearlyOutput[0][i]); // number of years
+     *           System.out.println(yearlyOutput[1][i]); // principal amount over the years
      *       }
      *     }
      * </pre>
@@ -94,11 +94,11 @@ public class Calculate {
                 " and compounded for " + compounded);
         int durationInt = (int) duration;
         double[][] total = new double[2][durationInt + 1];
-        double percent_rate = percentage(rate);
+        double percentRate = percentage(rate);
         BigDecimal bd;
         BigDecimal bd1;
         for (int i = 0; i < duration + 1; i++) {
-            total[0][i] = principal * Math.pow(1 + (percent_rate / compounded), compounded * i);
+            total[0][i] = principal * Math.pow(1 + (percentRate / compounded), compounded * i);
             bd = new BigDecimal(total[0][i]).setScale(2, RoundingMode.HALF_DOWN);
             total[0][i] = bd.doubleValue();
             total[1][i] = total[0][i] - principal;
@@ -116,8 +116,8 @@ public class Calculate {
      * <pre>
      *     {@code
      *     Calculate calculate = New Calculate();
-     *     double monthly_output = calculate.fixedRateMortgageMonthly(10000, 5*12, 5);
-     *     System.out.println(monthly_output);
+     *     double monthlyOutput = calculate.fixedRateMortgageMonthly(10000, 5*12, 5);
+     *     System.out.println(monthlyOutput);
      *     }
      * </pre>
      *
@@ -134,22 +134,6 @@ public class Calculate {
         return bd.doubleValue();
     }
 
-//    public double fixedRateMortgageYearly(double loanAmount, int termInYears, double interestRate){
-//
-//        interestRate /= 100.0;
-//
-//        double monthlyRate = interestRate;
-//
-//        int termInMonths = termInYears;
-//
-//
-//        double monthlyPayment =
-//                (loanAmount*monthlyRate) /
-//                        (1-Math.pow(1+monthlyRate, -termInMonths));
-//
-//        return monthlyPayment;
-//    }
-
     /**
      * This function returns interest, principal and balance.
      *
@@ -159,18 +143,18 @@ public class Calculate {
      *     {@code
      *       Calculate calculate = new Calculate();
      *
-     *       double[][] monthly_chart = calculate.fixedRateMortgageMonthlyChart(loan_amount_text, interest_text, years_text_month + months_text);
-     *       System.out.println(monthly_chart[2][0]); // principal over a month
-     *       System.out.println(monthly_chart[1][0]); // interest over a month
-     *       System.out.println(monthly_chart[3][0]); // balance
-     *       System.out.println(monthly_chart[4][0]); // Annual interest converted to one month, this will not change
+     *       double[][] monthlyChart = calculate.fixedRateMortgageMonthlyChart(loanAmountText, interestText, yearsTextMonth + monthsText);
+     *       System.out.println(monthlyChart[2][0]); // principal over a month
+     *       System.out.println(monthlyChart[1][0]); // interest over a month
+     *       System.out.println(monthlyChart[3][0]); // balance
+     *       System.out.println(monthlyChart[4][0]); // Annual interest converted to one month, this will not change
      *
-     *       for (int i = 1; i < years_text_month; i++) {
+     *       for (int i = 1; i < yearsTextMonth + monthsText; i++) {
      *           PaymentsTable paymentsTable = new PaymentsTable();
-     *           monthly_chart = calculate.fixedRateMortgageMonthlyChart(monthly_chart[3][0], interest_text, years_text_month - i);
-     *           System.out.println(monthly_chart[2][0]);
-     *           System.out.println(monthly_chart[1][0]);
-     *           System.out.println(monthly_chart[3][0]);
+     *           monthlyChart = calculate.fixedRateMortgageMonthlyChart(monthlyChart[3][0], interestText, yearsTextMonth + monthsText - i);
+     *           System.out.println(monthlyChart[2][0]);
+     *           System.out.println(monthlyChart[1][0]);
+     *           System.out.println(monthlyChart[3][0]);
      *       }
      *     }
      * </pre>
@@ -209,6 +193,6 @@ public class Calculate {
         }
 
         return total;
-
     }
+
 }
