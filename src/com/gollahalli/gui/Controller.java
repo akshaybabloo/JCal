@@ -19,6 +19,7 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import com.gollahalli.web.WebViewer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,9 +33,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -100,6 +104,8 @@ public class Controller {
     private MenuItem jcalAbout;
     @FXML
     private MenuItem jcalClose;
+    @FXML
+    private MenuItem jcalPrint;
     @FXML
     private AnchorPane jcalAnchor;
     private double loanAmountText = 0;
@@ -425,6 +431,71 @@ public class Controller {
         jcalClose.setOnAction(event -> {
             logger.info("close button pressed from menu");
             Platform.exit();
+        });
+
+        jcalPrint.setOnAction(event -> {
+            loanAmountText = 0;
+            monthsText = 0;
+            yearsText = 0;
+            interestText = 0;
+            yearsTextMonth = 0;
+
+            String loanAmountString = loanAmount.getText();
+            String monthsTextString = months.getText();
+            String yearsTextString = years.getText();
+            String interestTextString = interest.getText();
+
+            if (loanAmountString.isEmpty() || monthsTextString.isEmpty() || yearsTextString.isEmpty() || interestTextString.isEmpty()) {
+                logger.error("values were missing.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("There seems to be an error!");
+                alert.setContentText("Please make sure there are no empty fields.");
+                alert.showAndWait();
+                return;
+            }
+            loanAmountText = Double.parseDouble(loanAmountString);
+            monthsText = Double.parseDouble(monthsTextString);
+            yearsText = Double.parseDouble(yearsTextString);
+            interestText = Double.parseDouble(interestTextString);
+
+            double yearsTextMonth = yearsText * 12;
+            System.out.println(loanAmountText);
+            System.out.println(monthsText);
+            System.out.println(yearsText);
+            System.out.println(interestText);
+
+            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText);
+            String result = webViewer.webReturn();
+
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                BoxBlur bb = new BoxBlur();
+                GaussianBlur gb = new GaussianBlur();
+                gb.setRadius(5.5);
+                jcalAnchor.setEffect(gb);
+                root = FXMLLoader.load(getClass().getResource("/resource/JCal_webview.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root, 1024, 768);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
+
+            final WebView browser = new WebView();
+            browser.setPrefSize(1024, 768);
+            final WebEngine webEngine = browser.getEngine();
+
+            ScrollPane scrollPane = (ScrollPane) scene.lookup("#scroll");
+            scrollPane.setPannable(true);
+            scrollPane.setContent(browser);
+
+            webEngine.loadContent(result);
+            stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
+
+
         });
 
     }
