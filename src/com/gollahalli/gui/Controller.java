@@ -33,7 +33,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -458,20 +457,18 @@ public class Controller {
             monthsText = Double.parseDouble(monthsTextString);
             yearsText = Double.parseDouble(yearsTextString);
             interestText = Double.parseDouble(interestTextString);
+            yearsTextMonth = yearsText * 12;
 
-            double yearsTextMonth = yearsText * 12;
-            System.out.println(loanAmountText);
-            System.out.println(monthsText);
-            System.out.println(yearsText);
-            System.out.println(interestText);
+            double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+            // total interest paid
+            BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
-            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText);
+            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText));
             String result = webViewer.webReturn();
 
             Stage stage = new Stage();
             Parent root = null;
             try {
-                BoxBlur bb = new BoxBlur();
                 GaussianBlur gb = new GaussianBlur();
                 gb.setRadius(5.5);
                 jcalAnchor.setEffect(gb);

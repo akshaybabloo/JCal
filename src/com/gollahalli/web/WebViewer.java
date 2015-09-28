@@ -20,6 +20,11 @@ package com.gollahalli.web;
 
 import com.gollahalli.api.Calculate;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * Created by akshayrajgollahalli on 28/09/15.
  */
@@ -36,14 +41,61 @@ public class WebViewer {
     double loanAmountText;
     double interestText;
     double yearsTextMonth;
+    String loanAmount;
+    String years;
+    String months;
+    String monthlyPayments;
+    String totalInterest;
+    String totalPayments;
 
     public WebViewer() {
+    }
+
+    public WebViewer(double loanAmountText, double interestText, double yearsTextMonth, String loanAmount, String years, String months, String monthlyPayments, String totalInterest, String totalPayments) {
+        this.loanAmountText = loanAmountText;
+        this.interestText = interestText;
+        this.yearsTextMonth = yearsTextMonth;
+        this.loanAmount = loanAmount;
+        this.years = years;
+        this.months = months;
+        this.monthlyPayments = monthlyPayments;
+        this.totalInterest = totalInterest;
+        this.totalPayments = totalPayments;
+    }
+
+    public WebViewer(String loanAmount, String years, String months, String monthlyPayments, String totalInterest, String totalPayments) {
+        this.loanAmount = loanAmount;
+        this.years = years;
+        this.months = months;
+        this.monthlyPayments = monthlyPayments;
+        this.totalInterest = totalInterest;
+        this.totalPayments = totalPayments;
     }
 
     public WebViewer(double loanAmountText, double interestText, double yearsTextMonth) {
         this.loanAmountText = loanAmountText;
         this.interestText = interestText;
         this.yearsTextMonth = yearsTextMonth;
+    }
+
+    static String displayCurrency(Double aDouble, Locale currentLocale) {
+        Currency currentCurrency = Currency.getInstance(currentLocale);
+        NumberFormat currencyFormatter = NumberFormat
+                .getCurrencyInstance(currentLocale);
+
+        return currencyFormatter.format(aDouble);
+    }
+
+    static String currencyMaker(String string) {
+        double convertMe = Double.parseDouble(string);
+        ArrayList<Locale> locales = new ArrayList<>();
+        locales.add(0, new Locale.Builder().setLanguage("en").setRegion("US")
+                .build());
+        String temp = "";
+        for (Locale locale : locales) {
+            temp = displayCurrency(convertMe, locale);
+        }
+        return temp;
     }
 
     public String webReturn(){
@@ -68,10 +120,10 @@ public class WebViewer {
         String[][] whyNot = new String[1][(int)yearsTextMonth];
 
         for (int i = 0; i < yearsTextMonth; i++) {
-            testme1 += "<tr><td>"+ String.valueOf(someNum++) + "<td>" + String.valueOf(newYearly[0][i]) + "</td>" + "<td>" + String.valueOf(newYearly[1][i]) + "</td>" + "<td>" + String.valueOf(newYearly[2][i]) + "</td></tr>";
+            testme1 += "<tr><td>"+ String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
 
-        String html = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<!--\n" +
                 "  ~ Copyright (c) 2015 Akshay Raj Gollahalli\n" +
                 "  ~\n" +
@@ -96,11 +148,25 @@ public class WebViewer {
                 "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
                 "    <title></title>\n" +
-                "    <!-- Latest compiled and minified CSS -->\n" +
                 "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n" +
                 "\n" +
-                "    <!-- Optional theme -->\n" +
-                "    <link rel=\"stylesheet\" href=\"temp.css\">\n" +
+                "<style>" +
+                ".invoice-title h2, .invoice-title h3 {\n" +
+                "    display: inline-block;\n" +
+                "}\n" +
+                "\n" +
+                ".table > tbody > tr > .no-line {\n" +
+                "    border-top: none;\n" +
+                "}\n" +
+                "\n" +
+                ".table > thead > tr > .no-line {\n" +
+                "    border-bottom: none;\n" +
+                "}\n" +
+                "\n" +
+                ".table > tbody > tr > .thick-line {\n" +
+                "    border-top: 2px solid;\n" +
+                "}" +
+                "</style>" +
                 "\n" +
                 "    <!-- Latest compiled and minified JavaScript -->\n" +
                 "    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script>\n" +
@@ -148,30 +214,30 @@ public class WebViewer {
                 "                            <tbody>\n" +
                 "                            <tr>\n" +
                 "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\"><strong>Price</strong></td>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
                 "                            </tr>\n" +
                 "                            <!--</thead>-->\n" +
                 "                            <!--<tbody>-->\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
                 "                            <tr>\n" +
                 "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">$10.99</td>\n" +
+                "                                <td class=\"text-center\">"+ years +"</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">$20.00</td>\n" +
+                "                                <td class=\"text-center\">"+ months +"</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">$600.00</td>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(monthlyPayments) +"</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">$600.00</td>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(totalInterest) +"</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">$600.00</td>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(totalPayments) +"</td>\n" +
                 "                            </tr>\n" +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -209,7 +275,6 @@ public class WebViewer {
                 "                            </thead>\n" +
                 "                            <tbody>\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
-//                "                                <td>BS-200</td>\n" +
                                                     testme1 +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -244,7 +309,6 @@ public class WebViewer {
                 "</div>\n" +
                 "</body>\n" +
                 "</html>";
-        return html;
     }
 
 }
