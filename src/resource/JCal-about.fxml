@@ -48,7 +48,13 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="127.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <ImageView fitHeight="108.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@JCal-logo.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin></ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright 2015 Akshay Raj Gollahalli" textAlignment="CENTER" wrappingWidth="321.0141906738281" GridPane.rowIndex="3" />
                </children>
             </GridPane>
