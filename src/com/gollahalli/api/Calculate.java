@@ -134,22 +134,6 @@ public class Calculate {
         return bd.doubleValue();
     }
 
-//    public double fixedRateMortgageYearly(double loanAmount, int termInYears, double interestRate){
-//
-//        interestRate /= 100.0;
-//
-//        double monthlyRate = interestRate;
-//
-//        int termInMonths = termInYears;
-//
-//
-//        double monthlyPayment =
-//                (loanAmount*monthlyRate) /
-//                        (1-Math.pow(1+monthlyRate, -termInMonths));
-//
-//        return monthlyPayment;
-//    }
-
     /**
      * This function returns interest, principal and balance.
      *
@@ -209,6 +193,6 @@ public class Calculate {
         }
 
         return total;
-
     }
+
 }
