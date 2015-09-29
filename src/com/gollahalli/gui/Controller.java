@@ -19,7 +19,7 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
-import com.gollahalli.web.WebApp;
+//import com.gollahalli.web.WebApp;
 import com.gollahalli.web.WebSetter;
 import com.gollahalli.web.WebViewer;
 import javafx.application.Application;
