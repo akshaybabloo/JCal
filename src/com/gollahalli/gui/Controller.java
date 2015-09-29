@@ -19,7 +19,10 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import com.gollahalli.web.WebApp;
+import com.gollahalli.web.WebSetter;
 import com.gollahalli.web.WebViewer;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +39,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -433,6 +437,7 @@ public class Controller {
         });
 
         jcalPrint.setOnAction(event -> {
+            String switcher = repaymentType.getValue().toString();
             loanAmountText = 0;
             monthsText = 0;
             yearsText = 0;
@@ -453,6 +458,7 @@ public class Controller {
                 alert.showAndWait();
                 return;
             }
+
             loanAmountText = Double.parseDouble(loanAmountString);
             monthsText = Double.parseDouble(monthsTextString);
             yearsText = Double.parseDouble(yearsTextString);
@@ -462,9 +468,19 @@ public class Controller {
             double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
             // total interest paid
             BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
-
             WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText));
-            String result = webViewer.webReturn();
+            String result = "";
+
+            switch (switcher){
+                case "Yearly":
+                    logger.info("Yearly web view selected");
+                    result = webViewer.webReturnYearly();
+                    break;
+                case "Monthly":
+                    logger.info("Monthly web view selected");
+                    result = webViewer.webReturnMonthly();
+                    break;
+            }
 
             Stage stage = new Stage();
             Parent root = null;
@@ -478,24 +494,17 @@ public class Controller {
             }
             Scene scene = new Scene(root, 1024, 768);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
 
-            final WebView browser = new WebView();
-            browser.setPrefSize(1024, 768);
+            WebView browser = (WebView)scene.lookup("#web");
+            browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
-
-            ScrollPane scrollPane = (ScrollPane) scene.lookup("#scroll");
-            scrollPane.setPannable(true);
-            scrollPane.setContent(browser);
-
             webEngine.loadContent(result);
+
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
-
-
         });
 
     }
-
-
 }
