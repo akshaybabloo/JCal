@@ -73,7 +73,6 @@ public class App extends Application {
             alert.setContentText("You are using Java version " + JAVA_VERSION + " to run this application you " +
                     "you need to download the latest version of Java. please go to http://www.java.com");
             alert.showAndWait();
-
         }
         Parent root = null;
         try {
