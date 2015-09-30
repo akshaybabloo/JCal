@@ -76,5 +76,9 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 /src/com/gollahalli/web/WebApp.java
+<<<<<<< HEAD
 crashlytics-build.properties
 logs/JCal-log.log
+=======
+crashlytics-build.properties
+>>>>>>> origin/dev

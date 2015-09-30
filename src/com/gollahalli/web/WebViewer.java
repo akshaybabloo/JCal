@@ -218,7 +218,11 @@ public class WebViewer {
                 "</style>" +
                 "\n" +
                 "    <!-- Latest compiled and minified JavaScript -->\n" +
+<<<<<<< HEAD
                 "    <script src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n" +
+=======
+                "    <script src=\"local:bootstrap.min.js\"></script>\n" +
+>>>>>>> origin/dev
                 "</head>\n" +
                 "<body>\n" +
                 "<div class=\"container\">\n" +
@@ -356,6 +360,12 @@ public class WebViewer {
                 "</div>\n" +
                 "</body>\n" +
                 "</html>";
+<<<<<<< HEAD
+=======
+
+        html1 = html1.replace("local:", getClass().getResource(".").toString());
+        return html1;
+>>>>>>> origin/dev
     }
 
     /**
