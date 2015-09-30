@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="JavaFXApp">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaFXApp</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.gollahalli.main.App" />
+        <option name="description" value="" />
+        <option name="htmlParamFile" value="" />
+        <option name="paramFile" value="" />
+        <option name="title" value="JCal" />
+        <option name="vendor" value="Akshay Raj Gollahalli" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="JavaFXApp.jar">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="log4j-api-2.3" />
+          <element id="library" level="project" name="log4j-core-2.3" />
+          <element id="library" level="project" name="log4j-slf4j-impl-2.3" />
+          <element id="library" level="project" name="slf4j-api-1.7.12" />
+        </element>
+        <element id="module-output" name="JCal" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="dir-copy" path="$PROJECT_DIR$" />
+      </element>
+    </root>
+  </artifact>
+</component>
