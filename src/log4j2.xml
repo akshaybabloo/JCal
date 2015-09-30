@@ -19,11 +19,11 @@
     <Loggers>
         <Root level="error">
             <AppenderRef ref="Console"/>
-            <!--<AppenderRef ref="Async"/>-->
+            <AppenderRef ref="Async"/>
         </Root>
         <Root level="info">
             <AppenderRef ref="Console"/>
-            <!--<AppenderRef ref="Async"/>-->
+            <AppenderRef ref="Async"/>
         </Root>
     </Loggers>
 </Configuration>
