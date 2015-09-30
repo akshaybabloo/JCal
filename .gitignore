@@ -77,3 +77,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 /src/com/gollahalli/web/WebApp.java
 crashlytics-build.properties
+logs/JCal-log.log
