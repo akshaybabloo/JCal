@@ -23,19 +23,25 @@ import com.gollahalli.web.WebViewer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -44,6 +50,8 @@ import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -124,6 +132,9 @@ public class Controller {
         graph1.getData().add(seriesNewPrincipal);
         graph2.getData().add(seriesForBalance);
         graph3.getData().add(seriesForInterest);
+        graph1.setAnimated(false);
+        graph2.setAnimated(false);
+        graph3.setAnimated(false);
         tableData = FXCollections.observableArrayList();
         pieChartData = FXCollections.observableArrayList();
 
@@ -471,6 +482,93 @@ public class Controller {
                 case "Yearly":
                     logger.info("Yearly web view selected");
                     result = webViewer.webReturnYearly();
+                    Task task1 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th1 = new Thread(task1);
+                    th1.start();
+                    // -------------------------
+                    Task task = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th2 = new Thread(task);
+                    th2.start();
+                    // -------------------------
+                    Task task3 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th3 = new Thread(task3);
+                    th3.start();
+                    // -------------------------
+                    Task task4 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th4 = new Thread(task4);
+                    th4.start();
                     break;
                 case "Monthly":
                     logger.info("Monthly web view selected");
