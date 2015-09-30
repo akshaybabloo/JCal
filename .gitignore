@@ -13,7 +13,7 @@ hs_err_pid*
 
 
 # temp
-/src/com/gollahalli/test
+/src/com/gollahalli/webviewsample
 /src/com/gollahalli/gui/test8.java
 /src/com/gollahalli/gui/test7.java
 /src/com/gollahalli/gui/test4.java
@@ -75,4 +75,5 @@ atlassian-ide-plugin.xml
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 crashlytics.properties
+/src/com/gollahalli/web/WebApp.java
 crashlytics-build.properties
