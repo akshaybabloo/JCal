@@ -27,8 +27,9 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -41,12 +42,12 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +56,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 
 /**
@@ -152,7 +154,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly", "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -472,16 +474,77 @@ public class Controller {
             interestText = Double.parseDouble(interestTextString);
             yearsTextMonth = yearsText * 12;
 
+            // ---------------------------------------------
+            // Create the custom dialog.
+            Dialog<Pair<String, String>> dialog = new Dialog<>();
+            dialog.setTitle("Customer details");
+            dialog.setHeaderText("Please enter your customer details");
+
+            // Set the button types.
+            ButtonType loginButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+            // Create the username and password labels and fields.
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            TextField username = new TextField();
+            username.setPromptText("Full name");
+            final TextField[] address = {new TextField()};
+            address[0].setPromptText("Address");
+
+            grid.add(new Label("Full name:"), 0, 0);
+            grid.add(username, 1, 0);
+            grid.add(new Label("Address:"), 0, 1);
+            grid.add(address[0], 1, 1);
+
+            // Enable/Disable login button depending on whether a username was entered.
+            Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+            loginButton.setDisable(true);
+
+            // Do some validation (using the Java 8 lambda syntax).
+            username.textProperty().addListener((observable, oldValue, newValue) -> {
+                loginButton.setDisable(newValue.trim().isEmpty());
+            });
+
+            dialog.getDialogPane().setContent(grid);
+
+            // Request focus on the username field by default.
+            Platform.runLater(() -> username.requestFocus());
+
+            // Convert the result to a username-password-pair when the login button is clicked.
+            dialog.setResultConverter(dialogButton -> {
+                if (dialogButton == loginButtonType) {
+                    return new Pair<>(username.getText(), address[0].getText());
+                }
+                return null;
+            });
+
+            Optional<Pair<String, String>> result1 = dialog.showAndWait();
+            final String[] nameString = {""};
+            final String[] addressString = {""};
+            result1.ifPresent(usernamePassword -> {
+                nameString[0] = usernamePassword.getKey();
+                addressString[0] = usernamePassword.getValue();
+            });
+            // ---------------------------------------------
+
             double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
             // total interest paid
             BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
-            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText));
+            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText),nameString[0],addressString[0]);
             String result = "";
 
-            switch (switcher){
+            result = webViewer.webReturnYearly();
+
+            switch (switcher) {
                 case "Yearly":
                     logger.info("Yearly web view selected");
                     result = webViewer.webReturnYearly();
+
+
                     Task task1 = new Task<Void>() {
                         @Override
                         public Void call() {
@@ -584,6 +647,7 @@ public class Controller {
                 jcalAnchor.setEffect(gb);
                 root = FXMLLoader.load(getClass().getResource("/resource/JCal_webview.fxml"));
             } catch (IOException e) {
+                logger.error("not able to load");
                 e.printStackTrace();
             }
             Scene scene = new Scene(root, 1024, 768);
@@ -592,7 +656,7 @@ public class Controller {
             stage.setScene(scene);
             stage.show();
 
-            WebView browser = (WebView)scene.lookup("#web");
+            WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
             webEngine.loadContent(result);
