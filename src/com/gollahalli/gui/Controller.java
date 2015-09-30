@@ -19,31 +19,47 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import com.gollahalli.web.WebViewer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 
 /**
@@ -101,6 +117,8 @@ public class Controller {
     @FXML
     private MenuItem jcalClose;
     @FXML
+    private MenuItem jcalPrint;
+    @FXML
     private AnchorPane jcalAnchor;
     private double loanAmountText = 0;
     private double monthsText = 0;
@@ -119,6 +137,9 @@ public class Controller {
         graph1.getData().add(seriesNewPrincipal);
         graph2.getData().add(seriesForBalance);
         graph3.getData().add(seriesForInterest);
+        graph1.setAnimated(false);
+        graph2.setAnimated(false);
+        graph3.setAnimated(false);
         tableData = FXCollections.observableArrayList();
         pieChartData = FXCollections.observableArrayList();
 
@@ -136,7 +157,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly", "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -427,7 +448,307 @@ public class Controller {
             Platform.exit();
         });
 
+        jcalPrint.setOnAction(event -> {
+            String switcher = repaymentType.getValue().toString();
+            loanAmountText = 0;
+            monthsText = 0;
+            yearsText = 0;
+            interestText = 0;
+            yearsTextMonth = 0;
+
+            String loanAmountString = loanAmount.getText();
+            String monthsTextString = months.getText();
+            String yearsTextString = years.getText();
+            String interestTextString = interest.getText();
+
+            if (loanAmountString.isEmpty() || monthsTextString.isEmpty() || yearsTextString.isEmpty() || interestTextString.isEmpty()) {
+                logger.error("values were missing.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("There seems to be an error!");
+                alert.setContentText("Please make sure there are no empty fields.");
+                alert.showAndWait();
+                return;
+            }
+
+            loanAmountText = Double.parseDouble(loanAmountString);
+            monthsText = Double.parseDouble(monthsTextString);
+            yearsText = Double.parseDouble(yearsTextString);
+            interestText = Double.parseDouble(interestTextString);
+            yearsTextMonth = yearsText * 12;
+
+            // Create the custom dialog.
+            Dialog<Pair<String, String>> dialog = new Dialog<>();
+            dialog.setTitle("Customer details");
+            dialog.setHeaderText("Please enter your customer details");
+
+            // Set the button types.
+            ButtonType submitButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
+
+            // Create the username and password labels and fields.
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            TextField custName = new TextField();
+            custName.setPromptText("Full name");
+            TextField custAddress = new TextField();
+            custAddress.setPromptText("Address");
+
+            grid.add(new Label("Full name:"), 0, 0);
+            grid.add(custName, 1, 0);
+            grid.add(new Label("Address:"), 0, 1);
+            grid.add(custAddress, 1, 1);
+
+            // Enable/Disable login button depending on whether a username was entered.
+            Node loginButton = dialog.getDialogPane().lookupButton(submitButtonType);
+            loginButton.setDisable(true);
+
+            // Do some validation (using the Java 8 lambda syntax).
+            custName.textProperty().addListener((observable, oldValue, newValue) -> {
+                loginButton.setDisable(newValue.trim().isEmpty());
+            });
+
+            dialog.getDialogPane().setContent(grid);
+
+            // Request focus on the username field by default.
+            Platform.runLater(() -> custName.requestFocus());
+
+            // Convert the result to a username-password-pair when the login button is clicked.
+            dialog.setResultConverter(dialogButton -> {
+                if (dialogButton == submitButtonType) {
+                    return new Pair<>(custName.getText(), custAddress.getText());
+                }
+                return null;
+            });
+
+            Optional<Pair<String, String>> result1 = dialog.showAndWait();
+
+            final String[] custNameString = {""};
+            final String[] custAddressString = {""};
+
+            result1.ifPresent(usernamePassword -> {
+                custNameString[0] = usernamePassword.getKey();
+                custAddressString[0] = usernamePassword.getValue();
+            });
+
+            double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+            // total interest paid
+            BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+            String result = "";
+
+            switch (switcher){
+                case "Yearly":
+                    logger.info("Yearly web view selected");
+                    result = webViewer.webReturnYearly();
+                    Task task1 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th1 = new Thread(task1);
+                    th1.start();
+                    // -------------------------
+                    Task task2 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th2 = new Thread(task2);
+                    th2.start();
+                    // -------------------------
+                    Task task3 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th3 = new Thread(task3);
+                    th3.start();
+                    // -------------------------
+                    Task task4 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th4 = new Thread(task4);
+                    th4.start();
+                    break;
+                case "Monthly":
+                    logger.info("Monthly web view selected");
+                    result = webViewer.webReturnMonthly();
+
+                    Task task5 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th5 = new Thread(task5);
+                    th5.start();
+                    // -------------------------
+                    Task task6 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th6 = new Thread(task6);
+                    th6.start();
+                    // -------------------------
+                    Task task7 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th7 = new Thread(task7);
+                    th7.start();
+                    // -------------------------
+                    Task task8 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th8 = new Thread(task8);
+                    th8.start();
+                    break;
+            }
+
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                GaussianBlur gb = new GaussianBlur();
+                gb.setRadius(5.5);
+                jcalAnchor.setEffect(gb);
+                root = FXMLLoader.load(getClass().getResource("/resource/JCal_webview.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root, 1024, 768);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+
+            WebView browser = (WebView)scene.lookup("#web");
+            browser.setPrefSize(800, 768);
+            final WebEngine webEngine = browser.getEngine();
+            webEngine.loadContent(result);
+
+            stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
+        });
+
     }
-
-
 }

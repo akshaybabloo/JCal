@@ -18,8 +18,6 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="JCal" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
+
