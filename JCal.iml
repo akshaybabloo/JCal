@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="log4j-api-2.3" level="project" />
-    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
     <orderEntry type="library" name="log4j-api-2.3" level="project" />
   </component>
 </module>

@@ -195,7 +195,7 @@ public class WebViewer {
                 "</style>" +
                 "\n" +
                 "    <!-- Latest compiled and minified JavaScript -->\n" +
-                "    <script src=\"local2:bootstrap.min.js\"></script>\n" +
+                "    <script src=\"local:bootstrap.min.js\"></script>\n" +
                 "</head>\n" +
                 "<body>\n" +
                 "<div class=\"container\">\n" +
@@ -277,7 +277,7 @@ public class WebViewer {
                 "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
                 "                </div>\n" +
                 "                <div class=\"panel-body\">\n" +
-                "                    <img src=\"/Users/akshayrajgollahalli/Box Sync/MyDrive/Projects/Gollahalli GitHub/JCal/src/resource/JCal-logo.png\">\n" +
+                "                    <img src=\"pie.png\">\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
@@ -337,7 +337,6 @@ public class WebViewer {
                 "</html>";
 
         html1 = html1.replace("local:", getClass().getResource(".").toString());
-        html1 = html1.replace("local2:", getClass().getResource(".").toString());
         return html1;
     }
 
