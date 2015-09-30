@@ -19,10 +19,7 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
-//import com.gollahalli.web.WebApp;
-import com.gollahalli.web.WebSetter;
 import com.gollahalli.web.WebViewer;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +36,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
