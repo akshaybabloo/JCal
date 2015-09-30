@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-<<<<<<< HEAD
-Class-Path: JCal
-=======
->>>>>>> origin/dev
-Main-Class: com.gollahalli.main.App
-
