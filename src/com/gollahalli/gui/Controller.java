@@ -157,7 +157,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly", "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
