@@ -267,16 +267,16 @@ public class WebViewer {
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
-                "        <div class=\"col-xs-6\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-heading\">\n" +
-                "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
-                "                </div>\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    <img src=\"pie.png\">\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
+//                "        <div class=\"col-xs-6\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-heading\">\n" +
+//                "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    <img src=\"pie.png\">\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
                 "    </div>\n" +
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-md-12\">\n" +
@@ -305,29 +305,29 @@ public class WebViewer {
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
-                "    <div class=\"row\">\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>\n" +
                 "</div>\n" +
                 "</body>\n" +
                 "</html>";
@@ -489,16 +489,16 @@ public class WebViewer {
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
-                "        <div class=\"col-xs-6\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-heading\">\n" +
-                "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
-                "                </div>\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    <img src=\"/Users/akshayrajgollahalli/Box Sync/MyDrive/Projects/Gollahalli GitHub/JCal/src/resource/JCal-logo.png\">\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
+//                "        <div class=\"col-xs-6\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-heading\">\n" +
+//                "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    <img src=\"/Users/akshayrajgollahalli/Box Sync/MyDrive/Projects/Gollahalli GitHub/JCal/src/resource/JCal-logo.png\">\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
                 "    </div>\n" +
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-md-12\">\n" +
@@ -527,29 +527,29 @@ public class WebViewer {
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
-                "    <div class=\"row\">\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "        <div class=\"col-xs-4\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    Basic panel example\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>\n" +
                 "</div>\n" +
                 "</body>\n" +
                 "</html>";
