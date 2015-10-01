@@ -157,7 +157,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly", "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly", "Bi-Monthly");//, "Fortnightly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -738,6 +738,7 @@ public class Controller {
             }
             Scene scene = new Scene(root, 1024, 768);
             stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.initStyle(StageStyle.UTILITY);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
