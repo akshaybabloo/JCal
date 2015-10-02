@@ -18,17 +18,28 @@
 
 package com.gollahalli.main;
 
+import com.gollahalli.properties.Company;
+import com.gollahalli.properties.PropertiesWriter;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * This class is the main class which starts the software.
@@ -74,6 +85,69 @@ public class App extends Application {
                     "you need to download the latest version of Java. please go to http://www.java.com");
             alert.showAndWait();
         }
+
+
+        if (!new File("JCal.properties").exists()) {
+            // Custom dialog
+            Dialog<Company> dialog = new Dialog<>();
+            dialog.setTitle("sup");
+            dialog.setHeaderText("Personalize JCal to suit your company \n" +
+                    "press Okay (or click title bar 'X' for cancel).");
+            dialog.setResizable(true);
+
+            // Widgets
+            Label companyNameLabel = new Label("Company Name: ");
+            Label nameLabel = new Label("Name: ");
+            Label addressLabel = new Label("Address: ");
+            Label contactNumberLabel = new Label("Contact Number: ");
+            TextField companyNameField = new TextField();
+            TextField nameField = new TextField();
+            TextField addressField = new TextField();
+            TextField contactNumberField = new TextField();
+
+            // Create layout and add to dialog
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 35, 20, 35));
+            grid.add(companyNameLabel, 1, 1); // col=1, row=1
+            grid.add(companyNameField, 2, 1);
+            grid.add(nameLabel, 1, 2); // col=1, row=2
+            grid.add(nameField, 2, 2);
+            grid.add(addressLabel, 1, 3); // col=1, row=2
+            grid.add(addressField, 2, 3);
+            grid.add(contactNumberLabel, 1, 4); // col=1, row=2
+            grid.add(contactNumberField, 2, 4);
+            dialog.getDialogPane().setContent(grid);
+
+            // Add button to dialog
+            ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+//            dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+            dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, ButtonType.CANCEL);
+
+            // Result converter for dialog
+            dialog.setResultConverter(b -> {
+
+                if (b == buttonTypeOk) {
+
+                    return new Company(companyNameField.getText(), nameField.getText(), addressField.getText(), contactNumberField.getText());
+                }
+                if(b == ButtonType.CANCEL){
+                    Platform.exit();
+                    primaryStage.close();
+                    logger.info("Cancel button pressed. JCal has been closed");
+                }
+                Platform.exit();
+                return null;
+            });
+
+            // Show dialog
+            Optional<Company> result = dialog.showAndWait();
+
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber()));
+        }
+
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/resource/JCal-gui.fxml"));
