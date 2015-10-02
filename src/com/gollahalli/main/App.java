@@ -25,20 +25,17 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -86,7 +83,6 @@ public class App extends Application {
             alert.showAndWait();
         }
 
-
         if (!new File("JCal.properties").exists()) {
             // Custom dialog
             Dialog<Company> dialog = new Dialog<>();
@@ -123,7 +119,6 @@ public class App extends Application {
 
             // Add button to dialog
             ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
-//            dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
             dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, ButtonType.CANCEL);
 
             // Result converter for dialog
