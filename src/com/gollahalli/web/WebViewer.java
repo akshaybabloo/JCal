@@ -19,9 +19,13 @@
 package com.gollahalli.web;
 
 import com.gollahalli.api.Calculate;
+import com.gollahalli.gui.General;
 import com.gollahalli.gui.PaymentsTable;
+import com.gollahalli.properties.PropertiesReader;
 import javafx.scene.chart.XYChart;
+import org.apache.commons.lang3.text.WordUtils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -46,6 +50,8 @@ public class WebViewer {
     String totalPayments;
     String custName;
     String custAddress;
+
+    General general = new General();
 
     public WebViewer() {
     }
@@ -130,6 +136,22 @@ public class WebViewer {
         return temp;
     }
 
+    static String[] propertyReader(){
+        String[] result = new String[5];
+        result[0] = "";
+        result[1] = "";
+        result[2] = "";
+        result[3] = "";
+        result[4] = "";
+
+        if (new File("JCal.properties").exists()) {
+            PropertiesReader propertiesReader = new PropertiesReader();
+            result = propertiesReader.reader();
+        }
+
+        return result;
+    }
+
     /**
      *
      * To use this, do the following
@@ -144,6 +166,8 @@ public class WebViewer {
      */
     public String webReturnMonthly(){
         Calculate calculate = new Calculate();
+
+        String[] property = propertyReader();
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(loanAmountText, interestText, yearsTextMonth);
 
@@ -190,6 +214,18 @@ public class WebViewer {
                 ".table > tbody > tr > .thick-line {\n" +
                 "    border-top: 2px solid;\n" +
                 "}" +
+                ".navbar-default{\n" +
+                "    background-color: #ECF0F1;\n" +
+                "}" +
+                "@media print {\n" +
+                "        .navbar {\n" +
+                "            display: block;\n" +
+                "            border-width:0 !important;\n" +
+                "        }\n" +
+                "        .navbar-toggle {\n" +
+                "            display:none;\n" +
+                "        }\n" +
+                "    }" +
                 "</style>" +
                 "\n" +
                 "    <!-- Latest compiled and minified JavaScript -->\n" +
@@ -200,9 +236,9 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>Invoice</h2>\n" +
+                "                <h2>"+ WordUtils.capitalize(property[0])+"</h2>\n" +
                 "\n" +
-                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
+//                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
                 "            <hr>\n" +
                 "            <div class=\"row\">\n" +
@@ -216,7 +252,7 @@ public class WebViewer {
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        October 12, 2015\n" +
+                "                        "+general.getDate()+"\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -329,6 +365,13 @@ public class WebViewer {
 //                "        </div>\n" +
 //                "    </div>\n" +
                 "</div>\n" +
+                "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
+                "        <div class=\"container\">\n" +
+                "            <div class=\"navbar-text pull-left\">\n" +
+                "                &copy; 2015 " + property[0]+ ". Contact person: "+ property[1]+", Address: "+ property[2] +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>" +
                 "</body>\n" +
                 "</html>";
     }
@@ -349,6 +392,8 @@ public class WebViewer {
         Calculate calculate = new Calculate();
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(loanAmountText, interestText, yearsTextMonth);
+
+        String[] property = propertyReader();
 
         double[][] newYearly = new double[5][(int) yearsTextMonth];
         newYearly[0][0] = monthlyChartYearly[2][0];
@@ -412,6 +457,18 @@ public class WebViewer {
                 ".table > tbody > tr > .thick-line {\n" +
                 "    border-top: 2px solid;\n" +
                 "}" +
+                ".navbar-default{\n" +
+                "    background-color: #ECF0F1;\n" +
+                "}" +
+                "@media print {\n" +
+                "        .navbar {\n" +
+                "            display: block;\n" +
+                "            border-width:0 !important;\n" +
+                "        }\n" +
+                "        .navbar-toggle {\n" +
+                "            display:none;\n" +
+                "        }\n" +
+                "    }" +
                 "</style>" +
                 "\n" +
                 "    <!-- Latest compiled and minified JavaScript -->\n" +
@@ -422,7 +479,7 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>Invoice</h2>\n" +
+                "                <h2>"+WordUtils.capitalize(property[0])+"</h2>\n" +
                 "\n" +
                 "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
@@ -438,7 +495,7 @@ public class WebViewer {
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        October 12, 2015\n" +
+                "                        "+general.getDate()+"\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -551,6 +608,13 @@ public class WebViewer {
 //                "        </div>\n" +
 //                "    </div>\n" +
                 "</div>\n" +
+                "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
+                "        <div class=\"container\">\n" +
+                "            <div class=\"navbar-text pull-left\">\n" +
+                "                &copy; 2015 " + WordUtils.capitalize(property[0])+ ". Contact person: "+ WordUtils.capitalize(property[1])+", Address: "+ WordUtils.capitalize(property[2]) +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>" +
                 "</body>\n" +
                 "</html>";
     }
