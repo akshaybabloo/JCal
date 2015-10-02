@@ -24,6 +24,10 @@ Mortgage calculator based on Java
 
 ![Graph view](https://raw.githubusercontent.com/gollahalli/JCal/master/src/resource/s-3.png)
 
+* Snapshot of print view.
+
+![Print view](https://raw.githubusercontent.com/gollahalli/JCal/master/src/resource/s-4.png)
+
 ## Previous releases
 
 * [JCal v1.0.1](https://github.com/gollahalli/JCal/releases/tag/v1.0.1)
