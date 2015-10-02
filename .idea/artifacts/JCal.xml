@@ -23,6 +23,7 @@
           <element id="library" level="project" name="log4j-core-2.3" />
           <element id="library" level="project" name="log4j-slf4j-impl-2.3" />
           <element id="library" level="project" name="slf4j-api-1.7.12" />
+          <element id="library" level="project" name="commons-lang3-3.4" />
         </element>
       </element>
     </root>

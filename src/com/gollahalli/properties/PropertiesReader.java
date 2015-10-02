@@ -26,8 +26,8 @@ public class PropertiesReader {
             e.printStackTrace();
         }
 
-        result[0] = properties.getProperty("Name");
-        result[1] = properties.getProperty("CompanyName");
+        result[0] = properties.getProperty("CompanyName");
+        result[1] = properties.getProperty("Name");
         result[2] = properties.getProperty("Address");
         result[3] = properties.getProperty("ContactNumber");
         result[4] = properties.getProperty("FaxNumber");
