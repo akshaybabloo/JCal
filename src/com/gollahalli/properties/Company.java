@@ -8,12 +8,14 @@ public class Company {
     String name;
     String address;
     String contactNumber;
+    String contactFax;
 
-    public Company(String companyName, String name, String address, String contactNumber) {
+    public Company(String companyName, String name, String address, String contactNumber, String contactFax) {
         this.companyName = companyName;
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;
+        this.contactFax = contactFax;
     }
 
     public String getCompanyName() {
@@ -30,5 +32,8 @@ public class Company {
 
     public String getContactNumber() {
         return contactNumber;
+    }
+    public String getContactFax() {
+        return contactFax;
     }
 }

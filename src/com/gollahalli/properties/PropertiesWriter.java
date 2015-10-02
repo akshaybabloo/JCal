@@ -13,12 +13,14 @@ public class PropertiesWriter {
     String name;
     String address;
     String contactNumber;
+    String faxNumber;
 
-    public PropertiesWriter(String companyName, String name, String address, String contactNumber) {
+    public PropertiesWriter(String companyName, String name, String address, String contactNumber, String faxNumber) {
         this.companyName = companyName;
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;
+        this.faxNumber = faxNumber;
 
 
         Properties properties = new Properties();
@@ -27,6 +29,7 @@ public class PropertiesWriter {
         properties.setProperty("Name", this.name);
         properties.setProperty("Address", this.address);
         properties.setProperty("ContactNumber", this.contactNumber);
+        properties.setProperty("FaxNumber", this.faxNumber);
 
 
         try {
