@@ -245,8 +245,8 @@ public class WebViewer {
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+this.custName+"<br>\n" +
-                "                        "+this.custAddress+"<br>\n" +
+                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
+                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
@@ -481,15 +481,15 @@ public class WebViewer {
                 "            <div class=\"invoice-title\">\n" +
                 "                <h2>"+WordUtils.capitalize(property[0])+"</h2>\n" +
                 "\n" +
-                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
+//                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
                 "            <hr>\n" +
                 "            <div class=\"row\">\n" +
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+this.custName+"<br>\n" +
-                "                        "+this.custAddress+"<br>\n" +
+                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
+                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
