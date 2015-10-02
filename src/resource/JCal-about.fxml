@@ -42,7 +42,7 @@
                   <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text fx:id="version_about" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.0.1" textAlignment="CENTER" wrappingWidth="142.1646270751953" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text fx:id="version_about" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.0.2" textAlignment="CENTER" wrappingWidth="142.1646270751953" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="JCal" textAlignment="CENTER" wrappingWidth="143.7144317626953" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
