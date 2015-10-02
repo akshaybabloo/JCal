@@ -129,6 +129,11 @@ public class Controller {
 
     public void initialize() {
         logger.info("controller started");
+
+        if (!new File("JCal.properties").exists()) {
+            Platform.exit();
+            logger.error("JCal.properties not found");
+        }
         XYChart.Series<Number, Number> seriesMonthlyInterest = new XYChart.Series();
         XYChart.Series<Number, Number> seriesNewPrincipal = new XYChart.Series();
         XYChart.Series<Number, Number> seriesForBalance = new XYChart.Series();
