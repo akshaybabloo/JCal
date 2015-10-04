@@ -19,10 +19,8 @@
 package com.gollahalli.web;
 
 import com.gollahalli.api.Calculate;
-import com.gollahalli.gui.General;
-import com.gollahalli.gui.PaymentsTable;
+import com.gollahalli.api.General;
 import com.gollahalli.properties.PropertiesReader;
-import javafx.scene.chart.XYChart;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.File;
@@ -30,7 +28,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Locale;
 
 
