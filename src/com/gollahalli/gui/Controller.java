@@ -440,7 +440,6 @@ public class Controller {
             }
             Scene scene = new Scene(root);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
