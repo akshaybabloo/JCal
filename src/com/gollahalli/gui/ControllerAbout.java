@@ -81,9 +81,6 @@ public class ControllerAbout {
             ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOk, ButtonType.CANCEL);
 
-            // Enable/Disable login button depending on whether a username was entered.
-            Node loginButton = dialog.getDialogPane().lookupButton(buttonTypeOk);
-
             // Result converter for dialog
             dialog.setResultConverter(b -> {
 
