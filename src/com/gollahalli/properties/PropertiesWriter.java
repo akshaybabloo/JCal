@@ -15,12 +15,15 @@ public class PropertiesWriter {
     String contactNumber;
     String faxNumber;
 
-    public PropertiesWriter(String companyName, String name, String address, String contactNumber, String faxNumber) {
+    String version;
+
+    public PropertiesWriter(String companyName, String name, String address, String contactNumber, String faxNumber, String version) {
         this.companyName = companyName;
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;
         this.faxNumber = faxNumber;
+        this.version = version;
 
 
         Properties properties = new Properties();
@@ -30,12 +33,13 @@ public class PropertiesWriter {
         properties.setProperty("Address", this.address);
         properties.setProperty("ContactNumber", this.contactNumber);
         properties.setProperty("FaxNumber", this.faxNumber);
+        properties.setProperty("Version", this.version);
 
 
         try {
             File file = new File("JCal.properties");
 
-            FileOutputStream fileOutputStream = null;
+            FileOutputStream fileOutputStream;
             fileOutputStream = new FileOutputStream(file);
             properties.store(fileOutputStream, "Your JCal properties");
             fileOutputStream.close();
