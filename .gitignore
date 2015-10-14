@@ -13,17 +13,9 @@ hs_err_pid*
 
 
 # temp
-/src/com/gollahalli/webviewsample
-/src/com/gollahalli/gui/test8.java
-/src/com/gollahalli/gui/test7.java
-/src/com/gollahalli/gui/test4.java
-/src/com/gollahalli/gui/test6.java
-/src/com/gollahalli/gui/test2.java
-/src/com/gollahalli/gui/test9.java
-/src/com/gollahalli/gui/test10.java
-/src/com/gollahalli/gui/test.java
-/src/com/gollahalli/gui/test5.java
 
+
+!commons-lang3-3.4.jar
 !slf4j-api-1.7.12.jar
 !log4j-core-2.3.jar
 !log4j-api-2.3.jar
@@ -76,12 +68,10 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 /src/com/gollahalli/web/WebApp.java
-<<<<<<< HEAD
 crashlytics-build.properties
 logs/JCal-log.log
 =======
 crashlytics-build.properties
->>>>>>> origin/dev
 
 graph1.png
 

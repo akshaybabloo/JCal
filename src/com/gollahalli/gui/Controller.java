@@ -28,7 +28,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -40,16 +39,13 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,6 +121,7 @@ public class Controller {
     private double yearsText = 0;
     private double interestText = 0;
     private double yearsTextMonth = 0;
+    private double monthsToWeeks = 0;
     private int someNum = 2;
 
     public void initialize() {
@@ -218,7 +215,7 @@ public class Controller {
                     // monthly payments output
                     double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
                     // total interest paid
-                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth + monthsText) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -282,7 +279,7 @@ public class Controller {
                     // monthly payments output
                     double monthlyOutputForYearly = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
                     // total interest paid
-                    BigDecimal bd1 = new BigDecimal((monthlyOutputForYearly * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bd1 = new BigDecimal((monthlyOutputForYearly * yearsTextMonth + monthsText) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -303,7 +300,7 @@ public class Controller {
                     newYearly[1][0] = monthlyChartYearly[1][0];
                     newYearly[2][0] = monthlyChartYearly[3][0];
                     for (int i = 1; i < yearsTextMonth; i++) {
-                        monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(monthlyChartYearly[3][0], interestText, yearsTextMonth - i);
+                        monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(monthlyChartYearly[3][0], interestText, yearsTextMonth + monthsText - i);
                         newYearly[0][i] = monthlyChartYearly[2][0];
                         newYearly[1][i] = monthlyChartYearly[1][0];
                         newYearly[2][i] = monthlyChartYearly[3][0];
@@ -382,11 +379,13 @@ public class Controller {
                     seriesForBalance.setName("Balance");
                     seriesForInterest.setName("Annual interest");
 
-                    yearsTextMonth = yearsText * 52; // converting years to months
+                    yearsTextMonth = yearsText * 52; // converting years to weeks
+                    monthsToWeeks = monthsText * 4; // converting months to weeks
+
                     // monthly payments output
-                    double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth , interestText);
+                    double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
                     // total interest paid
-                    BigDecimal bdWeekly = new BigDecimal((weeklyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bdWeekly = new BigDecimal((weeklyOutput * yearsTextMonth + monthsToWeeks) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -401,7 +400,7 @@ public class Controller {
                     pieChartData.add(new PieChart.Data("Interest", bdWeekly.doubleValue()));
 
                     PaymentsTable paymentsTablePrimary1 = new PaymentsTable();
-                    double[][] weeklyChart = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
+                    double[][] weeklyChart = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth + monthsToWeeks);
                     paymentsTablePrimary1.year.setValue(1);
                     paymentsTablePrimary1.principal.setValue(weeklyChart[2][0]);
                     paymentsTablePrimary1.interest.setValue(weeklyChart[1][0]);
@@ -415,7 +414,7 @@ public class Controller {
 
                     for (int i = 1; i < yearsTextMonth + monthsText; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth  - i);
+                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth + monthsToWeeks - i);
                         paymentsTable.year.setValue(someNum++);
                         paymentsTable.principal.setValue(weeklyChart[2][0]);
                         paymentsTable.interest.setValue(weeklyChart[1][0]);
@@ -587,14 +586,14 @@ public class Controller {
                 custAddressString[0] = usernamePassword.getValue();
             });
 
-            double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
-            // total interest paid
-            BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
-            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
             String result = "";
 
-            switch (switcher){
+            switch (switcher) {
                 case "Yearly":
+                    double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+                    // total interest paid
+                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
                     logger.info("Yearly web view selected");
                     result = webViewer.webReturnYearly();
                     Task task1 = new Task<Void>() {
@@ -687,7 +686,11 @@ public class Controller {
                     break;
                 case "Monthly":
                     logger.info("Monthly web view selected");
-                    result = webViewer.webReturnMonthly();
+                    double monthlyOutput2 = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+                    // total interest paid
+                    BigDecimal bd2 = new BigDecimal((monthlyOutput2 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer2 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput2), String.valueOf(bd2.doubleValue()), String.valueOf(bd2.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+                    result = webViewer2.webReturnMonthly();
 
                     Task task5 = new Task<Void>() {
                         @Override
@@ -777,6 +780,105 @@ public class Controller {
                     Thread th8 = new Thread(task8);
                     th8.start();
                     break;
+                case "Weekly":
+                    logger.info("Weekly web view selected");
+                    yearsTextMonth = yearsText * 52;
+                    monthsToWeeks = monthsText * 4;
+                    double monthlyOutput3 = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
+                    // total interest paid
+                    BigDecimal bd3 = new BigDecimal((monthlyOutput3 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer3 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput3), String.valueOf(bd3.doubleValue()), String.valueOf(bd3.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+
+                    result = webViewer3.webReturnWeekly();
+
+                    Task task9 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th9 = new Thread(task9);
+                    th9.start();
+                    // -------------------------
+                    Task task10 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th10 = new Thread(task10);
+                    th10.start();
+                    // -------------------------
+                    Task task11 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th11 = new Thread(task11);
+                    th11.start();
+                    // -------------------------
+                    Task task12 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th12 = new Thread(task12);
+                    th12.start();
+                    break;
             }
 
             Stage stage = new Stage();
@@ -796,7 +898,7 @@ public class Controller {
             stage.setScene(scene);
             stage.show();
 
-            WebView browser = (WebView)scene.lookup("#web");
+            WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
             webEngine.loadContent(result);

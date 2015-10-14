@@ -173,7 +173,7 @@ public class App extends Application {
         primaryStage.getIcons().add(new Image("/resource/JCal-logo.png"));
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JCal - Loan calculator");
+        primaryStage.setTitle("JCal - Mortgage calculator");
         primaryStage.show();
 
 
