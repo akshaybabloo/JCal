@@ -18,6 +18,7 @@
 
 package com.gollahalli.main;
 
+import com.gollahalli.api.General;
 import com.gollahalli.properties.Company;
 import com.gollahalli.properties.PropertiesWriter;
 import javafx.application.Application;
@@ -154,7 +155,9 @@ public class App extends Application {
             // Show dialog
             Optional<Company> result = dialog.showAndWait();
 
-            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax()));
+            General general = new General();
+
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion()));
         }
 
         Parent root = null;

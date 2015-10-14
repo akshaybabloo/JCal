@@ -1,4 +1,4 @@
-package com.gollahalli.gui;
+package com.gollahalli.api;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,5 +12,9 @@ public class General {
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("MMMMM dd, yyyy");
         return format.format(date);
+    }
+
+    public String getVersion(){
+        return "1.1.0";
     }
 }
