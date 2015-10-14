@@ -125,6 +125,7 @@ public class Controller {
     private double yearsText = 0;
     private double interestText = 0;
     private double yearsTextMonth = 0;
+    private double monthsToWeeks = 0;
     private int someNum = 2;
 
     public void initialize() {
@@ -218,7 +219,7 @@ public class Controller {
                     // monthly payments output
                     double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
                     // total interest paid
-                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth + monthsText) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -282,7 +283,7 @@ public class Controller {
                     // monthly payments output
                     double monthlyOutputForYearly = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
                     // total interest paid
-                    BigDecimal bd1 = new BigDecimal((monthlyOutputForYearly * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bd1 = new BigDecimal((monthlyOutputForYearly * yearsTextMonth + monthsText) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -303,7 +304,7 @@ public class Controller {
                     newYearly[1][0] = monthlyChartYearly[1][0];
                     newYearly[2][0] = monthlyChartYearly[3][0];
                     for (int i = 1; i < yearsTextMonth; i++) {
-                        monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(monthlyChartYearly[3][0], interestText, yearsTextMonth - i);
+                        monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(monthlyChartYearly[3][0], interestText, yearsTextMonth + monthsText - i);
                         newYearly[0][i] = monthlyChartYearly[2][0];
                         newYearly[1][i] = monthlyChartYearly[1][0];
                         newYearly[2][i] = monthlyChartYearly[3][0];
@@ -383,10 +384,12 @@ public class Controller {
                     seriesForInterest.setName("Annual interest");
 
                     yearsTextMonth = yearsText * 52; // converting years to months
+                    monthsToWeeks = monthsText * 4;
+
                     // monthly payments output
-                    double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth , interestText);
+                    double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
                     // total interest paid
-                    BigDecimal bdWeekly = new BigDecimal((weeklyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    BigDecimal bdWeekly = new BigDecimal((weeklyOutput * yearsTextMonth + monthsToWeeks) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
 
                     // summary
                     loanAmountLabel.setText(loanAmountString);
@@ -401,7 +404,7 @@ public class Controller {
                     pieChartData.add(new PieChart.Data("Interest", bdWeekly.doubleValue()));
 
                     PaymentsTable paymentsTablePrimary1 = new PaymentsTable();
-                    double[][] weeklyChart = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
+                    double[][] weeklyChart = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth + monthsToWeeks);
                     paymentsTablePrimary1.year.setValue(1);
                     paymentsTablePrimary1.principal.setValue(weeklyChart[2][0]);
                     paymentsTablePrimary1.interest.setValue(weeklyChart[1][0]);
@@ -415,7 +418,7 @@ public class Controller {
 
                     for (int i = 1; i < yearsTextMonth + monthsText; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth  - i);
+                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth + monthsToWeeks  - i);
                         paymentsTable.year.setValue(someNum++);
                         paymentsTable.principal.setValue(weeklyChart[2][0]);
                         paymentsTable.interest.setValue(weeklyChart[1][0]);
