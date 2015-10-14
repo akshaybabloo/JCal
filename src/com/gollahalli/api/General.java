@@ -13,4 +13,8 @@ public class General {
         DateFormat format = new SimpleDateFormat("MMMMM dd, yyyy");
         return format.format(date);
     }
+
+    public String getVersion(){
+        return "1.0.2";
+    }
 }
