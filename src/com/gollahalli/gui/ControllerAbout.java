@@ -23,6 +23,8 @@ public class ControllerAbout {
     private Button changeDetails;
     @FXML
     private Text registeredTo;
+    @FXML
+    private Text version_about;
 
     public void initialize() {
 
@@ -99,6 +101,9 @@ public class ControllerAbout {
 
             result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion()));
         });
+
+        General general = new General();
+        version_about.setText("Version: " + general.getVersion());
     }
 
     static String[] propertyReader(){

@@ -162,7 +162,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly", "Weekly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -366,16 +366,65 @@ public class Controller {
 
                 case "Weekly":
                     logger.info("Weekly payments selected");
-                    paymentsAnnual.getItems().clear();
-                    seriesMonthlyInterest.getData().clear();
-                    double[][] weeklyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 52.0);
 
-                    for (int i = 1; i < weeklyOutput[0].length; i++) {
+                    pieChartData.clear();
+
+                    primaryColumn.setText("Week");
+
+                    paymentsAnnual.getItems().clear();
+
+                    seriesForBalance.getData().clear(); // clearing balance seriesMonthlyInterest table
+                    seriesForInterest.getData().clear(); // clearing interest seriesMonthlyInterest for table
+                    seriesMonthlyInterest.getData().clear();
+                    seriesNewPrincipal.getData().clear();
+                    seriesMonthlyInterest.setName("Interest");
+                    seriesNewPrincipal.setName("Principal");
+                    seriesForBalance.setName("Balance");
+                    seriesForInterest.setName("Annual interest");
+
+                    yearsTextMonth = yearsText * 52; // converting years to months
+                    // monthly payments output
+                    double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth , interestText);
+                    // total interest paid
+                    BigDecimal bdWeekly = new BigDecimal((weeklyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+
+                    // summary
+                    loanAmountLabel.setText(loanAmountString);
+                    yearsLabel.setText(yearsTextString);
+                    monthsLabel.setText(monthsTextString);
+                    monthlyPaymentsLabel.setText(String.valueOf(weeklyOutput));
+                    totalInterestLabel.setText(String.valueOf(bdWeekly.doubleValue()));
+                    totalPaymentsLabel.setText(String.valueOf(bdWeekly.doubleValue() + loanAmountText));
+
+                    // pie chart for principal and Interest
+                    pieChartData.add(new PieChart.Data("Principal", loanAmountText));
+                    pieChartData.add(new PieChart.Data("Interest", bdWeekly.doubleValue()));
+
+                    PaymentsTable paymentsTablePrimary1 = new PaymentsTable();
+                    double[][] weeklyChart = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
+                    paymentsTablePrimary1.year.setValue(1);
+                    paymentsTablePrimary1.principal.setValue(weeklyChart[2][0]);
+                    paymentsTablePrimary1.interest.setValue(weeklyChart[1][0]);
+                    seriesMonthlyInterest.getData().add(new XYChart.Data(0, weeklyChart[1][0]));
+                    seriesNewPrincipal.getData().add(new XYChart.Data(0, weeklyChart[2][0]));
+                    seriesForBalance.getData().add(new XYChart.Data(0, weeklyChart[3][0]));
+                    seriesForInterest.getData().add(new XYChart.Data(0, interestText));
+                    paymentsTablePrimary1.balance.setValue(weeklyChart[3][0]);
+
+                    tableData.add(paymentsTablePrimary1);
+
+                    for (int i = 1; i < yearsTextMonth + monthsText; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(weeklyOutput[0][i]);
-                        paymentsTable.principal.setValue(weeklyOutput[1][i]);
-                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, weeklyOutput[1][i]));
-                        tableData.add(paymentsTable);
+                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth  - i);
+                        paymentsTable.year.setValue(someNum++);
+                        paymentsTable.principal.setValue(weeklyChart[2][0]);
+                        paymentsTable.interest.setValue(weeklyChart[1][0]);
+                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, weeklyChart[1][0]));
+                        seriesNewPrincipal.getData().add(new XYChart.Data(i, weeklyChart[2][0]));
+                        seriesForBalance.getData().add(new XYChart.Data(i, weeklyChart[3][0]));
+                        seriesForInterest.getData().add(new XYChart.Data(i, interestText));
+                        paymentsTable.balance.setValue(weeklyChart[3][0]);
+                        tableData.addAll(paymentsTable);
                     }
                     break;
 

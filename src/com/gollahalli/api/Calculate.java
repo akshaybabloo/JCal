@@ -134,6 +134,14 @@ public class Calculate {
         return bd.doubleValue();
     }
 
+    public double fixedRateMortgageWeekly(double loanAmount, double termInMonths, double interestRate){
+        BigDecimal bd;
+        double initalInterestRate = interestRate/100;
+        double monthlyRate = initalInterestRate / 52.0;
+        bd = new BigDecimal((loanAmount*monthlyRate) / (1-Math.pow(1+monthlyRate, -termInMonths))).setScale(2, RoundingMode.HALF_DOWN);
+        return bd.doubleValue();
+    }
+
     /**
      * This function returns interest, principal and balance.
      *
@@ -186,6 +194,36 @@ public class Calculate {
             total[1][i]= bd2.doubleValue();
 
             bd3 = new BigDecimal(calculate.fixedRateMortgageMonthly(principal, term, interest) - total[1][i]).setScale(2, RoundingMode.HALF_DOWN);
+            total[2][i] = bd3.doubleValue();
+
+            bd4 = new BigDecimal(principal - total[2][i]).setScale(2, RoundingMode.HALF_DOWN);
+            total[3][i] = bd4.doubleValue();
+        }
+
+        return total;
+    }
+
+    public double[][] fixedRateMortgageWeeklyChart(double principal, double interest, double term){
+
+        double[][] total = new double[5][30];
+        Calculate calculate = new Calculate();
+        BigDecimal bd;
+        BigDecimal bd1;
+        BigDecimal bd2;
+        BigDecimal bd3;
+        BigDecimal bd4;
+        for (int i = 0; i < 1; i++) {
+            double interest1 = interest/100;
+            bd = new BigDecimal(interest1/52).setScale(5, RoundingMode.HALF_DOWN);
+            total[4][i] = bd.doubleValue();
+
+            bd1 = new BigDecimal(interest/100).setScale(2, RoundingMode.HALF_DOWN);
+            total[0][i] = bd1.doubleValue();
+
+            bd2 = new BigDecimal((total[0][i]/52)*principal).setScale(2, RoundingMode.HALF_DOWN);
+            total[1][i]= bd2.doubleValue();
+
+            bd3 = new BigDecimal(calculate.fixedRateMortgageWeekly(principal, term, interest) - total[1][i]).setScale(2, RoundingMode.HALF_DOWN);
             total[2][i] = bd3.doubleValue();
 
             bd4 = new BigDecimal(principal - total[2][i]).setScale(2, RoundingMode.HALF_DOWN);
