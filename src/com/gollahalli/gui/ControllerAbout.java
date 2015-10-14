@@ -1,5 +1,6 @@
 package com.gollahalli.gui;
 
+import com.gollahalli.api.General;
 import com.gollahalli.properties.Company;
 import com.gollahalli.properties.PropertiesReader;
 import com.gollahalli.properties.PropertiesWriter;
@@ -94,7 +95,9 @@ public class ControllerAbout {
             // Show dialog
             Optional<Company> result = dialog.showAndWait();
 
-            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(),"1.0.2"));
+            General general = new General();
+
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion()));
         });
     }
 
