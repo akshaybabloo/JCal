@@ -6,7 +6,7 @@ Mortgage calculator based on Java
 
 
 
-> **Note:** As of now only Monthly and Yearly mortgage are working.
+> **Note:** As of now only Yearly, Monthly and Weekly mortgage calculations are working.
 
 ## Snapshot
 
@@ -30,7 +30,7 @@ Mortgage calculator based on Java
 
 ## Previous releases
 
-* [JCal v1.1.0](https://github.com/gollahalli/JCal/releases/tag/v1.1.0)
+* [JCal v1.0.2](https://github.com/gollahalli/JCal/releases/tag/v1.0.2)
 * [JCal v1.0.1](https://github.com/gollahalli/JCal/releases/tag/v1.0.1)
 * [JCal v1.0](https://github.com/gollahalli/JCal/releases/tag/v1.0)
 * [JCal v0.1.2](https://github.com/gollahalli/JCal/releases/tag/v0.1.2)
