@@ -379,8 +379,8 @@ public class Controller {
                     seriesForBalance.setName("Balance");
                     seriesForInterest.setName("Annual interest");
 
-                    yearsTextMonth = yearsText * 52; // converting years to months
-                    monthsToWeeks = monthsText * 4;
+                    yearsTextMonth = yearsText * 52; // converting years to weeks
+                    monthsToWeeks = monthsText * 4; // converting months to weeks
 
                     // monthly payments output
                     double weeklyOutput = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
@@ -586,14 +586,14 @@ public class Controller {
                 custAddressString[0] = usernamePassword.getValue();
             });
 
-            double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
-            // total interest paid
-            BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
-            WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
             String result = "";
 
             switch (switcher) {
                 case "Yearly":
+                    double monthlyOutput = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+                    // total interest paid
+                    BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
                     logger.info("Yearly web view selected");
                     result = webViewer.webReturnYearly();
                     Task task1 = new Task<Void>() {
@@ -686,7 +686,11 @@ public class Controller {
                     break;
                 case "Monthly":
                     logger.info("Monthly web view selected");
-                    result = webViewer.webReturnMonthly();
+                    double monthlyOutput2 = calculate.fixedRateMortgageMonthly(loanAmountText, yearsTextMonth + monthsText, interestText);
+                    // total interest paid
+                    BigDecimal bd2 = new BigDecimal((monthlyOutput2 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer2 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput2), String.valueOf(bd2.doubleValue()), String.valueOf(bd2.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+                    result = webViewer2.webReturnMonthly();
 
                     Task task5 = new Task<Void>() {
                         @Override
@@ -775,6 +779,105 @@ public class Controller {
                     };
                     Thread th8 = new Thread(task8);
                     th8.start();
+                    break;
+                case "Weekly":
+                    logger.info("Weekly web view selected");
+                    yearsTextMonth = yearsText * 52;
+                    monthsToWeeks = monthsText * 4;
+                    double monthlyOutput3 = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
+                    // total interest paid
+                    BigDecimal bd3 = new BigDecimal((monthlyOutput3 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer3 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput3), String.valueOf(bd3.doubleValue()), String.valueOf(bd3.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+
+                    result = webViewer3.webReturnWeekly();
+
+                    Task task9 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th9 = new Thread(task9);
+                    th9.start();
+                    // -------------------------
+                    Task task10 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th10 = new Thread(task10);
+                    th10.start();
+                    // -------------------------
+                    Task task11 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th11 = new Thread(task11);
+                    th11.start();
+                    // -------------------------
+                    Task task12 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th12 = new Thread(task12);
+                    th12.start();
                     break;
             }
 
