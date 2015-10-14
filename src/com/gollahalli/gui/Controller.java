@@ -28,7 +28,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -40,16 +39,13 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -418,7 +414,7 @@ public class Controller {
 
                     for (int i = 1; i < yearsTextMonth + monthsText; i++) {
                         PaymentsTable paymentsTable = new PaymentsTable();
-                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth + monthsToWeeks  - i);
+                        weeklyChart = calculate.fixedRateMortgageWeeklyChart(weeklyChart[3][0], interestText, yearsTextMonth + monthsToWeeks - i);
                         paymentsTable.year.setValue(someNum++);
                         paymentsTable.principal.setValue(weeklyChart[2][0]);
                         paymentsTable.interest.setValue(weeklyChart[1][0]);
@@ -596,7 +592,7 @@ public class Controller {
             WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
             String result = "";
 
-            switch (switcher){
+            switch (switcher) {
                 case "Yearly":
                     logger.info("Yearly web view selected");
                     result = webViewer.webReturnYearly();
@@ -799,7 +795,7 @@ public class Controller {
             stage.setScene(scene);
             stage.show();
 
-            WebView browser = (WebView)scene.lookup("#web");
+            WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
             webEngine.loadContent(result);
