@@ -18,24 +18,11 @@
 
 package com.gollahalli.web;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.print.*;
-import javafx.scene.Node;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
-import javax.imageio.ImageIO;
-import javax.print.attribute.ResolutionSyntax;
-import javax.print.attribute.standard.PrinterResolution;
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -65,6 +52,8 @@ public class Controller {
                 job.endJob();
             }
         });
+
+        toolBarSave.setVisible(false);
     }
 
 

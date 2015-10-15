@@ -159,7 +159,7 @@ public class Controller {
         pieChart.setLegendSide(Side.RIGHT);
 
 
-        repaymentType.getItems().addAll("Yearly", "Monthly", "Weekly");//, "Bi-Monthly", "Fortnightly", "Quarterly", "Weekly", "Daily");
+        repaymentType.getItems().addAll("Yearly", "Monthly", "Fortnightly", "Weekly");//, "Bi-Monthly", "Quarterly", "Daily");
 
         Calculate calculate = new Calculate();
 
@@ -310,56 +310,56 @@ public class Controller {
 
                     double yearlyPrincipal = 0.0;
                     double yearlyInterest = 0.0;
-                    double yearlyBalance = 0.0;
+                    double yearlyBalance = loanAmountText;
                     for (int i = 0; i < newYearly[0].length; i++) {
                         PaymentsTable paymentsTableForYearly = new PaymentsTable();
+                        paymentsTableForYearly.balance.setValue(newYearly[2][i]);
                         if (i % 12 == 0 && i != 0) {
                             paymentsTableForYearly.year.setValue(someNumber++);
                             paymentsTableForYearly.principal.setValue(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN));
                             paymentsTableForYearly.interest.setValue(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN));
-                            paymentsTableForYearly.balance.setValue(newYearly[2][i]);
+                            paymentsTableForYearly.balance.setValue(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN));
                             tableData.addAll(paymentsTableForYearly);
                             seriesMonthlyInterest.getData().add(new XYChart.Data(i - 12, yearlyInterest));
                             seriesNewPrincipal.getData().add(new XYChart.Data(i - 12, yearlyPrincipal));
-                            seriesForBalance.getData().add(new XYChart.Data(i - 12, newYearly[2][i]));
+                            seriesForBalance.getData().add(new XYChart.Data(i - 12, yearlyBalance));
                             seriesForInterest.getData().add(new XYChart.Data(i - 12, interestText));
                             yearlyPrincipal = 0;
                             yearlyInterest = 0;
-                            yearlyBalance = 0;
                         }
                         yearlyPrincipal += newYearly[0][i];
                         yearlyInterest += newYearly[1][i];
-                        newYearly[2][i] -= yearlyBalance;
+                        yearlyBalance -= newYearly[0][i];
                         if (i == newYearly[0].length - 1 && i != 0) {
                             paymentsTableForYearly.year.setValue(someNumber);
                             paymentsTableForYearly.principal.setValue(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN));
                             paymentsTableForYearly.interest.setValue(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN));
-                            paymentsTableForYearly.balance.setValue(newYearly[2][i]);
+                            paymentsTableForYearly.balance.setValue(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN));
                             tableData.addAll(paymentsTableForYearly);
                             seriesMonthlyInterest.getData().add(new XYChart.Data(i - 12, yearlyInterest));
                             seriesNewPrincipal.getData().add(new XYChart.Data(i - 12, yearlyPrincipal));
-                            seriesForBalance.getData().add(new XYChart.Data(i - 12, newYearly[2][i]));
+                            seriesForBalance.getData().add(new XYChart.Data(i - 12, yearlyBalance));
                             seriesForInterest.getData().add(new XYChart.Data(i - 12, interestText));
                         }
 
                     }
                     break;
 
-                case "Quarterly":
-                    logger.info("Quarterly payments selected");
-                    paymentsAnnual.getItems().clear();
-                    seriesMonthlyInterest.getData().clear();
-                    double[][] quarterlyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 4.0);
-
-                    for (int i = 1; i < quarterlyOutput[0].length; i++) {
-                        PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(quarterlyOutput[0][i]);
-                        paymentsTable.principal.setValue(quarterlyOutput[1][i]);
-                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, quarterlyOutput[1][i]));
-                        tableData.add(paymentsTable);
-                    }
-
-                    break;
+//                case "Quarterly":
+//                    logger.info("Quarterly payments selected");
+//                    paymentsAnnual.getItems().clear();
+//                    seriesMonthlyInterest.getData().clear();
+//                    double[][] quarterlyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 4.0);
+//
+//                    for (int i = 1; i < quarterlyOutput[0].length; i++) {
+//                        PaymentsTable paymentsTable = new PaymentsTable();
+//                        paymentsTable.year.setValue(quarterlyOutput[0][i]);
+//                        paymentsTable.principal.setValue(quarterlyOutput[1][i]);
+//                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, quarterlyOutput[1][i]));
+//                        tableData.add(paymentsTable);
+//                    }
+//
+//                    break;
 
                 case "Weekly":
                     logger.info("Weekly payments selected");
@@ -428,50 +428,126 @@ public class Controller {
                     break;
 
                 case "Fortnightly":
+
                     logger.info("Fortnightly payments selected");
-                    paymentsAnnual.getItems().clear();
-                    seriesMonthlyInterest.getData().clear();
-                    double[][] fortnightlyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 26.0);
 
-                    for (int i = 1; i < fortnightlyOutput[0].length; i++) {
-                        PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(fortnightlyOutput[0][i]);
-                        paymentsTable.principal.setValue(fortnightlyOutput[1][i]);
-                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, fortnightlyOutput[1][i]));
-                        tableData.add(paymentsTable);
+                    primaryColumn.setText("Year");
+
+                    pieChartData.clear();
+
+                    paymentsAnnual.getItems().clear();
+
+                    seriesForBalance.getData().clear(); // clearing balance seriesMonthlyInterest table
+                    seriesForInterest.getData().clear(); // clearing interest seriesMonthlyInterest for table
+                    seriesMonthlyInterest.getData().clear();
+                    seriesNewPrincipal.getData().clear();
+                    seriesMonthlyInterest.setName("Interest");
+                    seriesNewPrincipal.setName("Principal");
+                    seriesForBalance.setName("Balance");
+                    seriesForInterest.setName("Annual interest");
+
+                    yearsTextMonth = yearsText * 52; // converting years to weeks
+                    monthsToWeeks = monthsText * 4; // converting months to weeks
+
+                    double yearsTextMonth1 = yearsText * 26;
+                    double monthsToWeeks1 = monthsText * 2;
+                    // monthly payments output
+                    double weeklyOutputForFortnightly = calculate.fixedRateMortgageFortnightly(loanAmountText, yearsTextMonth1 + monthsToWeeks1, interestText);
+                    // total interest paid
+                    BigDecimal bd2 = new BigDecimal((weeklyOutputForFortnightly * yearsTextMonth1 + monthsToWeeks1) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+
+                    // summary
+                    loanAmountLabel.setText(loanAmountString);
+                    yearsLabel.setText(yearsTextString);
+                    monthsLabel.setText(monthsTextString);
+                    monthlyPaymentsLabel.setText(String.valueOf(weeklyOutputForFortnightly));
+                    totalInterestLabel.setText(String.valueOf(bd2.doubleValue()));
+                    totalPaymentsLabel.setText(String.valueOf(bd2.doubleValue() + loanAmountText));
+
+                    // pie chart for principal and Interest
+                    pieChartData.add(new PieChart.Data("Principal", loanAmountText));
+                    pieChartData.add(new PieChart.Data("Interest", bd2.doubleValue()));
+
+                    double[][] weeklyChartFortnightly = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth + monthsToWeeks);
+
+                    double[][] newFortnightly = new double[5][(int) yearsTextMonth];
+                    newFortnightly[0][0] = weeklyChartFortnightly[2][0];
+                    newFortnightly[1][0] = weeklyChartFortnightly[1][0];
+                    newFortnightly[2][0] = weeklyChartFortnightly[3][0];
+                    for (int i = 1; i < yearsTextMonth; i++) {
+                        weeklyChartFortnightly = calculate.fixedRateMortgageWeeklyChart(weeklyChartFortnightly[3][0], interestText, yearsTextMonth + monthsToWeeks - i);
+                        newFortnightly[0][i] = weeklyChartFortnightly[2][0];
+                        newFortnightly[1][i] = weeklyChartFortnightly[1][0];
+                        newFortnightly[2][i] = weeklyChartFortnightly[3][0];
                     }
 
-                    break;
+                    int someNumber1 = 1;
 
-                case "Bi-Monthly":
-                    logger.info("Bi-Monthly payments selected");
-                    paymentsAnnual.getItems().clear();
-                    seriesMonthlyInterest.getData().clear();
-                    double[][] bimonthlyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 6.0);
+                    double yearlyPrincipal1 = 0.0;
+                    double yearlyInterest1 = 0.0;
+                    double yearlyBalance1 = loanAmountText;
+                    for (int i = 0; i < newFortnightly[0].length; i++) {
+                        PaymentsTable paymentsTableForYearly = new PaymentsTable();
+                        if (i % 2 == 0 && i != 0) {
+                            paymentsTableForYearly.year.setValue(someNumber1++);
+                            paymentsTableForYearly.principal.setValue(new BigDecimal(yearlyPrincipal1).setScale(2, RoundingMode.HALF_DOWN));
+                            paymentsTableForYearly.interest.setValue(new BigDecimal(yearlyInterest1).setScale(2, RoundingMode.HALF_DOWN));
+                            paymentsTableForYearly.balance.setValue(new BigDecimal(yearlyBalance1).setScale(2, RoundingMode.HALF_DOWN));
+                            tableData.addAll(paymentsTableForYearly);
+                            seriesMonthlyInterest.getData().add(new XYChart.Data(i - 2, yearlyInterest1));
+                            seriesNewPrincipal.getData().add(new XYChart.Data(i - 2, yearlyPrincipal1));
+                            seriesForBalance.getData().add(new XYChart.Data(i - 2, yearlyBalance1));
+                            seriesForInterest.getData().add(new XYChart.Data(i - 2, interestText));
+                            yearlyPrincipal1 = 0;
+                            yearlyInterest1 = 0;
+                        }
+                        yearlyPrincipal1 += newFortnightly[0][i];
+                        yearlyInterest1 += newFortnightly[1][i];
+                        yearlyBalance1 -= newFortnightly[0][i];
+                        if (i == newFortnightly[0].length - 1 && i != 0) {
+                            paymentsTableForYearly.year.setValue(someNumber1);
+                            paymentsTableForYearly.principal.setValue(new BigDecimal(yearlyPrincipal1).setScale(2, RoundingMode.HALF_DOWN));
+                            paymentsTableForYearly.interest.setValue(new BigDecimal(yearlyInterest1).setScale(2, RoundingMode.HALF_DOWN));
+                            paymentsTableForYearly.balance.setValue(new BigDecimal(yearlyBalance1).setScale(2, RoundingMode.HALF_DOWN));
+                            tableData.addAll(paymentsTableForYearly);
+                            seriesMonthlyInterest.getData().add(new XYChart.Data(i - 2, yearlyInterest1));
+                            seriesNewPrincipal.getData().add(new XYChart.Data(i - 2, yearlyPrincipal1));
+                            seriesForBalance.getData().add(new XYChart.Data(i - 2, yearlyBalance1));
+                            seriesForInterest.getData().add(new XYChart.Data(i - 2, interestText));
+                        }
 
-                    for (int i = 1; i < bimonthlyOutput[0].length; i++) {
-                        PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(bimonthlyOutput[0][i]);
-                        paymentsTable.principal.setValue(bimonthlyOutput[1][i]);
-                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, bimonthlyOutput[1][i]));
-                        tableData.add(paymentsTable);
                     }
                     break;
 
-                case "Daily":
-                    logger.info("Bi-Monthly payments selected");
-                    paymentsAnnual.getItems().clear();
-                    seriesMonthlyInterest.getData().clear();
-                    double[][] dailyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 365.0);
-
-                    for (int i = 1; i < dailyOutput[0].length; i++) {
-                        PaymentsTable paymentsTable = new PaymentsTable();
-                        paymentsTable.year.setValue(dailyOutput[0][i]);
-                        paymentsTable.principal.setValue(dailyOutput[1][i]);
-                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, dailyOutput[1][i]));
-                        tableData.add(paymentsTable);
-                    }
-                    break;
+//                case "Bi-Monthly":
+//                    logger.info("Bi-Monthly payments selected");
+//                    paymentsAnnual.getItems().clear();
+//                    seriesMonthlyInterest.getData().clear();
+//                    double[][] bimonthlyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 6.0);
+//
+//                    for (int i = 1; i < bimonthlyOutput[0].length; i++) {
+//                        PaymentsTable paymentsTable = new PaymentsTable();
+//                        paymentsTable.year.setValue(bimonthlyOutput[0][i]);
+//                        paymentsTable.principal.setValue(bimonthlyOutput[1][i]);
+//                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, bimonthlyOutput[1][i]));
+//                        tableData.add(paymentsTable);
+//                    }
+//                    break;
+//
+//                case "Daily":
+//                    logger.info("Bi-Monthly payments selected");
+//                    paymentsAnnual.getItems().clear();
+//                    seriesMonthlyInterest.getData().clear();
+//                    double[][] dailyOutput = calculate.compoundInterest(loanAmountText, interestText, yearsText, 365.0);
+//
+//                    for (int i = 1; i < dailyOutput[0].length; i++) {
+//                        PaymentsTable paymentsTable = new PaymentsTable();
+//                        paymentsTable.year.setValue(dailyOutput[0][i]);
+//                        paymentsTable.principal.setValue(dailyOutput[1][i]);
+//                        seriesMonthlyInterest.getData().add(new XYChart.Data(i, dailyOutput[1][i]));
+//                        tableData.add(paymentsTable);
+//                    }
+//                    break;
             }
         });
 
@@ -607,6 +683,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -629,6 +706,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -651,6 +729,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -673,6 +752,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -703,6 +783,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -725,6 +806,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -747,6 +829,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -769,6 +852,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -802,6 +886,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -824,6 +909,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -846,6 +932,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -868,6 +955,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            s.printStackTrace();
                                         }
                                         System.out.println("finished");
 
@@ -878,6 +966,110 @@ public class Controller {
                     };
                     Thread th12 = new Thread(task12);
                     th12.start();
+                    break;
+
+                case "Fortnightly":
+                    logger.info("Fortnightly web view selected");
+                    yearsTextMonth = yearsText * 52;
+                    monthsToWeeks = monthsText * 4;
+                    double fortnightlyOutput4 = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
+                    // total interest paid
+                    BigDecimal bd4 = new BigDecimal((fortnightlyOutput4 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer4 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(fortnightlyOutput4), String.valueOf(bd4.doubleValue()), String.valueOf(bd4.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+
+                    result = webViewer4.webReturnFortnightly();
+
+                    Task task13 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th13 = new Thread(task13);
+                    th13.start();
+                    // -------------------------
+                    Task task14 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th14 = new Thread(task14);
+                    th14.start();
+                    // -------------------------
+                    Task task15 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th15 = new Thread(task15);
+                    th15.start();
+                    // -------------------------
+                    Task task16 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th16 = new Thread(task16);
+                    th16.start();
                     break;
             }
 
