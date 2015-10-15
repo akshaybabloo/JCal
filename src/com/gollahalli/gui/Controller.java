@@ -967,6 +967,110 @@ public class Controller {
                     Thread th12 = new Thread(task12);
                     th12.start();
                     break;
+
+                case "Fortnightly":
+                    logger.info("Fortnightly web view selected");
+                    yearsTextMonth = yearsText * 52;
+                    monthsToWeeks = monthsText * 4;
+                    double fortnightlyOutput4 = calculate.fixedRateMortgageWeekly(loanAmountText, yearsTextMonth + monthsToWeeks, interestText);
+                    // total interest paid
+                    BigDecimal bd4 = new BigDecimal((fortnightlyOutput4 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+                    WebViewer webViewer4 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(fortnightlyOutput4), String.valueOf(bd4.doubleValue()), String.valueOf(bd4.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
+
+                    result = webViewer4.webReturnFortnightly();
+
+                    Task task13 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph1.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th13 = new Thread(task13);
+                    th13.start();
+                    // -------------------------
+                    Task task14 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph2.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th14 = new Thread(task14);
+                    th14.start();
+                    // -------------------------
+                    Task task15 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("graph3.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th15 = new Thread(task15);
+                    th15.start();
+                    // -------------------------
+                    Task task16 = new Task<Void>() {
+                        @Override
+                        public Void call() {
+                            Platform.runLater(
+                                    () -> {
+                                        try {
+                                            WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
+                                            File file = new File("pie.png");
+
+                                            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+                                        } catch (Exception s) {
+                                            s.printStackTrace();
+                                        }
+                                        System.out.println("finished");
+
+                                    });
+
+                            return null;
+                        }
+                    };
+                    Thread th16 = new Thread(task16);
+                    th16.start();
+                    break;
             }
 
             Stage stage = new Stage();

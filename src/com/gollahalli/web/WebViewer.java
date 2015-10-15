@@ -415,7 +415,6 @@ public class WebViewer {
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
-//                yearlyBalance = 0;
             }
             yearlyPrincipal += newYearly[0][i];
             yearlyInterest += newYearly[1][i];
@@ -821,6 +820,247 @@ public class WebViewer {
                 "        <div class=\"container\">\n" +
                 "            <div class=\"navbar-text pull-left\">\n" +
                 "                &copy; 2015 " + property[0]+ ". Contact person: "+ property[1]+", Address: "+ property[2] +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>" +
+                "</body>\n" +
+                "</html>";
+    }
+
+    public String webReturnFortnightly(){
+        Calculate calculate = new Calculate();
+
+        double yearsTextMonth1 = yearsTextMonth  / 2;
+        // monthly payments output
+        double weeklyOutputForFortnightly = calculate.fixedRateMortgageFortnightly(loanAmountText, yearsTextMonth1, interestText);
+        // total interest paid
+        BigDecimal bd2 = new BigDecimal((weeklyOutputForFortnightly * yearsTextMonth1) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
+        System.out.println(weeklyOutputForFortnightly);
+        System.out.println(bd2);
+
+
+
+
+        double[][] monthlyChartYearly = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
+
+        String[] property = propertyReader();
+
+        double[][] newFortnightly = new double[5][(int) yearsTextMonth];
+        newFortnightly[0][0] = monthlyChartYearly[2][0];
+        newFortnightly[1][0] = monthlyChartYearly[1][0];
+        newFortnightly[2][0] = monthlyChartYearly[3][0];
+        for (int i = 1; i < yearsTextMonth; i++) {
+            monthlyChartYearly = calculate.fixedRateMortgageWeeklyChart(monthlyChartYearly[3][0], interestText, yearsTextMonth - i);
+            newFortnightly[0][i] = monthlyChartYearly[2][0];
+            newFortnightly[1][i] = monthlyChartYearly[1][0];
+            newFortnightly[2][i] = monthlyChartYearly[3][0];
+        }
+
+        String html = "";
+        int someNumber = 1;
+
+        double yearlyPrincipal = 0.0;
+        double yearlyInterest = 0.0;
+        double yearlyBalance = loanAmountText;
+        for (int i = 0; i < newFortnightly[0].length; i++) {
+            if (i % 2 == 0 && i != 0) {
+                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                        "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
+                yearlyPrincipal = 0;
+                yearlyInterest = 0;
+            }
+            yearlyPrincipal += newFortnightly[0][i];
+            yearlyInterest += newFortnightly[1][i];
+            yearlyBalance -= newFortnightly[0][i];
+            if (i == newFortnightly[0].length - 1 && i != 0) {
+                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                        "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
+
+            }
+
+        }
+
+
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"utf-8\">\n" +
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "    <title></title>\n" +
+                "    <link rel=\"stylesheet\" href=\"https://bootswatch.com/flatly/bootstrap.min.css\">\n" +
+                "\n" +
+                "<style>" +
+                ".invoice-title h2, .invoice-title h3 {\n" +
+                "    display: inline-block;\n" +
+                "}\n" +
+                "\n" +
+                ".table > tbody > tr > .no-line {\n" +
+                "    border-top: none;\n" +
+                "}\n" +
+                "\n" +
+                ".table > thead > tr > .no-line {\n" +
+                "    border-bottom: none;\n" +
+                "}\n" +
+                "\n" +
+                ".table > tbody > tr > .thick-line {\n" +
+                "    border-top: 2px solid;\n" +
+                "}" +
+                ".navbar-default{\n" +
+                "    background-color: #ECF0F1;\n" +
+                "}" +
+                "@media print {\n" +
+                "        .navbar {\n" +
+                "            display: block;\n" +
+                "            border-width:0 !important;\n" +
+                "        }\n" +
+                "        .navbar-toggle {\n" +
+                "            display:none;\n" +
+                "        }\n" +
+                "    }" +
+                "</style>" +
+                "\n" +
+                "    <!-- Latest compiled and minified JavaScript -->\n" +
+                "    <script src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<div class=\"container\">\n" +
+                "    <div class=\"row\">\n" +
+                "        <div class=\"col-xs-12\">\n" +
+                "            <div class=\"invoice-title\">\n" +
+                "                <h2>"+WordUtils.capitalize(property[0])+"</h2>\n" +
+                "\n" +
+//                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
+                "            </div>\n" +
+                "            <hr>\n" +
+                "            <div class=\"row\">\n" +
+                "                <div class=\"col-xs-6\">\n" +
+                "                    <address>\n" +
+                "                        <strong>To:</strong><br>\n" +
+                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
+                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
+                "                    </address>\n" +
+                "                </div>\n" +
+                "                <div class=\"col-xs-6 text-right\">\n" +
+                "                    <address>\n" +
+                "                        <strong>Data:</strong><br>\n" +
+                "                        "+general.getDate()+"\n" +
+                "                    </address>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "\n" +
+                "    <div class=\"row\">\n" +
+                "        <div class=\"col-xs-6\">\n" +
+                "            <div class=\"panel panel-default\">\n" +
+                "                <div class=\"panel-heading\">\n" +
+                "                    <h3 class=\"panel-title\"><strong>Summary</strong></h3>\n" +
+                "                </div>\n" +
+                "                <div class=\"panel-body\">\n" +
+                "                    <div class=\"table-responsive\">\n" +
+                "                        <table class=\"table table-condensed table-bordered\">\n" +
+                "                            <!--<thead>-->\n" +
+                "                            <tbody>\n" +
+                "                            <tr>\n" +
+                "                                <th><strong>Loan Amount</strong></th>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
+                "                            </tr>\n" +
+                "                            <!--</thead>-->\n" +
+                "                            <!--<tbody>-->\n" +
+                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
+                "                            <tr>\n" +
+                "                                <th>Years</th>\n" +
+                "                                <td class=\"text-center\">"+ years +"</td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>Months</th>\n" +
+                "                                <td class=\"text-center\">"+ months +"</td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>Monthly payments</th>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(weeklyOutputForFortnightly)) +"</td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>Total interest</th>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(bd2.doubleValue())) +"</td>\n" +
+                "                            </tr>\n" +
+                "                            <tr>\n" +
+                "                                <th>Total payments</th>\n" +
+                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)) +"</td>\n" +
+                "                            </tr>\n" +
+                "                            </tbody>\n" +
+                "                        </table>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+//                "        <div class=\"col-xs-6\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-heading\">\n" +
+//                "                    <h3 class=\"panel-title\"><strong>Pie chart</strong></h3>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    <img src=\"/Users/akshayrajgollahalli/Box Sync/MyDrive/Projects/Gollahalli GitHub/JCal/src/resource/JCal-logo.png\">\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"row\">\n" +
+                "        <div class=\"col-md-12\">\n" +
+                "            <div class=\"panel panel-default\">\n" +
+                "                <div class=\"panel-heading\">\n" +
+                "                    <h3 class=\"panel-title\"><strong>Order summary</strong></h3>\n" +
+                "                </div>\n" +
+                "                <div class=\"panel-body\">\n" +
+                "                    <div class=\"table-responsive\">\n" +
+                "                        <table class=\"table table-condensed table-bordered\">\n" +
+                "                            <thead>\n" +
+                "                            <tr>\n" +
+                "                                <td><strong>Year</strong></td>\n" +
+                "                                <td class=\"text-center\"><strong>Principal</strong></td>\n" +
+                "                                <td class=\"text-center\"><strong>Interest</strong></td>\n" +
+                "                                <td class=\"text-right\"><strong>Balance</strong></td>\n" +
+                "                            </tr>\n" +
+                "                            </thead>\n" +
+                "                            <tbody>\n" +
+                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
+                html +
+                "                            </tbody>\n" +
+                "                        </table>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "        <div class=\"col-xs-4\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    Basic panel example\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>\n" +
+                "</div>\n" +
+                "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
+                "        <div class=\"container\">\n" +
+                "            <div class=\"navbar-text pull-left\">\n" +
+                "                &copy; 2015 " + WordUtils.capitalize(property[0])+ ". Contact person: "+ WordUtils.capitalize(property[1])+", Address: "+ WordUtils.capitalize(property[2]) +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>" +
