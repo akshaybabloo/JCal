@@ -622,7 +622,6 @@ public class WebViewer {
         String[] property = propertyReader();
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
-        System.out.println(yearsTextMonth);
 
         double[][] newYearly = new double[5][(int) yearsTextMonth];
         newYearly[0][0] = monthlyChartYearly[2][0];
