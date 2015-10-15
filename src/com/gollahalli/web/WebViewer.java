@@ -68,15 +68,15 @@ public class WebViewer {
     }
 
     /**
-     * @param loanAmountText    Loan amount
-     * @param interestText  Interest rate
-     * @param yearsTextMonth    Years in months
-     * @param loanAmount    Loan amount
-     * @param years         Years
-     * @param months        Months
-     * @param monthlyPayments   monthly payments
-     * @param totalInterest     Total interests
-     * @param totalPayments     Total payments
+     * @param loanAmountText  Loan amount
+     * @param interestText    Interest rate
+     * @param yearsTextMonth  Years in months
+     * @param loanAmount      Loan amount
+     * @param years           Years
+     * @param months          Months
+     * @param monthlyPayments monthly payments
+     * @param totalInterest   Total interests
+     * @param totalPayments   Total payments
      */
     public WebViewer(double loanAmountText, double interestText, double yearsTextMonth, String loanAmount, String years, String months, String monthlyPayments, String totalInterest, String totalPayments) {
         this.loanAmountText = loanAmountText;
@@ -106,9 +106,9 @@ public class WebViewer {
     }
 
     /**
-     * @param aDouble   Input number to be converted
+     * @param aDouble       Input number to be converted
      * @param currentLocale Local builder
-     * @return  String
+     * @return String
      */
     static String displayCurrency(Double aDouble, Locale currentLocale) {
         NumberFormat currencyFormatter = NumberFormat
@@ -119,7 +119,7 @@ public class WebViewer {
 
     /**
      * @param string Takes in a string number and converts it into Double
-     * @return  String Returns string eg: $1,123,123.00
+     * @return String Returns string eg: $1,123,123.00
      */
     static String currencyMaker(String string) {
         double convertMe = Double.parseDouble(string);
@@ -133,7 +133,7 @@ public class WebViewer {
         return temp;
     }
 
-    static String[] propertyReader(){
+    static String[] propertyReader() {
         String[] result = new String[5];
         result[0] = "";
         result[1] = "";
@@ -150,9 +150,8 @@ public class WebViewer {
     }
 
     /**
-     *
      * To use this, do the following
-     *<pre>
+     * <pre>
      * {@code
      *     WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText));
      *     String test = webViewer.webReturnMonthly();
@@ -161,7 +160,7 @@ public class WebViewer {
      *
      * @return Monthly HTML code
      */
-    public String webReturnMonthly(){
+    public String webReturnMonthly() {
         Calculate calculate = new Calculate();
 
         String[] property = propertyReader();
@@ -183,7 +182,7 @@ public class WebViewer {
         int someNum = 1;
 
         for (int i = 0; i < yearsTextMonth; i++) {
-            html += "<tr><td>"+ String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+            html += "<tr><td>" + String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
 
         return "<!DOCTYPE html>\n" +
@@ -233,7 +232,7 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>"+ WordUtils.capitalize(property[0])+"</h2>\n" +
+                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
                 "\n" +
 //                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
@@ -242,14 +241,14 @@ public class WebViewer {
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
-                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
+                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
+                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        "+general.getDate()+"\n" +
+                "                        " + general.getDate() + "\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -269,30 +268,30 @@ public class WebViewer {
                 "                            <tbody>\n" +
                 "                            <tr>\n" +
                 "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <!--</thead>-->\n" +
                 "                            <!--<tbody>-->\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
                 "                            <tr>\n" +
                 "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">"+ years +"</td>\n" +
+                "                                <td class=\"text-center\">" + years + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">"+ months +"</td>\n" +
+                "                                <td class=\"text-center\">" + months + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(monthlyPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(monthlyPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalInterest) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalInterest) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -365,7 +364,7 @@ public class WebViewer {
                 "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
                 "        <div class=\"container\">\n" +
                 "            <div class=\"navbar-text pull-left\">\n" +
-                "                &copy; 2015 " + property[0]+ ". Contact person: "+ property[1]+", Address: "+ property[2] +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "                &copy; 2015 " + property[0] + ". Contact person: " + property[1] + ", Address: " + property[2] + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>" +
@@ -374,7 +373,6 @@ public class WebViewer {
     }
 
     /**
-     *
      * To use this, do the following
      * <pre>
      *  {@code
@@ -385,7 +383,7 @@ public class WebViewer {
      *
      * @return String of HTML
      */
-    public String webReturnYearly(){
+    public String webReturnYearly() {
         Calculate calculate = new Calculate();
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(loanAmountText, interestText, yearsTextMonth);
@@ -411,7 +409,7 @@ public class WebViewer {
         double yearlyBalance = loanAmountText;
         for (int i = 0; i < newYearly[0].length; i++) {
             if (i % 12 == 0 && i != 0) {
-                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
@@ -420,8 +418,8 @@ public class WebViewer {
             yearlyInterest += newYearly[1][i];
             yearlyBalance -= newYearly[0][i];
             if (i == newYearly[0].length - 1 && i != 0) {
-                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
-                "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
+                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                        "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
 
             }
 
@@ -475,7 +473,7 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>"+WordUtils.capitalize(property[0])+"</h2>\n" +
+                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
                 "\n" +
 //                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
@@ -484,14 +482,14 @@ public class WebViewer {
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
-                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
+                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
+                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        "+general.getDate()+"\n" +
+                "                        " + general.getDate() + "\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -511,30 +509,30 @@ public class WebViewer {
                 "                            <tbody>\n" +
                 "                            <tr>\n" +
                 "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <!--</thead>-->\n" +
                 "                            <!--<tbody>-->\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
                 "                            <tr>\n" +
                 "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">"+ years +"</td>\n" +
+                "                                <td class=\"text-center\">" + years + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">"+ months +"</td>\n" +
+                "                                <td class=\"text-center\">" + months + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(monthlyPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(monthlyPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalInterest) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalInterest) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -607,7 +605,7 @@ public class WebViewer {
                 "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
                 "        <div class=\"container\">\n" +
                 "            <div class=\"navbar-text pull-left\">\n" +
-                "                &copy; 2015 " + WordUtils.capitalize(property[0])+ ". Contact person: "+ WordUtils.capitalize(property[1])+", Address: "+ WordUtils.capitalize(property[2]) +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "                &copy; 2015 " + WordUtils.capitalize(property[0]) + ". Contact person: " + WordUtils.capitalize(property[1]) + ", Address: " + WordUtils.capitalize(property[2]) + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>" +
@@ -615,7 +613,7 @@ public class WebViewer {
                 "</html>";
     }
 
-    public String webReturnWeekly(){
+    public String webReturnWeekly() {
         Calculate calculate = new Calculate();
 
         String[] property = propertyReader();
@@ -637,7 +635,7 @@ public class WebViewer {
         int someNum = 1;
 
         for (int i = 0; i < yearsTextMonth; i++) {
-            html += "<tr><td>"+ String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+            html += "<tr><td>" + String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
 
         return "<!DOCTYPE html>\n" +
@@ -687,7 +685,7 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>"+ WordUtils.capitalize(property[0])+"</h2>\n" +
+                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
                 "\n" +
 //                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
@@ -696,14 +694,14 @@ public class WebViewer {
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
-                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
+                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
+                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        "+general.getDate()+"\n" +
+                "                        " + general.getDate() + "\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -723,30 +721,30 @@ public class WebViewer {
                 "                            <tbody>\n" +
                 "                            <tr>\n" +
                 "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <!--</thead>-->\n" +
                 "                            <!--<tbody>-->\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
                 "                            <tr>\n" +
                 "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">"+ years +"</td>\n" +
+                "                                <td class=\"text-center\">" + years + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">"+ months +"</td>\n" +
+                "                                <td class=\"text-center\">" + months + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(monthlyPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(monthlyPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalInterest) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalInterest) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(totalPayments) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(totalPayments) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -819,7 +817,7 @@ public class WebViewer {
                 "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
                 "        <div class=\"container\">\n" +
                 "            <div class=\"navbar-text pull-left\">\n" +
-                "                &copy; 2015 " + property[0]+ ". Contact person: "+ property[1]+", Address: "+ property[2] +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "                &copy; 2015 " + property[0] + ". Contact person: " + property[1] + ", Address: " + property[2] + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>" +
@@ -827,18 +825,16 @@ public class WebViewer {
                 "</html>";
     }
 
-    public String webReturnFortnightly(){
+    public String webReturnFortnightly() {
         Calculate calculate = new Calculate();
 
-        double yearsTextMonth1 = yearsTextMonth  / 2;
+        double yearsTextMonth1 = yearsTextMonth / 2;
         // monthly payments output
         double weeklyOutputForFortnightly = calculate.fixedRateMortgageFortnightly(loanAmountText, yearsTextMonth1, interestText);
         // total interest paid
         BigDecimal bd2 = new BigDecimal((weeklyOutputForFortnightly * yearsTextMonth1) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
         System.out.println(weeklyOutputForFortnightly);
         System.out.println(bd2);
-
-
 
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageWeeklyChart(loanAmountText, interestText, yearsTextMonth);
@@ -864,7 +860,7 @@ public class WebViewer {
         double yearlyBalance = loanAmountText;
         for (int i = 0; i < newFortnightly[0].length; i++) {
             if (i % 2 == 0 && i != 0) {
-                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
@@ -873,7 +869,7 @@ public class WebViewer {
             yearlyInterest += newFortnightly[1][i];
             yearlyBalance -= newFortnightly[0][i];
             if (i == newFortnightly[0].length - 1 && i != 0) {
-                html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
 
             }
@@ -928,7 +924,7 @@ public class WebViewer {
                 "    <div class=\"row\">\n" +
                 "        <div class=\"col-xs-12\">\n" +
                 "            <div class=\"invoice-title\">\n" +
-                "                <h2>"+WordUtils.capitalize(property[0])+"</h2>\n" +
+                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
                 "\n" +
 //                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
                 "            </div>\n" +
@@ -937,14 +933,14 @@ public class WebViewer {
                 "                <div class=\"col-xs-6\">\n" +
                 "                    <address>\n" +
                 "                        <strong>To:</strong><br>\n" +
-                "                        "+WordUtils.capitalize(this.custName)+"<br>\n" +
-                "                        "+WordUtils.capitalize(this.custAddress)+"<br>\n" +
+                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
+                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "                <div class=\"col-xs-6 text-right\">\n" +
                 "                    <address>\n" +
                 "                        <strong>Data:</strong><br>\n" +
-                "                        "+general.getDate()+"\n" +
+                "                        " + general.getDate() + "\n" +
                 "                    </address>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -964,30 +960,30 @@ public class WebViewer {
                 "                            <tbody>\n" +
                 "                            <tr>\n" +
                 "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(loanAmount) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <!--</thead>-->\n" +
                 "                            <!--<tbody>-->\n" +
                 "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
                 "                            <tr>\n" +
                 "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">"+ years +"</td>\n" +
+                "                                <td class=\"text-center\">" + years + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">"+ months +"</td>\n" +
+                "                                <td class=\"text-center\">" + months + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(weeklyOutputForFortnightly)) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(String.valueOf(weeklyOutputForFortnightly)) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(bd2.doubleValue())) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(String.valueOf(bd2.doubleValue())) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            <tr>\n" +
                 "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">"+ currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)) +"</td>\n" +
+                "                                <td class=\"text-center\">" + currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)) + "</td>\n" +
                 "                            </tr>\n" +
                 "                            </tbody>\n" +
                 "                        </table>\n" +
@@ -1060,7 +1056,7 @@ public class WebViewer {
                 "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
                 "        <div class=\"container\">\n" +
                 "            <div class=\"navbar-text pull-left\">\n" +
-                "                &copy; 2015 " + WordUtils.capitalize(property[0])+ ". Contact person: "+ WordUtils.capitalize(property[1])+", Address: "+ WordUtils.capitalize(property[2]) +" and Contact number: "+ property[3]+"\n" +" Fax: "+ property[4]+
+                "                &copy; 2015 " + WordUtils.capitalize(property[0]) + ". Contact person: " + WordUtils.capitalize(property[1]) + ", Address: " + WordUtils.capitalize(property[2]) + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>" +
