@@ -408,21 +408,21 @@ public class WebViewer {
 
         double yearlyPrincipal = 0.0;
         double yearlyInterest = 0.0;
-        double yearlyBalance = 0.0;
+        double yearlyBalance = loanAmountText;
         for (int i = 0; i < newYearly[0].length; i++) {
             if (i % 12 == 0 && i != 0) {
                 html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
-                        "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+                        "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
-                yearlyBalance = 0;
+//                yearlyBalance = 0;
             }
             yearlyPrincipal += newYearly[0][i];
             yearlyInterest += newYearly[1][i];
-            newYearly[2][i] -= yearlyBalance;
+            yearlyBalance -= newYearly[0][i];
             if (i == newYearly[0].length - 1 && i != 0) {
                 html += "<tr><td>"+ String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
-                "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+                "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
 
             }
 
