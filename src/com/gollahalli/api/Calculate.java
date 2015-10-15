@@ -240,35 +240,4 @@ public class Calculate {
 
         return total;
     }
-
-    public double[][] fixedRateMortgageFortnightlyChart(double principal, double interest, double term){
-
-        double[][] total = new double[5][30];
-        Calculate calculate = new Calculate();
-        BigDecimal bd;
-        BigDecimal bd1;
-        BigDecimal bd2;
-        BigDecimal bd3;
-        BigDecimal bd4;
-        for (int i = 0; i < 1; i++) {
-            double interest1 = interest/100;
-            bd = new BigDecimal(interest1/26).setScale(5, RoundingMode.HALF_DOWN);
-            total[4][i] = bd.doubleValue();
-
-            bd1 = new BigDecimal(interest/100).setScale(2, RoundingMode.HALF_DOWN);
-            total[0][i] = bd1.doubleValue();
-
-            bd2 = new BigDecimal((total[0][i]/26)*principal).setScale(2, RoundingMode.HALF_DOWN);
-            total[1][i]= bd2.doubleValue();
-
-            bd3 = new BigDecimal(calculate.fixedRateMortgageWeekly(principal, term, interest) - total[1][i]).setScale(2, RoundingMode.HALF_DOWN);
-            total[2][i] = bd3.doubleValue();
-
-            bd4 = new BigDecimal(principal - total[2][i]).setScale(2, RoundingMode.HALF_DOWN);
-            total[3][i] = bd4.doubleValue();
-        }
-
-        return total;
-    }
-
 }
