@@ -118,7 +118,7 @@
                             <h3 class="panel-title"><strong>Pie chart</strong></h3>
                         </div>
                         <div class="panel-body">
-                            <img src="Pie.png">
+                            <img class="img-responsive" src="Pie.png">
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                             <h3 class="panel-title"><strong>Interest and Principal</strong></h3>
                         </div>
                         <div class="panel-body">
-                            <img src="InterestAndPrincipal.png">
+                            <img class="img-responsive" src="InterestAndPrincipal.png">
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                             <h3 class="panel-title"><strong>Balance</strong></h3>
                         </div>
                         <div class="panel-body">
-                            <img src="Balance.png">
+                            <img class="img-responsive" src="Balance.png">
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
                             <h3 class="panel-title"><strong>Annual Interest</strong></h3>
                         </div>
                         <div class="panel-body">
-                            <img src="Interest.png">
+                            <img class="img-responsive" src="Interest.png">
                         </div>
                     </div>
                 </div>
