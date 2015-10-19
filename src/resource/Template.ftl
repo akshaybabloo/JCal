@@ -118,7 +118,7 @@
                             <h3 class="panel-title"><strong>Pie chart</strong></h3>
                         </div>
                         <div class="panel-body">
-                            <img src="/Users/akshayrajgollahalli/Box Sync/MyDrive/Projects/Gollahalli GitHub/JCal/src/resource/JCal-logo.png">
+                            <img src="Pie.png">
                         </div>
                     </div>
                 </div>
@@ -152,22 +152,31 @@
             <div class="row">
                 <div class="col-xs-4">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Interest and Principal</strong></h3>
+                        </div>
                         <div class="panel-body">
-                            Interest and Principal
+                            <img src="InterestAndPrincipal.png">
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-4">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Balance</strong></h3>
+                        </div>
                         <div class="panel-body">
-                            Balance
+                            <img src="Balance.png">
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-4">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Annual Interest</strong></h3>
+                        </div>
                         <div class="panel-body">
-                            Annual Interest
+                            <img src="Interest.png">
                         </div>
                     </div>
                 </div>
