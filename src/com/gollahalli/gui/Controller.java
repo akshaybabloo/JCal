@@ -679,7 +679,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph1.png");
+                                            File file = new File("InterestAndPrincipal.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -702,7 +702,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph2.png");
+                                            File file = new File("Balance.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -725,7 +725,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph3.png");
+                                            File file = new File("Interest.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -748,7 +748,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("pie.png");
+                                            File file = new File("Pie.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -779,7 +779,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph1.png");
+                                            File file = new File("InterestAndPrincipal.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -802,7 +802,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph2.png");
+                                            File file = new File("Balance.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -825,7 +825,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph3.png");
+                                            File file = new File("Interest.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -848,7 +848,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("pie.png");
+                                            File file = new File("Pie.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -882,7 +882,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph1.png");
+                                            File file = new File("InterestAndPrincipal.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -905,7 +905,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph2.png");
+                                            File file = new File("Balance.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -928,7 +928,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph3.png");
+                                            File file = new File("Interest.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -951,7 +951,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("pie.png");
+                                            File file = new File("Pie.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -986,7 +986,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph1.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph1.png");
+                                            File file = new File("InterestAndPrincipal.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -1009,7 +1009,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph2.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph2.png");
+                                            File file = new File("Balance.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -1032,7 +1032,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = graph3.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("graph3.png");
+                                            File file = new File("Interest.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -1055,7 +1055,7 @@ public class Controller {
                                     () -> {
                                         try {
                                             WritableImage wim = pieChart.snapshot(new SnapshotParameters(), null);
-                                            File file = new File("pie.png");
+                                            File file = new File("Pie.png");
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
@@ -1093,8 +1093,6 @@ public class Controller {
             WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
-//            webEngine.loadContent(result);
-//            webEngine.load(getClass().getResource("temp.html").toExternalForm());
             File file = new File("temp.html");
             webEngine.load(file.toURI().toString());
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
