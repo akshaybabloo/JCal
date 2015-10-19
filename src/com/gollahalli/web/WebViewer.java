@@ -20,6 +20,7 @@ package com.gollahalli.web;
 
 import com.gollahalli.api.Calculate;
 import com.gollahalli.api.General;
+import com.gollahalli.api.TemplateMaker;
 import com.gollahalli.properties.PropertiesReader;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -184,6 +185,11 @@ public class WebViewer {
         for (int i = 0; i < yearsTextMonth; i++) {
             html += "<tr><td>" + String.valueOf(someNum++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
+
+        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+                general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -425,6 +431,11 @@ public class WebViewer {
 
         }
 
+        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+                general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
+
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -637,6 +648,11 @@ public class WebViewer {
         for (int i = 0; i < yearsTextMonth; i++) {
             html += "<tr><td>" + String.valueOf(someNum++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
+
+        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+                general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -875,6 +891,11 @@ public class WebViewer {
             }
 
         }
+
+        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+                general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(String.valueOf(weeklyOutputForFortnightly)),
+                currencyMaker(String.valueOf(bd2.doubleValue())), currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)), "type of time", html, "year",
+                WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
 
         return "<!DOCTYPE html>\n" +
