@@ -27,13 +27,12 @@ public class TemplateMaker {
     String typeOfTime;
     String data;
     String year;
-    String custName;
     String contactName;
     String contactAddress;
     String contactNumber;
     String faxNumber;
 
-    public TemplateMaker(String companyName, String custFullName, String custAddress, String currentDate, String loanAmount, String years, String months, String typeOfPayments, String payments, String totalInterest, String totalPayments, String typeOfTime, String data, String year, String custName, String contactName, String contactAddress, String contactNumber, String faxNumber) {
+    public TemplateMaker(String companyName, String custFullName, String custAddress, String currentDate, String loanAmount, String years, String months, String typeOfPayments, String payments, String totalInterest, String totalPayments, String typeOfTime, String data, String year, String contactName, String contactAddress, String contactNumber, String faxNumber) {
         this.companyName = companyName;
         this.custFullName = custFullName;
         this.custAddress = custAddress;
@@ -48,14 +47,11 @@ public class TemplateMaker {
         this.typeOfTime = typeOfTime;
         this.data = data;
         this.year = year;
-        this.custName = custName;
         this.contactName = contactName;
         this.contactAddress = contactAddress;
         this.contactNumber = contactNumber;
         this.faxNumber = faxNumber;
-    }
 
-    public void templateMaker(){
         Configuration cfg = new Configuration();
 
         try {
@@ -80,10 +76,6 @@ public class TemplateMaker {
             data1.put("contactAddress", contactAddress);
             data1.put("contactNumber", contactNumber);
             data1.put("faxNumber", faxNumber);
-
-            Writer out = new OutputStreamWriter(System.out);
-            template.process(data1, out);
-            out.flush();
 
             Writer file = new FileWriter(new File("temp.html"));
             template.process(data1,file);
