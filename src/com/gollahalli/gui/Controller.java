@@ -685,8 +685,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -708,8 +706,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -731,8 +727,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -754,8 +748,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -785,8 +777,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -808,8 +798,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -831,8 +819,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -854,8 +840,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -888,8 +872,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -911,8 +893,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -934,8 +914,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -957,8 +935,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -992,8 +968,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -1015,8 +989,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -1038,8 +1010,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
@@ -1061,8 +1031,6 @@ public class Controller {
                                         } catch (Exception s) {
                                             s.printStackTrace();
                                         }
-                                        System.out.println("finished");
-
                                     });
 
                             return null;
