@@ -182,7 +182,7 @@ public class WebViewer {
         int someNum = 1;
 
         for (int i = 0; i < yearsTextMonth; i++) {
-            html += "<tr><td>" + String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+            html += "<tr><td>" + String.valueOf(someNum++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
 
         return "<!DOCTYPE html>\n" +
@@ -409,7 +409,7 @@ public class WebViewer {
         double yearlyBalance = loanAmountText;
         for (int i = 0; i < newYearly[0].length; i++) {
             if (i % 12 == 0 && i != 0) {
-                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
@@ -418,7 +418,7 @@ public class WebViewer {
             yearlyInterest += newYearly[1][i];
             yearlyBalance -= newYearly[0][i];
             if (i == newYearly[0].length - 1 && i != 0) {
-                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
 
             }
@@ -635,7 +635,7 @@ public class WebViewer {
         int someNum = 1;
 
         for (int i = 0; i < yearsTextMonth; i++) {
-            html += "<tr><td>" + String.valueOf(someNum++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
+            html += "<tr><td>" + String.valueOf(someNum++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[0][i])) + "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(newYearly[1][i])) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(newYearly[2][i])) + "</td></tr>";
         }
 
         return "<!DOCTYPE html>\n" +
@@ -860,7 +860,7 @@ public class WebViewer {
         double yearlyBalance = loanAmountText;
         for (int i = 0; i < newFortnightly[0].length; i++) {
             if (i % 2 == 0 && i != 0) {
-                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
                 yearlyPrincipal = 0;
                 yearlyInterest = 0;
@@ -869,7 +869,7 @@ public class WebViewer {
             yearlyInterest += newFortnightly[1][i];
             yearlyBalance -= newFortnightly[0][i];
             if (i == newFortnightly[0].length - 1 && i != 0) {
-                html += "<tr><td>" + String.valueOf(someNumber++) + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
+                html += "<tr><td>" + String.valueOf(someNumber++)+ "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyPrincipal).setScale(2, RoundingMode.HALF_DOWN))) +
                         "</td>" + "<td class=\"text-center\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyInterest).setScale(2, RoundingMode.HALF_DOWN))) + "</td>" + "<td class=\"text-right\">" + currencyMaker(String.valueOf(new BigDecimal(yearlyBalance).setScale(2, RoundingMode.HALF_DOWN))) + "</td></tr>";
 
             }
