@@ -1093,8 +1093,10 @@ public class Controller {
             WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
             final WebEngine webEngine = browser.getEngine();
-            webEngine.loadContent(result);
-
+//            webEngine.loadContent(result);
+//            webEngine.load(getClass().getResource("temp.html").toExternalForm());
+            File file = new File("temp.html");
+            webEngine.load(file.toURI().toString());
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
         });
 
