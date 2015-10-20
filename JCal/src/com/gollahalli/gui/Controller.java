@@ -763,7 +763,7 @@ public class Controller {
                     // total interest paid
                     BigDecimal bd2 = new BigDecimal((monthlyOutput2 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
                     WebViewer webViewer2 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput2), String.valueOf(bd2.doubleValue()), String.valueOf(bd2.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
-                    result = webViewer2.webReturnMonthly();
+                    webViewer2.webReturnMonthly();
 
                     Task task5 = new Task<Void>() {
                         @Override
@@ -858,7 +858,7 @@ public class Controller {
                     BigDecimal bd3 = new BigDecimal((monthlyOutput3 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
                     WebViewer webViewer3 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput3), String.valueOf(bd3.doubleValue()), String.valueOf(bd3.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
 
-                    result = webViewer3.webReturnWeekly();
+                    webViewer3.webReturnWeekly();
 
                     Task task9 = new Task<Void>() {
                         @Override
@@ -954,7 +954,7 @@ public class Controller {
                     BigDecimal bd4 = new BigDecimal((fortnightlyOutput4 * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
                     WebViewer webViewer4 = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsToWeeks, loanAmountString, yearsTextString, monthsTextString, String.valueOf(fortnightlyOutput4), String.valueOf(bd4.doubleValue()), String.valueOf(bd4.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
 
-                    result = webViewer4.webReturnFortnightly();
+                    webViewer4.webReturnFortnightly();
 
                     Task task13 = new Task<Void>() {
                         @Override
