@@ -10,6 +10,7 @@
     <target name="bundle-jcal">
       <mkdir dir="lib"/>
         <bundleapp outputdirectory="dist"
+            icon="builder/JCal-logo.icns"
             name="JCal"
             displayname="JCal"
             identifier="com.gollahalli.main.App"
