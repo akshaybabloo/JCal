@@ -671,7 +671,8 @@ public class Controller {
                     BigDecimal bd = new BigDecimal((monthlyOutput * yearsTextMonth) - loanAmountText).setScale(2, RoundingMode.HALF_DOWN);
                     WebViewer webViewer = new WebViewer(loanAmountText, interestText, yearsTextMonth + monthsText, loanAmountString, yearsTextString, monthsTextString, String.valueOf(monthlyOutput), String.valueOf(bd.doubleValue()), String.valueOf(bd.doubleValue() + loanAmountText), custNameString[0], custAddressString[0]);
                     logger.info("Yearly web view selected");
-                    result = webViewer.webReturnYearly();
+                    webViewer.webReturnYearly();
+                    logger.info("yearly reachable");
                     Task task1 = new Task<Void>() {
                         @Override
                         public Void call() {
@@ -1049,6 +1050,7 @@ public class Controller {
                 jcalAnchor.setEffect(gb);
                 root = FXMLLoader.load(getClass().getResource("/resource/JCal_webview.fxml"));
             } catch (IOException e) {
+                logger.error("not able to load." + e.getMessage());
                 e.printStackTrace();
             }
             Scene scene = new Scene(root, 1024, 768);
@@ -1060,9 +1062,11 @@ public class Controller {
 
             WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
+            logger.info("reachable");
             final WebEngine webEngine = browser.getEngine();
             File file = new File("temp.html");
             webEngine.load(file.toURI().toString());
+            logger.info("reachable 2");
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
         });
 

@@ -22,7 +22,10 @@ import com.gollahalli.api.Calculate;
 import com.gollahalli.api.General;
 import com.gollahalli.api.TemplateMaker;
 import com.gollahalli.properties.PropertiesReader;
+import javafx.scene.web.WebView;
 import org.apache.commons.lang3.text.WordUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -36,6 +39,9 @@ import java.util.Locale;
  * This class generates HTML for printing and saving feature.
  */
 public class WebViewer {
+
+    public static final Logger logger = LoggerFactory.getLogger(WebViewer.class);
+
 
     double loanAmountText;
     double interestText;
@@ -66,44 +72,8 @@ public class WebViewer {
         this.totalPayments = totalPayments;
         this.custName = custName;
         this.custAddress = custAddress;
-    }
+        logger.info("reached webviewer");
 
-    /**
-     * @param loanAmountText  Loan amount
-     * @param interestText    Interest rate
-     * @param yearsTextMonth  Years in months
-     * @param loanAmount      Loan amount
-     * @param years           Years
-     * @param months          Months
-     * @param monthlyPayments monthly payments
-     * @param totalInterest   Total interests
-     * @param totalPayments   Total payments
-     */
-    public WebViewer(double loanAmountText, double interestText, double yearsTextMonth, String loanAmount, String years, String months, String monthlyPayments, String totalInterest, String totalPayments) {
-        this.loanAmountText = loanAmountText;
-        this.interestText = interestText;
-        this.yearsTextMonth = yearsTextMonth;
-        this.loanAmount = loanAmount;
-        this.years = years;
-        this.months = months;
-        this.monthlyPayments = monthlyPayments;
-        this.totalInterest = totalInterest;
-        this.totalPayments = totalPayments;
-    }
-
-    public WebViewer(String loanAmount, String years, String months, String monthlyPayments, String totalInterest, String totalPayments) {
-        this.loanAmount = loanAmount;
-        this.years = years;
-        this.months = months;
-        this.monthlyPayments = monthlyPayments;
-        this.totalInterest = totalInterest;
-        this.totalPayments = totalPayments;
-    }
-
-    public WebViewer(double loanAmountText, double interestText, double yearsTextMonth) {
-        this.loanAmountText = loanAmountText;
-        this.interestText = interestText;
-        this.yearsTextMonth = yearsTextMonth;
     }
 
     /**
@@ -389,11 +359,12 @@ public class WebViewer {
      *
      * @return String of HTML
      */
-    public String webReturnYearly() {
+    public void webReturnYearly() {
+        logger.info("yearly called");
         Calculate calculate = new Calculate();
 
         double[][] monthlyChartYearly = calculate.fixedRateMortgageMonthlyChart(loanAmountText, interestText, yearsTextMonth);
-
+        logger.info("monthly chart yearly called");
         String[] property = propertyReader();
 
         double[][] newYearly = new double[5][(int) yearsTextMonth];
@@ -409,6 +380,8 @@ public class WebViewer {
 
         String html = "";
         int someNumber = 1;
+
+        logger.info("loop1 completed");
 
         double yearlyPrincipal = 0.0;
         double yearlyInterest = 0.0;
@@ -431,126 +404,154 @@ public class WebViewer {
 
         }
 
-        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+        logger.info("loop 2 completed");
+
+        logger.info(WordUtils.capitalize(property[0]));
+        logger.info(WordUtils.capitalize(this.custName));
+        logger.info(WordUtils.capitalize(this.custAddress));
+        logger.info(general.getDate());
+        logger.info(currencyMaker(loanAmount));
+        logger.info(years);
+        logger.info(months);
+        logger.info(" type of payment");
+        logger.info(currencyMaker(monthlyPayments));
+        logger.info(currencyMaker(totalInterest));
+        logger.info(currencyMaker(totalPayments));
+        logger.info("type of time");
+        logger.info(html);
+        logger.info("year");
+        logger.info(WordUtils.capitalize(property[1]));
+        logger.info(WordUtils.capitalize(property[2]));
+        logger.info(property[3]);
+        logger.info(property[4]);
+
+
+//        new TemplateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
+//                general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
+//                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+//                WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
+
+        general.templateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
                 general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
                 currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
                 WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
+        logger.info("some problem with general");
 
-        return "<!DOCTYPE html>\n" +
-                "<html lang=\"en\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"utf-8\">\n" +
-                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "    <title></title>\n" +
-                "    <link rel=\"stylesheet\" href=\"https://bootswatch.com/flatly/bootstrap.min.css\">\n" +
-                "\n" +
-                "<style>" +
-                ".invoice-title h2, .invoice-title h3 {\n" +
-                "    display: inline-block;\n" +
-                "}\n" +
-                "\n" +
-                ".table > tbody > tr > .no-line {\n" +
-                "    border-top: none;\n" +
-                "}\n" +
-                "\n" +
-                ".table > thead > tr > .no-line {\n" +
-                "    border-bottom: none;\n" +
-                "}\n" +
-                "\n" +
-                ".table > tbody > tr > .thick-line {\n" +
-                "    border-top: 2px solid;\n" +
-                "}" +
-                ".navbar-default{\n" +
-                "    background-color: #ECF0F1;\n" +
-                "}" +
-                "@media print {\n" +
-                "        .navbar {\n" +
-                "            display: block;\n" +
-                "            border-width:0 !important;\n" +
-                "        }\n" +
-                "        .navbar-toggle {\n" +
-                "            display:none;\n" +
-                "        }\n" +
-                "    }" +
-                "</style>" +
-                "\n" +
-                "    <!-- Latest compiled and minified JavaScript -->\n" +
-                "    <script src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<div class=\"container\">\n" +
-                "    <div class=\"row\">\n" +
-                "        <div class=\"col-xs-12\">\n" +
-                "            <div class=\"invoice-title\">\n" +
-                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
-                "\n" +
+//        return "<!DOCTYPE html>\n" +
+//                "<html lang=\"en\">\n" +
+//                "<head>\n" +
+//                "    <meta charset=\"utf-8\">\n" +
+//                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+//                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+//                "    <title></title>\n" +
+//                "    <link rel=\"stylesheet\" href=\"https://bootswatch.com/flatly/bootstrap.min.css\">\n" +
+//                "\n" +
+//                "<style>" +
+//                ".invoice-title h2, .invoice-title h3 {\n" +
+//                "    display: inline-block;\n" +
+//                "}\n" +
+//                "\n" +
+//                ".table > tbody > tr > .no-line {\n" +
+//                "    border-top: none;\n" +
+//                "}\n" +
+//                "\n" +
+//                ".table > thead > tr > .no-line {\n" +
+//                "    border-bottom: none;\n" +
+//                "}\n" +
+//                "\n" +
+//                ".table > tbody > tr > .thick-line {\n" +
+//                "    border-top: 2px solid;\n" +
+//                "}" +
+//                ".navbar-default{\n" +
+//                "    background-color: #ECF0F1;\n" +
+//                "}" +
+//                "@media print {\n" +
+//                "        .navbar {\n" +
+//                "            display: block;\n" +
+//                "            border-width:0 !important;\n" +
+//                "        }\n" +
+//                "        .navbar-toggle {\n" +
+//                "            display:none;\n" +
+//                "        }\n" +
+//                "    }" +
+//                "</style>" +
+//                "\n" +
+//                "    <!-- Latest compiled and minified JavaScript -->\n" +
+//                "    <script src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n" +
+//                "</head>\n" +
+//                "<body>\n" +
+//                "<div class=\"container\">\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-xs-12\">\n" +
+//                "            <div class=\"invoice-title\">\n" +
+//                "                <h2>" + WordUtils.capitalize(property[0]) + "</h2>\n" +
+//                "\n" +
 //                "                <h3 class=\"pull-right\">Order # 12345</h3>\n" +
-                "            </div>\n" +
-                "            <hr>\n" +
-                "            <div class=\"row\">\n" +
-                "                <div class=\"col-xs-6\">\n" +
-                "                    <address>\n" +
-                "                        <strong>To:</strong><br>\n" +
-                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
-                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
-                "                    </address>\n" +
-                "                </div>\n" +
-                "                <div class=\"col-xs-6 text-right\">\n" +
-                "                    <address>\n" +
-                "                        <strong>Data:</strong><br>\n" +
-                "                        " + general.getDate() + "\n" +
-                "                    </address>\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>\n" +
-                "\n" +
-                "    <div class=\"row\">\n" +
-                "        <div class=\"col-xs-6\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-heading\">\n" +
-                "                    <h3 class=\"panel-title\"><strong>Summary</strong></h3>\n" +
-                "                </div>\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    <div class=\"table-responsive\">\n" +
-                "                        <table class=\"table table-condensed table-bordered\">\n" +
-                "                            <!--<thead>-->\n" +
-                "                            <tbody>\n" +
-                "                            <tr>\n" +
-                "                                <th><strong>Loan Amount</strong></th>\n" +
-                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
-                "                            </tr>\n" +
-                "                            <!--</thead>-->\n" +
-                "                            <!--<tbody>-->\n" +
-                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
-                "                            <tr>\n" +
-                "                                <th>Years</th>\n" +
-                "                                <td class=\"text-center\">" + years + "</td>\n" +
-                "                            </tr>\n" +
-                "                            <tr>\n" +
-                "                                <th>Months</th>\n" +
-                "                                <td class=\"text-center\">" + months + "</td>\n" +
-                "                            </tr>\n" +
-                "                            <tr>\n" +
-                "                                <th>Monthly payments</th>\n" +
-                "                                <td class=\"text-center\">" + currencyMaker(monthlyPayments) + "</td>\n" +
-                "                            </tr>\n" +
-                "                            <tr>\n" +
-                "                                <th>Total interest</th>\n" +
-                "                                <td class=\"text-center\">" + currencyMaker(totalInterest) + "</td>\n" +
-                "                            </tr>\n" +
-                "                            <tr>\n" +
-                "                                <th>Total payments</th>\n" +
-                "                                <td class=\"text-center\">" + currencyMaker(totalPayments) + "</td>\n" +
-                "                            </tr>\n" +
-                "                            </tbody>\n" +
-                "                        </table>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
+//                "            </div>\n" +
+//                "            <hr>\n" +
+//                "            <div class=\"row\">\n" +
+//                "                <div class=\"col-xs-6\">\n" +
+//                "                    <address>\n" +
+//                "                        <strong>To:</strong><br>\n" +
+//                "                        " + WordUtils.capitalize(this.custName) + "<br>\n" +
+//                "                        " + WordUtils.capitalize(this.custAddress) + "<br>\n" +
+//                "                    </address>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"col-xs-6 text-right\">\n" +
+//                "                    <address>\n" +
+//                "                        <strong>Data:</strong><br>\n" +
+//                "                        " + general.getDate() + "\n" +
+//                "                    </address>\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>\n" +
+//                "\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-xs-6\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-heading\">\n" +
+//                "                    <h3 class=\"panel-title\"><strong>Summary</strong></h3>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    <div class=\"table-responsive\">\n" +
+//                "                        <table class=\"table table-condensed table-bordered\">\n" +
+//                "                            <!--<thead>-->\n" +
+//                "                            <tbody>\n" +
+//                "                            <tr>\n" +
+//                "                                <th><strong>Loan Amount</strong></th>\n" +
+//                "                                <td class=\"text-center\">" + currencyMaker(loanAmount) + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            <!--</thead>-->\n" +
+//                "                            <!--<tbody>-->\n" +
+//                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
+//                "                            <tr>\n" +
+//                "                                <th>Years</th>\n" +
+//                "                                <td class=\"text-center\">" + years + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            <tr>\n" +
+//                "                                <th>Months</th>\n" +
+//                "                                <td class=\"text-center\">" + months + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            <tr>\n" +
+//                "                                <th>Monthly payments</th>\n" +
+//                "                                <td class=\"text-center\">" + currencyMaker(monthlyPayments) + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            <tr>\n" +
+//                "                                <th>Total interest</th>\n" +
+//                "                                <td class=\"text-center\">" + currencyMaker(totalInterest) + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            <tr>\n" +
+//                "                                <th>Total payments</th>\n" +
+//                "                                <td class=\"text-center\">" + currencyMaker(totalPayments) + "</td>\n" +
+//                "                            </tr>\n" +
+//                "                            </tbody>\n" +
+//                "                        </table>\n" +
+//                "                    </div>\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
 //                "        <div class=\"col-xs-6\">\n" +
 //                "            <div class=\"panel panel-default\">\n" +
 //                "                <div class=\"panel-heading\">\n" +
@@ -561,34 +562,34 @@ public class WebViewer {
 //                "                </div>\n" +
 //                "            </div>\n" +
 //                "        </div>\n" +
-                "    </div>\n" +
-                "    <div class=\"row\">\n" +
-                "        <div class=\"col-md-12\">\n" +
-                "            <div class=\"panel panel-default\">\n" +
-                "                <div class=\"panel-heading\">\n" +
-                "                    <h3 class=\"panel-title\"><strong>Order summary</strong></h3>\n" +
-                "                </div>\n" +
-                "                <div class=\"panel-body\">\n" +
-                "                    <div class=\"table-responsive\">\n" +
-                "                        <table class=\"table table-condensed table-bordered\">\n" +
-                "                            <thead>\n" +
-                "                            <tr>\n" +
-                "                                <td><strong>Year</strong></td>\n" +
-                "                                <td class=\"text-center\"><strong>Principal</strong></td>\n" +
-                "                                <td class=\"text-center\"><strong>Interest</strong></td>\n" +
-                "                                <td class=\"text-right\"><strong>Balance</strong></td>\n" +
-                "                            </tr>\n" +
-                "                            </thead>\n" +
-                "                            <tbody>\n" +
-                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
-                html +
-                "                            </tbody>\n" +
-                "                        </table>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>\n" +
+//                "    </div>\n" +
+//                "    <div class=\"row\">\n" +
+//                "        <div class=\"col-md-12\">\n" +
+//                "            <div class=\"panel panel-default\">\n" +
+//                "                <div class=\"panel-heading\">\n" +
+//                "                    <h3 class=\"panel-title\"><strong>Order summary</strong></h3>\n" +
+//                "                </div>\n" +
+//                "                <div class=\"panel-body\">\n" +
+//                "                    <div class=\"table-responsive\">\n" +
+//                "                        <table class=\"table table-condensed table-bordered\">\n" +
+//                "                            <thead>\n" +
+//                "                            <tr>\n" +
+//                "                                <td><strong>Year</strong></td>\n" +
+//                "                                <td class=\"text-center\"><strong>Principal</strong></td>\n" +
+//                "                                <td class=\"text-center\"><strong>Interest</strong></td>\n" +
+//                "                                <td class=\"text-right\"><strong>Balance</strong></td>\n" +
+//                "                            </tr>\n" +
+//                "                            </thead>\n" +
+//                "                            <tbody>\n" +
+//                "                            <!-- foreach ($order->lineItems as $line) or some such thing here -->\n" +
+//                html +
+//                "                            </tbody>\n" +
+//                "                        </table>\n" +
+//                "                    </div>\n" +
+//                "                </div>\n" +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>\n" +
 //                "    <div class=\"row\">\n" +
 //                "        <div class=\"col-xs-4\">\n" +
 //                "            <div class=\"panel panel-default\">\n" +
@@ -612,16 +613,16 @@ public class WebViewer {
 //                "            </div>\n" +
 //                "        </div>\n" +
 //                "    </div>\n" +
-                "</div>\n" +
-                "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
-                "        <div class=\"container\">\n" +
-                "            <div class=\"navbar-text pull-left\">\n" +
-                "                &copy; 2015 " + WordUtils.capitalize(property[0]) + ". Contact person: " + WordUtils.capitalize(property[1]) + ", Address: " + WordUtils.capitalize(property[2]) + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>" +
-                "</body>\n" +
-                "</html>";
+//                "</div>\n" +
+//                "<div class=\"navbar navbar-default navbar-bottom\" role=\"navigation\">\n" +
+//                "        <div class=\"container\">\n" +
+//                "            <div class=\"navbar-text pull-left\">\n" +
+//                "                &copy; 2015 " + WordUtils.capitalize(property[0]) + ". Contact person: " + WordUtils.capitalize(property[1]) + ", Address: " + WordUtils.capitalize(property[2]) + " and Contact number: " + property[3] + "\n" + " Fax: " + property[4] +
+//                "            </div>\n" +
+//                "        </div>\n" +
+//                "    </div>" +
+//                "</body>\n" +
+//                "</html>";
     }
 
     public String webReturnWeekly() {
