@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+~ Copyright (c) 2015 Akshay Raj Gollahalli
+~
+~  This program is free software; you can redistribute it and/or modify
+~  it under the terms of the GNU General Public License as published by
+~  the Free Software Foundation; either version 2 of the License, or
+~  (at your option) any later version.
+~
+~  This program is distributed in the hope that it will be useful,
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~  GNU General Public License for more details.
+~
+~  You should have received a copy of the GNU General Public License along
+~  with this program; if not, write to the Free Software Foundation, Inc.,
+~  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="about_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.ControllerAbout">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <Hyperlink text="https://github.com/gollahalli/JCal" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <GridPane prefHeight="174.0" prefWidth="311.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="88.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="147.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="101.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="125.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text fx:id="version_about" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="174.1646270751953" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="JCal" textAlignment="CENTER" wrappingWidth="174.7144317626953" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="108.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@JCal-logo.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="35.0" />
+                     </GridPane.margin></ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright 2015 Akshay Raj Gollahalli" textAlignment="CENTER" wrappingWidth="418.0141906738281" GridPane.rowIndex="4" />
+                  <Text fx:id="registeredTo" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="416.21875" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </top>
+         <center>
+            <GridPane prefHeight="35.0" prefWidth="418.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="checkForUpdates" mnemonicParsing="false" prefHeight="27.0" prefWidth="120.0" text="Updates">
+                     <GridPane.margin>
+                        <Insets left="45.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="changeDetails" mnemonicParsing="false" prefWidth="120.0" text="Change details" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="45.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

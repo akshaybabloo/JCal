@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="JCal.jnlp">
+  <information>
+    <title>JCal</title>
+    <vendor>akshayrajgollahalli</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib/JCal-Preloader.jar" size="2966" download="progress" />
+    <jar href="JCal.jar" size="1309087" download="eager" />
+    <jar href="lib/commons-lang3-3.4.jar" size="434678" download="eager" />
+    <jar href="lib/freemarker.jar" size="571017" download="eager" />
+    <jar href="lib/log4j-api-2.3.jar" size="135903" download="eager" />
+    <jar href="lib/log4j-core-2.3.jar" size="827024" download="eager" />
+    <jar href="lib/log4j-slf4j-impl-2.3.jar" size="22544" download="eager" />
+    <jar href="lib/slf4j-api-1.7.12.jar" size="32127" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="JCal" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="com.gollahalli.main.App"  name="JCal"  preloader-class="jcal.preloader.JCal_Preloader"/>
+  <update check="always"/>
+</jnlp>

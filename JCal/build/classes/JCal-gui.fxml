@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+~ Copyright (c) 2015 Akshay Raj Gollahalli
+~
+~  This program is free software; you can redistribute it and/or modify
+~  it under the terms of the GNU General Public License as published by
+~  the Free Software Foundation; either version 2 of the License, or
+~  (at your option) any later version.
+~
+~  This program is distributed in the hope that it will be useful,
+~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~  GNU General Public License for more details.
+~
+~  You should have received a copy of the GNU General Public License along
+~  with this program; if not, write to the Free Software Foundation, Inc.,
+~  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="jcalAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gollahalli.gui.Controller">
+    <children>
+        <MenuBar fx:id="JCal_menu" prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                  <MenuItem fx:id="jcalPrint" mnemonicParsing="false" text="Print" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="jcalClose" mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="jcalAbout" mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Separator fx:id="jmark_separator" layoutY="28.0" prefHeight="4.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <GridPane layoutY="30.0" prefHeight="138.0" prefWidth="800.0" snapToPixel="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <columnConstraints>
+                <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
+                <ColumnConstraints fillWidth="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="373.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="191.0" minHeight="5.0" prefHeight="148.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loan amount" wrappingWidth="101.84146118164062" GridPane.rowIndex="1" />
+                <TextField fx:id="loanAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time to repay" wrappingWidth="82.68292617797852" GridPane.rowIndex="2" />
+                <TextField fx:id="years" prefHeight="26.0" prefWidth="55.0" promptText="Years" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="months" prefHeight="26.0" prefWidth="71.0" promptText="Months" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="79.0" />
+                    </GridPane.margin>
+                </TextField>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.rowIndex="3" />
+                <TextField fx:id="interest" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <ComboBox fx:id="repaymentType" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            </children>
+        </GridPane>
+        <TabPane layoutX="14.0" layoutY="220.0" prefHeight="373.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <tabs>
+                <Tab text="Table">
+                    <content>
+                        <TableView fx:id="paymentsAnnual" prefHeight="237.0" prefWidth="780.0">
+                            <columns>
+                                <TableColumn fx:id="primaryColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Year" />
+                                <TableColumn fx:id="principalColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Principal" />
+                                <TableColumn fx:id="interestColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Interest" />
+                                <TableColumn fx:id="balanceColumn" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="Balance" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </Tab>
+                <Tab text="Graph">
+                    <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <AreaChart fx:id="graph1" prefWidth="260.0">
+                                    <xAxis>
+                                        <NumberAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </AreaChart>
+                                <AreaChart fx:id="graph2" prefWidth="260.0">
+                                    <xAxis>
+                                        <NumberAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </AreaChart>
+                                <AreaChart fx:id="graph3" prefWidth="260.0">
+                                    <xAxis>
+                                        <NumberAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </AreaChart>
+                            </children>
+                        </HBox>
+                    </content>
+                </Tab>
+                <Tab text="Floating">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView layoutX="155.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" />
+                                        <TableColumn prefWidth="75.0" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+      <HBox layoutX="-22.0" layoutY="156.0" prefHeight="170.0" prefWidth="780.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+              <GridPane fx:id="summaryGrid" prefHeight="150.0" prefWidth="337.0" snapToPixel="false">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="169.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="663.0" minWidth="10.0" prefWidth="168.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints />
+                      <RowConstraints />
+                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                      <Label text="Loan amount" GridPane.rowIndex="2">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label text="Years" GridPane.rowIndex="3">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label text="Months" GridPane.rowIndex="4">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label text="Monthly payments" GridPane.rowIndex="5">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label text="Total payments" GridPane.rowIndex="7">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label text="Total interest" GridPane.rowIndex="6">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="loanAmountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="yearsLabel" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="monthsLabel" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="monthlyPaymentsLabel" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="totalInterestLabel" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                      <Label fx:id="totalPaymentsLabel" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                          <GridPane.margin>
+                              <Insets left="10.0" />
+                          </GridPane.margin>
+                      </Label>
+                  </children>
+              </GridPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-border-width: 1;">
+               <padding>
+                  <Insets left="2.0" right="2.0" />
+               </padding>
+            </Separator>
+            <PieChart fx:id="pieChart" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>
