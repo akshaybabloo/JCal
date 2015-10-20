@@ -78,7 +78,8 @@ logs/JCal-log.log
 =======
 crashlytics-build.properties
 
-
+/dist
+JCal.app
 
 pie.png
 
