@@ -75,7 +75,7 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 /src/com/gollahalli/web/WebApp.java
 crashlytics-build.properties
-logs/JCal-log.log
+JCal-log.log
 =======
 crashlytics-build.properties
 
@@ -85,3 +85,7 @@ JCal.app
 pie.png
 
 JCal.properties
+
+JCal/dist/JCal.app/Contents/Info.plist
+
+JCal/logs/JCal-log.log

@@ -9,7 +9,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/JCal-Preloader.jar" size="2966" download="progress" />
-    <jar href="JCal.jar" size="1309087" download="eager" />
+    <jar href="JCal.jar" size="1309079" download="eager" />
     <jar href="lib/commons-lang3-3.4.jar" size="434678" download="eager" />
     <jar href="lib/freemarker.jar" size="571017" download="eager" />
     <jar href="lib/log4j-api-2.3.jar" size="135903" download="eager" />
