@@ -175,7 +175,5 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("JCal - Mortgage calculator");
         primaryStage.show();
-
-
     }
 }
