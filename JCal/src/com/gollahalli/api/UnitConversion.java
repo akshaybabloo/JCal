@@ -29,4 +29,71 @@ package com.gollahalli.api;
  */
 public class UnitConversion {
     
+// ******************************* TEMPERATURE *********************************
+    
+    /**
+     * This method converts Celsius to Fahrenheit
+     * 
+     * @param celsius A double value
+     * @return fahrenheit A double value
+     */
+    public double CelsiusToFahrenheit(double celsius){
+        double fahrenheit = celsius * 9/5 + 32;
+        return fahrenheit;
+    }
+    
+    /**
+     * This method converts Fahrenheit to Celsius
+     * 
+     * @param fahrenheit A double value
+     * @return celsius A double value
+     */
+    public double FahrenheitToCelsius(double fahrenheit){
+        double celsius = (fahrenheit - 32) * 5/9;
+        return celsius;
+    }
+    
+    /**
+     * This method converts Celsius to Kelvin
+     *
+     * @param celsius
+     * @return
+     */
+    public double CelsiusToKelvin(double celsius){
+        double kelvin = celsius * 273.15;
+        return kelvin;
+    }
+    
+    /**
+     * This method converts Fahrenheit to Kelvin
+     *
+     * @param fahrenheit
+     * @return
+     */
+    public double FahrenheitToKelvin(double fahrenheit){
+        double kelvin = (fahrenheit + 459.67) * 5/9;
+        return kelvin;
+    }
+    
+    /**
+     * This method converts Kelvin to Celsius
+     * 
+     * @param kelvin
+     * @return
+     */
+    public double KelvinToCelsius(double kelvin){
+        double celsius = kelvin - 273.15;
+        return celsius;
+    }
+    
+    /**
+     * This method converts Kelvin to Fahrenheit
+     *
+     * @param kelvin
+     * @return
+     */
+    public double KelvinToFahrenheit(double kelvin){
+        double fahrenheit = kelvin * 9/5 - 459.67;
+        return fahrenheit;
+    }
 }
