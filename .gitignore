@@ -76,7 +76,7 @@ crashlytics.properties
 /src/com/gollahalli/web/WebApp.java
 crashlytics-build.properties
 JCal-log.log
-=======
+
 crashlytics-build.properties
 
 /dist
@@ -85,8 +85,6 @@ JCal.app
 pie.png
 
 JCal.properties
-
-JCal/dist/JCal.app/Contents/Info.plist
 
 JCal/logs/JCal-log.log
 
@@ -98,8 +96,4 @@ JCal/Balance.png
 
 JCal/temp.html
 
-JCal/dist/Balance.png
-
-JCal/dist/Interest.png
-
-JCal/dist/InterestAndPrincipal.png
+JCal/dist
