@@ -19,6 +19,7 @@
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
+import com.gollahalli.api.UnitConversion;
 import com.gollahalli.web.WebViewer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -56,6 +57,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 
 
 /**
@@ -123,14 +126,33 @@ public class Controller {
     private double yearsTextMonth = 0;
     private double monthsToWeeks = 0;
     private int someNum = 2;
+    @FXML
+    private Label convertType;
+    @FXML
+    private Label type;
+    @FXML
+    private Label convertAnswer;
+    @FXML
+    private Label numberEnteredAnswer;
+    @FXML
+    private Label convertTypeAnswer;
+    @FXML
+    private ComboBox typeSelector;
+    @FXML
+    private TextField numberTextField;
+    @FXML
+    private ComboBox convertSelector;
+    
 
     public void initialize() {
         logger.info("controller started");
 
         if (!new File("JCal.properties").exists()) {
-            Platform.exit();
             logger.error("JCal.properties not found");
+            Platform.exit();
         }
+// ******************************** MORTGAGE ***********************************
+
         XYChart.Series<Number, Number> seriesMonthlyInterest = new XYChart.Series();
         XYChart.Series<Number, Number> seriesNewPrincipal = new XYChart.Series();
         XYChart.Series<Number, Number> seriesForBalance = new XYChart.Series();
@@ -575,7 +597,8 @@ public class Controller {
             logger.info("close button pressed from menu");
             Platform.exit();
         });
-
+        
+// ****************************** PRINTING *************************************
         jcalPrint.setOnAction(event -> {
             String switcher = repaymentType.getValue().toString();
             loanAmountText = 0;
@@ -1069,6 +1092,140 @@ public class Controller {
             logger.info("reachable 2");
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
         });
+ 
+// ******************************** UNIT CONVERSION ***********************************
 
+    typeSelector.getItems().addAll("Temperature");
+    
+    typeSelector.setOnAction(event -> {
+        String typeSelectorText = typeSelector.getValue().toString();
+        
+        switch(typeSelectorText){
+            case "Temperature":
+                convertSelector.getItems().addAll("Celsius to Fahrenheit", "Fahrenheit to Celsius", "Celsius to Kelvin", 
+                        "Fahrenheit to Kelvin", "Kelvin to Celsius", "Kelvin to Fahrenheit");
+        }
+    });
+    
+    convertSelector.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event e) {
+                String convertSelectorText = convertSelector.getValue().toString();
+                UnitConversion uc = new UnitConversion();
+                
+                switch(convertSelectorText){
+                    
+                    case "Celsius to Fahrenheit":
+                        convertType.setText("Fahrenheit");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double c2f = uc.CelsiusToFahrenheit(Double.parseDouble(numberTextField.getText()));
+                            
+                            convertTypeAnswer.setText(String.format( "%.2f", c2f) + " \u00B0" + "F");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e1 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double c2f = uc.CelsiusToFahrenheit(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", c2f) + " \u00B0" + "F");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                        
+                    case "Fahrenheit to Celsius":
+                        convertType.setText("Celsius");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double f2c = uc.FahrenheitToCelsius(Double.parseDouble(numberTextField.getText()));
+
+                            convertTypeAnswer.setText(String.format( "%.2f", f2c) + " \u00B0" + "C");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e2 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double f2c = uc.FahrenheitToCelsius(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", f2c) + " \u00B0" + "C");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                        
+                    case "Celsius to Kelvin":
+                        convertType.setText("Kelvin");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double c2k = uc.CelsiusToKelvin(Double.parseDouble(numberTextField.getText()));
+
+                            convertTypeAnswer.setText(String.format( "%.2f", c2k) + " K");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e3 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double c2k = uc.CelsiusToKelvin(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", c2k) + " K");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                        
+                    case "Fahrenheit to Kelvin":
+                        convertType.setText("Kelvin");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double f2k = uc.FahrenheitToKelvin(Double.parseDouble(numberTextField.getText()));
+
+                            convertTypeAnswer.setText(String.format( "%.2f", f2k) + " K");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e4 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double f2k = uc.FahrenheitToKelvin(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", f2k) + " K");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                        
+                    case "Kelvin to Celsius":
+                        convertType.setText("Celsius");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double k2c = uc.KelvinToCelsius(Double.parseDouble(numberTextField.getText()));
+
+                            convertTypeAnswer.setText(String.format( "%.2f", k2c) + " \u00B0" + "C");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e4 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double k2c = uc.KelvinToCelsius(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", k2c) + " \u00B0" + "C");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                        
+                    case "Kelvin to Fahrenheit":
+                        convertType.setText("Fahrenheit");
+                        if (!numberTextField.getText().isEmpty()) {
+                            double k2f = uc.KelvinToFahrenheit(Double.parseDouble(numberTextField.getText()));
+
+                            convertTypeAnswer.setText(String.format( "%.2f", k2f) + " \u00B0" + "F");
+                        } else convertTypeAnswer.setText("");
+                        
+                        numberTextField.setOnKeyReleased(e4 -> {
+                            if (!numberTextField.getText().isEmpty()) {
+                                double k2f = uc.KelvinToFahrenheit(Double.parseDouble(numberTextField.getText()));
+                                
+                                convertTypeAnswer.setText(String.format( "%.2f", k2f) + " \u00B0" + "F");
+                            } else convertTypeAnswer.setText("");
+                            
+                        });
+                        break;
+                    default: break;
+                    
+                }
+            }
+        });
     }
 }
