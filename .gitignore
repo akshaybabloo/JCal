@@ -100,3 +100,11 @@ JCal/temp.html
 
 JCal/build
 test.java
+
+JCal/nbproject/private/
+JCal/build/
+JCal/nbbuild/
+JCal/dist/
+JCal/nbdist/
+JCal/nbactions.xml
+JCal/.nb-gradle/
