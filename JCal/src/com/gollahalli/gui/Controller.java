@@ -1086,11 +1086,9 @@ public class Controller {
 
             WebView browser = (WebView) scene.lookup("#web");
             browser.setPrefSize(800, 768);
-            logger.info("reachable");
             final WebEngine webEngine = browser.getEngine();
             File file = new File("temp.html");
             webEngine.load(file.toURI().toString());
-            logger.info("reachable 2");
             stage.setOnCloseRequest(event1 -> jcalAnchor.setEffect(null));
         });
 
@@ -1334,7 +1332,6 @@ public class Controller {
                                             convertTypeAnswer.setText("");
                                             numberEnteredAnswer.setText("");
                                         }
-
                                     });
                                     break;
                             }
