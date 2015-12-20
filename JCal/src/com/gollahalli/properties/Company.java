@@ -9,13 +9,19 @@ public class Company {
     String address;
     String contactNumber;
     String contactFax;
+    String copyrightYear;
 
-    public Company(String companyName, String name, String address, String contactNumber, String contactFax) {
+    public Company(String companyName, String name, String address, String contactNumber, String contactFax, String copyrightYear) {
         this.companyName = companyName;
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;
         this.contactFax = contactFax;
+        this.copyrightYear = copyrightYear;
+    }
+
+    public String getCopyrightYear() {
+        return copyrightYear;
     }
 
     public String getCompanyName() {

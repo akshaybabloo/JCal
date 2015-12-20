@@ -99,11 +99,13 @@ public class App extends Application {
             Label addressLabel = new Label("Address: ");
             Label contactNumberLabel = new Label("Contact Number: ");
             Label faxNumberLabel = new Label("Fax Number: ");
+            Label copyRightLabel = new Label("Copyright Year: ");
             TextField companyNameField = new TextField();
             TextField nameField = new TextField();
             TextField addressField = new TextField();
             TextField contactNumberField = new TextField();
             TextField faxNumberField = new TextField();
+            TextField copyRightField = new TextField();
 
             // Create layout and add to dialog
             GridPane grid = new GridPane();
@@ -121,6 +123,8 @@ public class App extends Application {
             grid.add(contactNumberField, 2, 4);
             grid.add(faxNumberLabel, 1, 5); // col=1, row=2
             grid.add(faxNumberField, 2, 5);
+            grid.add(copyRightLabel, 1, 6); // col=1, row=2
+            grid.add(copyRightField, 2, 6);
             dialog.getDialogPane().setContent(grid);
 
             // Add button to dialog
@@ -141,7 +145,7 @@ public class App extends Application {
 
                 if (b == buttonTypeOk) {
 
-                    return new Company(companyNameField.getText(), nameField.getText(), addressField.getText(), contactNumberField.getText(), faxNumberField.getText());
+                    return new Company(companyNameField.getText(), nameField.getText(), addressField.getText(), contactNumberField.getText(), faxNumberField.getText(), copyRightField.getText());
                 }
                 if(b == ButtonType.CANCEL){
                     Platform.exit();
@@ -157,7 +161,7 @@ public class App extends Application {
 
             General general = new General();
 
-            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion()));
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion(), usernamePassword.getCopyrightYear()));
         }
 
         Parent root = null;

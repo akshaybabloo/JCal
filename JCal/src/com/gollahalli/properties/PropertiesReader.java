@@ -8,7 +8,7 @@ import java.util.Properties;
  */
 public class PropertiesReader {
     public String[] reader(){
-        String[] result = new String[5];
+        String[] result = new String[6];
         Properties properties = new Properties();
         InputStream is;
 
@@ -31,6 +31,7 @@ public class PropertiesReader {
         result[2] = properties.getProperty("Address");
         result[3] = properties.getProperty("ContactNumber");
         result[4] = properties.getProperty("FaxNumber");
+        result[5] = properties.getProperty("CopyRightYear");
 
         return result;
     }

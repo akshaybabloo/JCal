@@ -51,6 +51,7 @@ public class ControllerAbout {
             Label addressLabel = new Label("Address: ");
             Label contactNumberLabel = new Label("Contact Number: ");
             Label faxNumberLabel = new Label("Fax Number: ");
+            Label copyRightLabel = new Label("Copyright Year: ");
             TextField companyNameField = new TextField();
             companyNameField.setText(property[0]);
             TextField nameField = new TextField();
@@ -61,6 +62,8 @@ public class ControllerAbout {
             contactNumberField.setText(property[3]);
             TextField faxNumberField = new TextField();
             faxNumberField.setText(property[4]);
+            TextField copyRightField = new TextField();
+            copyRightField.setText(property[5]);
 
             // Create layout and add to dialog
             GridPane grid = new GridPane();
@@ -78,6 +81,8 @@ public class ControllerAbout {
             grid.add(contactNumberField, 2, 4);
             grid.add(faxNumberLabel, 1, 5); // col=1, row=2
             grid.add(faxNumberField, 2, 5);
+            grid.add(copyRightLabel, 1, 6); // col=1, row=2
+            grid.add(copyRightField, 2, 6);
             dialog.getDialogPane().setContent(grid);
 
             // Add button to dialog
@@ -89,7 +94,7 @@ public class ControllerAbout {
 
                 if (b == buttonTypeOk) {
 
-                    return new Company(companyNameField.getText(), nameField.getText(), addressField.getText(), contactNumberField.getText(), faxNumberField.getText());
+                    return new Company(companyNameField.getText(), nameField.getText(), addressField.getText(), contactNumberField.getText(), faxNumberField.getText(), copyRightField.getText());
                 }
                 return null;
             });
@@ -99,7 +104,7 @@ public class ControllerAbout {
 
             General general = new General();
 
-            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion()));
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion(), usernamePassword.getCopyrightYear()));
         });
 
         General general = new General();

@@ -105,12 +105,13 @@ public class WebViewer {
     }
 
     static String[] propertyReader() {
-        String[] result = new String[5];
+        String[] result = new String[6];
         result[0] = "";
         result[1] = "";
         result[2] = "";
         result[3] = "";
         result[4] = "";
+        result[5] = "";
 
         if (new File("JCal.properties").exists()) {
             PropertiesReader propertiesReader = new PropertiesReader();
@@ -157,7 +158,7 @@ public class WebViewer {
 
         general.templateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
                 general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
-                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, property[5],
                 WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
     }
@@ -218,7 +219,7 @@ public class WebViewer {
         
         general.templateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
                 general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
-                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, property[5],
                 WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
     }
@@ -250,7 +251,7 @@ public class WebViewer {
 
         general.templateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
                 general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(monthlyPayments),
-                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, "year",
+                currencyMaker(totalInterest), currencyMaker(totalPayments), "type of time", html, property[5],
                 WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
     }
 
@@ -307,7 +308,7 @@ public class WebViewer {
 
         general.templateMaker(WordUtils.capitalize(property[0]), WordUtils.capitalize(this.custName), WordUtils.capitalize(this.custAddress),
                 general.getDate(), currencyMaker(loanAmount), years, months, " type of payment", currencyMaker(String.valueOf(weeklyOutputForFortnightly)),
-                currencyMaker(String.valueOf(bd2.doubleValue())), currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)), "type of time", html, "year",
+                currencyMaker(String.valueOf(bd2.doubleValue())), currencyMaker(String.valueOf(bd2.doubleValue() + loanAmountText)), "type of time", html, property[5],
                 WordUtils.capitalize(property[1]), WordUtils.capitalize(property[2]), property[3], property[4]);
 
     }
