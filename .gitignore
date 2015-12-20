@@ -130,3 +130,5 @@ JCal/dist/lib/log4j-core-2.3.jar
 JCal/dist/lib/log4j-slf4j-impl-2.3.jar
 
 JCal/dist/lib/slf4j-api-1.7.12.jar
+
+JCal-Preloader/nbproject/private/private.xml
