@@ -8,9 +8,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by akshayrajgollahalli on 19/10/15.
- */
 public class TemplateMaker {
 
     String companyName;
