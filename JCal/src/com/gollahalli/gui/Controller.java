@@ -1099,19 +1099,23 @@ public class Controller {
         typeSelector.getItems().addAll("Temperature", "Weight");
 
         typeSelector.setOnAction(event -> {
+            convertSelector.getItems().clear();
+            
             String typeSelectorText = typeSelector.getValue().toString();
-
+            
+            UnitConversion uc = new UnitConversion();
             switch (typeSelectorText) {
                 case "Temperature":
                     type.setText("Temperature");
-                    convertSelector.getItems().clear();
+                    
                     convertSelector.getItems().addAll("Celsius to Fahrenheit", "Fahrenheit to Celsius", "Celsius to Kelvin",
                             "Fahrenheit to Kelvin", "Kelvin to Celsius", "Kelvin to Fahrenheit");
-                    
                     convertSelector.setOnAction(e -> {
-                        String convertSelectorText = convertSelector.getValue().toString();
-                        UnitConversion uc = new UnitConversion();
-
+                        String convertSelectorText = null;
+                        try {
+                            convertSelectorText = convertSelector.getValue().toString();
+                      
+                        
                         switch (convertSelectorText) {
 
                             case "Celsius to Fahrenheit":
@@ -1266,8 +1270,12 @@ public class Controller {
                             default:
                                 break;
                         }
+                        } catch (NullPointerException e1) {
+                            
+                        }
                     });
                     break;
+                    
                 case "Weight":
                     type.setText("Weight");
                     convertSelector.getItems().clear();
