@@ -6,8 +6,6 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 
-*.png
-
 JCal/nbproject/private/
 
 JCal-Preloader/nbproject/private/
@@ -19,3 +17,8 @@ JCal-Preloader/nbproject/private/
 test.java
 
 JCal/JCal.properties
+
+JCal/Balance.png
+JCal/Interest.png
+JCal/InterestAndPrincipal.png
+JCal/Pie.png
