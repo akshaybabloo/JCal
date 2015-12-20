@@ -96,4 +96,16 @@ public class UnitConversion {
         double fahrenheit = kelvin * 9/5 - 459.67;
         return fahrenheit;
     }
+    
+// ******************************* WEIGHT *********************************
+    
+    public double KilogramToGram(double kilogram){
+        double gram = kilogram * 1000;
+        return gram;
+    }
+    
+    public double GramToKilogram(double gram){
+        double kilogram = gram / 1000;
+        return kilogram;
+    }
 }
