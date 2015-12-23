@@ -5,9 +5,6 @@ Mortgage calculator based on Java
 **[v1.2.0](https://github.com/gollahalli/JCal/releases/latest) released.**
 
 
-
-> **Note:** As of now only Yearly, Monthly and Weekly mortgage calculations are working.
-
 ## Snapshot
 
 * A view of JCal.
