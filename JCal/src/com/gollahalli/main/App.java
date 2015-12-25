@@ -84,8 +84,19 @@ public class App extends Application {
                     "you need to download the latest version of Java. please go to http://www.java.com");
             alert.showAndWait();
         }
+        
+        General g = new General();
+        // creating .JCal folder
+        File theDir = new File(g.getRoot() + "/.JCal");
 
-        if (!new File("JCal.properties").exists()) {
+        if (!theDir.exists()) {
+            try {
+                theDir.mkdir();
+            } catch (SecurityException se) {
+            }
+        }
+
+        if (!new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
             // Custom dialog
             Dialog<Company> dialog = new Dialog<>();
             dialog.setTitle("sup");
