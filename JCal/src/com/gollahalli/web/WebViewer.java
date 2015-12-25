@@ -20,9 +20,7 @@ package com.gollahalli.web;
 
 import com.gollahalli.api.Calculate;
 import com.gollahalli.api.General;
-import com.gollahalli.api.TemplateMaker;
 import com.gollahalli.properties.PropertiesReader;
-import javafx.scene.web.WebView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,8 +110,10 @@ public class WebViewer {
         result[3] = "";
         result[4] = "";
         result[5] = "";
-
-        if (new File("JCal.properties").exists()) {
+        
+        General g = new General();
+        
+        if (new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
             PropertiesReader propertiesReader = new PropertiesReader();
             result = propertiesReader.reader();
         }

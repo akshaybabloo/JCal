@@ -73,8 +73,10 @@ public class TemplateMaker {
             data1.put("contactAddress", contactAddress);
             data1.put("contactNumber", contactNumber);
             data1.put("faxNumber", faxNumber);
-
-            Writer file = new FileWriter(new File("temp.html"));
+            
+            General g = new General();
+            
+            Writer file = new FileWriter(new File(g.getRoot() + "/.JCal/temp.html"));
             template.process(data1,file);
             file.flush();
             file.close();

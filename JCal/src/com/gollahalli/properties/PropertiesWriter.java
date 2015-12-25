@@ -1,5 +1,6 @@
 package com.gollahalli.properties;
 
+import com.gollahalli.api.General;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,10 +38,11 @@ public class PropertiesWriter {
         properties.setProperty("FaxNumber", this.faxNumber);
         properties.setProperty("Version", this.version);
         properties.setProperty("CopyRightYear", this.copyRightYear);
-
+        
+        General g = new General();
 
         try {
-            File file = new File("JCal.properties");
+            File file = new File(g.getRoot() + "/.JCal/JCal.properties");
 
             FileOutputStream fileOutputStream;
             fileOutputStream = new FileOutputStream(file);
