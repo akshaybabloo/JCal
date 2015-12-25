@@ -31,6 +31,10 @@ public class General {
     public String getVersion() {
         return "1.2.0";
     }
+    
+    public String getRoot(){
+        return System.getProperty("user.home");
+    }
 
     public void templateMaker(String companyName, String custFullName, String custAddress, String currentDate, String loanAmount, String years, String months, String typeOfPayments, String payments, String totalInterest, String totalPayments, String typeOfTime, String data, String year, String contactName, String contactAddress, String contactNumber, String faxNumber){
 
@@ -58,8 +62,8 @@ public class General {
             data1.put("contactAddress", contactAddress);
             data1.put("contactNumber", contactNumber);
             data1.put("faxNumber", faxNumber);
-
-            Writer file = new FileWriter(new File("temp.html"));
+            General g = new General();
+            Writer file = new FileWriter(new File(g.getRoot() + "/.JCal/temp.html"));
             template.process(data1,file);
             file.flush();
             file.close();
