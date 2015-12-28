@@ -35,6 +35,10 @@ public class General {
     public String getRoot(){
         return System.getProperty("user.home");
     }
+    
+    public boolean isMacOS(){
+        return System.getProperty("os.name").toLowerCase().contains("mac");
+    }
 
     public void templateMaker(String companyName, String custFullName, String custAddress, String currentDate, String loanAmount, String years, String months, String typeOfPayments, String payments, String totalInterest, String totalPayments, String typeOfTime, String data, String year, String contactName, String contactAddress, String contactNumber, String faxNumber){
 
