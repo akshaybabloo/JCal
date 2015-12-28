@@ -7,7 +7,6 @@ import com.gollahalli.properties.PropertiesWriter;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -112,14 +111,16 @@ public class ControllerAbout {
     }
 
     static String[] propertyReader(){
-        String[] result = new String[5];
+        String[] result = new String[6];
         result[0] = "";
         result[1] = "";
         result[2] = "";
         result[3] = "";
         result[4] = "";
-
-        if (new File("JCal.properties").exists()) {
+        result[5] = "";
+        
+        General g = new General();
+        if (new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
             PropertiesReader propertiesReader = new PropertiesReader();
             result = propertiesReader.reader();
         }
