@@ -66,7 +66,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Controller {
 
-    public static final Logger logger = LogManager.getLogger(Controller.class.getName());
+    public static final Logger logger = LogManager.getLogger(Controller.class);
     ObservableList<PaymentsTable> tableData;
     ObservableList<PieChart.Data> pieChartData;
     @FXML
