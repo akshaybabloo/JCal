@@ -53,7 +53,6 @@ public class App extends Application {
     
     static String getUserAppDirectory() {
         String osName = System.getProperty("os.name");
-        System.out.println("os = " + osName);
         if (osName.contains("Mac")) {
             return System.getProperty("user.home") + "/.JCal/logs/JCal-log.log";
         }
