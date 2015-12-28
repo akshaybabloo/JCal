@@ -33,12 +33,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * This class is the main class which starts the software.
@@ -46,8 +45,25 @@ import java.util.Optional;
  * @author Akshay Raj Gollahalli
  */
 public class App extends Application {
+    
+    static {
+        System.setProperty("JCalEnv", getUserAppDirectory());
+        System.setProperty("log4j.configurationFile", "com/gollahalli/main/log4j-configFile.xml");        
+    }
+    
+    static String getUserAppDirectory() {
+        String osName = System.getProperty("os.name");
+        System.out.println("os = " + osName);
+        if (osName.contains("Mac")) {
+            return System.getProperty("user.home") + "/.JCal/logs/JCal-log.log";
+        }
+        else {
+            return  "target/JCal/logs/JCal-log.log";
+        }
+    }
 
-    public static final Logger logger = LoggerFactory.getLogger(App.class);
+//    public static final Logger logger = LoggerFactory.getLogger(App.class);
+    public static final Logger logger = LogManager.getLogger(App.class);
     public static double JAVA_VERSION = getVersion();
 
     public static void main(String[] args) {
@@ -93,6 +109,7 @@ public class App extends Application {
             try {
                 theDir.mkdir();
             } catch (SecurityException se) {
+                logger.catching(se);
             }
         }
 
@@ -179,9 +196,8 @@ public class App extends Application {
         try {
             root = FXMLLoader.load(getClass().getResource("/JCal-gui.fxml"));
             logger.info("JCal-gui loaded successfully");
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error("couldn't load JCal-gui. Ended with exception " + e);
+        } catch (Exception e) {
+            logger.catching(e);
         }
 
         Scene scene = new Scene(root, 800, 700);
