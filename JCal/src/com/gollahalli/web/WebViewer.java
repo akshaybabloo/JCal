@@ -22,8 +22,6 @@ import com.gollahalli.api.Calculate;
 import com.gollahalli.api.General;
 import com.gollahalli.properties.PropertiesReader;
 import org.apache.commons.lang3.text.WordUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -31,6 +29,8 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -38,7 +38,7 @@ import java.util.Locale;
  */
 public class WebViewer {
 
-    public static final Logger logger = LoggerFactory.getLogger(WebViewer.class);
+    public static final Logger logger = LogManager.getLogger(WebViewer.class);
 
 
     double loanAmountText;

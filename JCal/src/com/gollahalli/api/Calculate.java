@@ -18,18 +18,18 @@
 
 package com.gollahalli.api;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class return all the calculations for mortgages.
  */
 public class Calculate {
 
-    public static final Logger logger = LoggerFactory.getLogger(Calculate.class);
+    public static final Logger logger = LogManager.getLogger(Calculate.class);
 
     public double percentage(double rate) {
         return rate / 100;

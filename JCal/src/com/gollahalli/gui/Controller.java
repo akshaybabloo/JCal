@@ -49,8 +49,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -58,6 +56,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 
@@ -66,7 +66,7 @@ import java.util.Optional;
  */
 public class Controller {
 
-    public static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    public static final Logger logger = LogManager.getLogger(Controller.class.getName());
     ObservableList<PaymentsTable> tableData;
     ObservableList<PieChart.Data> pieChartData;
     @FXML
