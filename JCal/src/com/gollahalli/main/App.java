@@ -57,7 +57,7 @@ public class App extends Application {
             return System.getProperty("user.home") + "/.JCal/logs/JCal-log.log";
         }
         else {
-            return  "target/JCal/logs/JCal-log.log";
+            return System.getProperty("user.home") + "/.JCal/logs/JCal-log.log";
         }
     }
 
