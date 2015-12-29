@@ -16,7 +16,6 @@ public class PropertiesWriter {
     String contactNumber;
     String faxNumber;
     String copyRightYear;
-
     String version;
 
     public PropertiesWriter(String companyName, String name, String address, String contactNumber, String faxNumber, String version, String copyRightYear) {
