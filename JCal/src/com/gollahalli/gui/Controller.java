@@ -151,7 +151,6 @@ public class Controller {
     @FXML
     private TabPane JCal_TabPane;
 
-
     public void initialize() {
         General g = new General();
         
@@ -160,7 +159,6 @@ public class Controller {
             AnchorPane.setTopAnchor(JCal_TabPane, 0.0);
             JCal_separator.setVisible(false);
         }
-
         
         logger.info("controller started");
         if (!new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
