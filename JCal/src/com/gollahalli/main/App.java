@@ -20,6 +20,7 @@ package com.gollahalli.main;
 
 import com.gollahalli.api.General;
 import com.gollahalli.properties.Company;
+import com.gollahalli.properties.PropertiesReader;
 import com.gollahalli.properties.PropertiesWriter;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -79,6 +80,32 @@ public class App extends Application {
         int pos = version.indexOf('.');
         pos = version.indexOf('.', pos + 1);
         return Double.parseDouble(version.substring(0, pos));
+    }
+    
+    static void JCalVersionCheck() {
+        String result = null;
+
+        General g = new General();
+        if (new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
+            PropertiesReader propertiesReader = new PropertiesReader();
+            result = propertiesReader.versionReader();
+        }
+
+        if (!result.equals(g.getVersion())) {
+
+            String[] result1 = new String[6];
+            result1[0] = "";
+            result1[1] = "";
+            result1[2] = "";
+            result1[3] = "";
+            result1[4] = "";
+            result1[5] = "";
+
+            PropertiesReader propertiesReader = new PropertiesReader();
+            result1 = propertiesReader.reader();
+            
+            new PropertiesWriter(result1[0], result1[1], result1[2], result1[3], result1[4], g.getVersion(), result1[5]);
+        }
     }
 
     /**
@@ -188,6 +215,8 @@ public class App extends Application {
 
             result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), g.getVersion(), usernamePassword.getCopyrightYear()));
         }
+        
+        JCalVersionCheck();
 
         Parent root = null;
         try {
