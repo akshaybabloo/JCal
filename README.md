@@ -12,17 +12,15 @@ Mortgage calculator based on Java
 ![JCal](https://www.dropbox.com/s/aqvfysrecetxkzf/mort-non.png?raw=1)
 
 
-* An example loan of 10,000 with 5 years at an interest rate of 5% per annam.
+* An example loan of 10,000 for 5 years at an interest rate of 5% per annam.
 
 ![Mortgage yearly](https://www.dropbox.com/s/w9a8qzkdfukdjph/mort-yearly.png?raw=1)
 
-
-* Graphs of mortgage for the example loan amount.
+* Graph's of mortgage for the example loan amount.
 
 ![Mortgage graphs](https://www.dropbox.com/s/h44rc7zohj7rwei/mort-yearly-graph.png?raw=1)
 
 * Personalized printing for your customer.
-
 
 ![Personalize printing](https://www.dropbox.com/s/eldr6i509igf85y/personalize-print.png?raw=1)
 
