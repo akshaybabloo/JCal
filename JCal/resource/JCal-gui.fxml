@@ -45,8 +45,8 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <Separator fx:id="jmark_separator" layoutY="28.0" prefHeight="4.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <TabPane layoutX="-2.0" layoutY="30.0" prefHeight="665.0" prefWidth="803.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+        <Separator fx:id="JCal_separator" layoutY="28.0" prefHeight="4.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <TabPane fx:id="JCal_TabPane" layoutX="-2.0" layoutY="30.0" prefHeight="665.0" prefWidth="803.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
         <tabs>
           <Tab text="Mortgage">
             <content>
@@ -88,7 +88,7 @@
                                   <ComboBox fx:id="repaymentType" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                               </children>
                           </GridPane>
-                          <TabPane prefHeight="324.0" prefWidth="771.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                          <TabPane prefHeight="347.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                               <tabs>
                                   <Tab text="Table">
                                       <content>

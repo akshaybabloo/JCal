@@ -114,6 +114,8 @@ public class Controller {
     @FXML
     private PieChart pieChart;
     @FXML
+    private MenuBar JCal_menu;
+    @FXML
     private MenuItem jcalAbout;
     @FXML
     private MenuItem jcalClose;
@@ -144,11 +146,23 @@ public class Controller {
     private TextField numberTextField;
     @FXML
     private ComboBox convertSelector;
+    @FXML
+    private Separator JCal_separator;
+    @FXML
+    private TabPane JCal_TabPane;
 
 
     public void initialize() {
-        logger.info("controller started");
         General g = new General();
+        
+        if (g.isMacOS()) {
+            JCal_menu.useSystemMenuBarProperty().set(true);
+            AnchorPane.setTopAnchor(JCal_TabPane, 0.0);
+            JCal_separator.setVisible(false);
+        }
+
+        
+        logger.info("controller started");
         if (!new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
             logger.error("JCal.properties not found");
             Platform.exit();
