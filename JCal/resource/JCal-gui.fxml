@@ -38,11 +38,6 @@
                         <MenuItem fx:id="jcalClose" mnemonicParsing="false" text="Close" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem fx:id="jcalAbout" mnemonicParsing="false" text="About" />
@@ -51,7 +46,7 @@
             </menus>
         </MenuBar>
         <Separator fx:id="jmark_separator" layoutY="28.0" prefHeight="4.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <TabPane layoutX="-2.0" layoutY="30.0" prefHeight="665.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="-2.0" layoutY="30.0" prefHeight="665.0" prefWidth="803.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
         <tabs>
           <Tab text="Mortgage">
             <content>
@@ -221,11 +216,6 @@
                                         </Label>
                                     </children>
                                 </GridPane>
-                              <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-border-width: 1;">
-                                 <padding>
-                                    <Insets left="2.0" right="2.0" />
-                                 </padding>
-                              </Separator>
                               <PieChart fx:id="pieChart" />
                            </children>
                         </HBox>
