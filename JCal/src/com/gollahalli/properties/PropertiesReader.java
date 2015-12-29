@@ -35,4 +35,27 @@ public class PropertiesReader {
 
         return result;
     }
+    
+    public String versionReader(){
+        Properties properties = new Properties();
+        InputStream is;
+        
+        General g = new General();
+        
+        try {
+            File file = new File(g.getRoot() + "/.JCal/JCal.properties");
+            is = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            is = null;
+        }
+
+        try {
+            properties.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return properties.getProperty("Version");
+    }
 }
