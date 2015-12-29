@@ -57,6 +57,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
 import javafx.scene.image.Image;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -583,7 +584,7 @@ public class Controller {
                 jcalAnchor.setEffect(gb);
                 root = FXMLLoader.load(getClass().getResource("/JCal-about.fxml"));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.catching(Level.FATAL, e);
             }
             Scene scene = new Scene(root);
             stage.getIcons().add(new Image("/JCal-logo.png"));
@@ -602,7 +603,14 @@ public class Controller {
 
 // ****************************** PRINTING *************************************
         jcalPrint.setOnAction(event -> {
-            String switcher = repaymentType.getValue().toString();
+            String switcher = null;
+            try{
+                switcher = repaymentType.getValue().toString();
+            }
+            catch(NullPointerException ex){
+                logger.catching(Level.FATAL, ex);
+            }
+            
             loanAmountText = 0;
             monthsText = 0;
             yearsText = 0;
@@ -709,7 +717,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -730,7 +738,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -751,7 +759,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -772,7 +780,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -801,7 +809,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -822,7 +830,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -843,7 +851,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -864,7 +872,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -896,7 +904,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -917,7 +925,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -938,7 +946,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -959,7 +967,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -992,6 +1000,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -1012,6 +1021,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -1032,7 +1042,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -1053,7 +1063,7 @@ public class Controller {
 
                                             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
                                         } catch (Exception s) {
-                                            s.printStackTrace();
+                                            logger.catching(Level.FATAL, s);
                                         }
                                     });
 
@@ -1073,8 +1083,7 @@ public class Controller {
                 jcalAnchor.setEffect(gb);
                 root = FXMLLoader.load(getClass().getResource("/JCal_webview.fxml"));
             } catch (IOException e) {
-                logger.error("not able to load." + e.getMessage());
-                e.printStackTrace();
+                logger.catching(Level.FATAL, e);
             }
             Scene scene = new Scene(root, 1024, 768);
             stage.getIcons().add(new Image("/JCal-logo.png"));
@@ -1270,7 +1279,7 @@ public class Controller {
                                     break;
                             }
                         } catch (NullPointerException e1) {
-
+                            logger.catching(Level.FATAL, e1);
                         }
                     });
                     break;
@@ -1336,6 +1345,7 @@ public class Controller {
                                     break;
                             }
                         } catch (NullPointerException e2) {
+                            logger.catching(Level.FATAL, e2);
                         }
                     });
                     break;
