@@ -186,9 +186,7 @@ public class App extends Application {
             // Show dialog
             Optional<Company> result = dialog.showAndWait();
 
-            General general = new General();
-
-            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), general.getVersion(), usernamePassword.getCopyrightYear()));
+            result.ifPresent(usernamePassword -> new PropertiesWriter(usernamePassword.getCompanyName(), usernamePassword.getName(), usernamePassword.getAddress(), usernamePassword.getContactNumber(), usernamePassword.getContactFax(), g.getVersion(), usernamePassword.getCopyrightYear()));
         }
 
         Parent root = null;
