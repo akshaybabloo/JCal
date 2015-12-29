@@ -56,6 +56,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
+import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -585,6 +586,7 @@ public class Controller {
                 e.printStackTrace();
             }
             Scene scene = new Scene(root);
+            stage.getIcons().add(new Image("/JCal-logo.png"));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.setResizable(false);
@@ -1075,6 +1077,7 @@ public class Controller {
                 e.printStackTrace();
             }
             Scene scene = new Scene(root, 1024, 768);
+            stage.getIcons().add(new Image("/JCal-logo.png"));
             stage.initModality(Modality.APPLICATION_MODAL);
 //            stage.initStyle(StageStyle.UTILITY);
             stage.setResizable(false);
