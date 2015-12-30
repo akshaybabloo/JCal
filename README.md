@@ -2,7 +2,7 @@
 Mortgage calculator based on Java
 
 
-> **[v1.3.1](https://github.com/gollahalli/JCal/releases/latest) released.**
+<a href="https://github.com/gollahalli/JCal/releases/latest"><img src="https://img.shields.io/github/release/gollahalli/JCal.svg"></a>
 
 
 ## Snapshot
@@ -34,11 +34,11 @@ Mortgage calculator based on Java
 
 ## Previous releases
 
-* [JCal v1.3.0](https://github.com/gollahalli/JCal/releases/tag/v1.3.0)
-* [JCal v1.2.0](https://github.com/gollahalli/JCal/releases/tag/v1.2.0)
-* [JCal v1.1.1](https://github.com/gollahalli/JCal/releases/tag/v1.1.1)
-* [JCal v1.1.0](https://github.com/gollahalli/JCal/releases/tag/v1.1.0)
-* [JCal v1.0.2](https://github.com/gollahalli/JCal/releases/tag/v1.0.2)
-* [JCal v1.0.1](https://github.com/gollahalli/JCal/releases/tag/v1.0.1)
-* [JCal v1.0](https://github.com/gollahalli/JCal/releases/tag/v1.0)
-* [JCal v0.1.2](https://github.com/gollahalli/JCal/releases/tag/v0.1.2)
+> [JCal v1.3.0](https://github.com/gollahalli/JCal/releases/tag/v1.3.0) <br/>
+  [JCal v1.2.0](https://github.com/gollahalli/JCal/releases/tag/v1.2.0) <br/>
+  [JCal v1.1.1](https://github.com/gollahalli/JCal/releases/tag/v1.1.1) <br/>
+  [JCal v1.1.0](https://github.com/gollahalli/JCal/releases/tag/v1.1.0) <br/>
+  [JCal v1.0.2](https://github.com/gollahalli/JCal/releases/tag/v1.0.2) <br/>
+  [JCal v1.0.1](https://github.com/gollahalli/JCal/releases/tag/v1.0.1) <br/>
+  [JCal v1.0](https://github.com/gollahalli/JCal/releases/tag/v1.0) <br/>
+  [JCal v0.1.2](https://github.com/gollahalli/JCal/releases/tag/v0.1.2) <br/>
