@@ -104,8 +104,6 @@ public class Controller {
     @FXML
     private Label totalPaymentsLabel;
     @FXML
-    private GridPane summaryGrid;
-    @FXML
     private AreaChart<Number, Number> graph1;
     @FXML
     private AreaChart<Number, Number> graph2;
@@ -180,8 +178,6 @@ public class Controller {
         graph3.setAnimated(false);
         tableData = FXCollections.observableArrayList();
         pieChartData = FXCollections.observableArrayList();
-
-        summaryGrid.setGridLinesVisible(true);
 
         primaryColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Year"));
         interestColumn.setCellValueFactory(new PropertyValueFactory<PaymentsTable, String>("Interest"));
