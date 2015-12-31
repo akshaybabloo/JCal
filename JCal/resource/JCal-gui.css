@@ -91,6 +91,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     -fx-border-color: darkslategray;
 }
 
+/*TabPane*/
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
@@ -125,7 +126,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
-    -fx-text-fill: #96b946;
+    -fx-text-fill: rgb(187,187,187);
 }
 
 .tab-pane:top *.tab-header-area {
@@ -139,9 +140,44 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     -fx-border-width: 3;
 }
 
-#paneCSS{
+#paneCSS, #paneCSSBottom{
     -fx-border-color:black;
     -fx-background-color:none;
-    -fx-border-width: 1;
+    -fx-border-width: 2 2 0 2;
     -fx-border-style: solid solid solid solid;
+}
+
+#paneCSSBottom{
+    -fx-border-width: 2 2 2 2;
+}
+
+#paneCSSRC, #paneCSSRCBottom{
+    -fx-border-color:black;
+    -fx-background-color:none;
+    -fx-border-width: 2 2 0 0;
+    -fx-border-style: solid solid solid solid;
+}
+
+#paneCSSRCBottom{
+    -fx-border-width: 2 2 2 0;
+}
+
+/*Focused*/
+.text-field:focused{
+    -fx-background-color: black,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
+/*  -fx-padding: 1;*/
+}
+
+.combo-box:focused{
+    -fx-background-color: black,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
+}
+
+.tab:focused{
+    -fx-background-color: black,-fx-box-border,-fx-control-inner-background;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 1.4, 0, 0;
 }
