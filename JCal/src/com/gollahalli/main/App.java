@@ -225,8 +225,11 @@ public class App extends Application {
         } catch (Exception e) {
             logger.catching(e);
         }
-
+        
+        String css = App.class.getResource("/JCal-gui.css").toExternalForm();
         Scene scene = new Scene(root, 800, 700);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(css);
         primaryStage.getIcons().add(new Image("/JCal-logo.png"));
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
