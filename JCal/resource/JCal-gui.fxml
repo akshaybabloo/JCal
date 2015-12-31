@@ -154,67 +154,114 @@
                                     <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Loan amount" GridPane.rowIndex="2">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Years" GridPane.rowIndex="3">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Months" GridPane.rowIndex="4">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Monthly payments" GridPane.rowIndex="5">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Total payments" GridPane.rowIndex="7">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Total interest" GridPane.rowIndex="6">
-                                            <GridPane.margin>
-                                                <Insets left="1.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="loanAmountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="yearsLabel" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="monthsLabel" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="monthlyPaymentsLabel" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="totalInterestLabel" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="totalPaymentsLabel" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                            <GridPane.margin>
-                                                <Insets left="10.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                       <children>
+                                              <Label text="Loan amount">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                       <children>
+                                              <Label text="Years">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                       <children>
+                                              <Label text="Months">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+                                       <children>
+                                              <Label text="Monthly payments">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                                       <children>
+                                              <Label text="Total interest">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSBottom" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
+                                       <children>
+                                              <Label text="Total payments">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRC" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                              <Label fx:id="loanAmountLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRC" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                              <Label fx:id="yearsLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRC" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <children>
+                                              <Label fx:id="monthsLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRC" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <children>
+                                              <Label fx:id="monthlyPaymentsLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRC" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <children>
+                                              <Label fx:id="totalInterestLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="paneCSSRCBottom" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                       <children>
+                                              <Label fx:id="totalPaymentsLabel">
+                                             <padding>
+                                                <Insets left="10.0" top="4.0" />
+                                             </padding>
+                                              </Label>
+                                       </children>
+                                    </Pane>
                                     </children>
                                 </GridPane>
                               <PieChart fx:id="pieChart" />
