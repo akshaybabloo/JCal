@@ -69,9 +69,7 @@
                               <RowConstraints maxHeight="191.0" minHeight="5.0" prefHeight="148.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Loan amount" wrappingWidth="101.84146118164062" GridPane.rowIndex="1" />
                                   <TextField fx:id="loanAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time to repay" wrappingWidth="82.68292617797852" GridPane.rowIndex="2" />
                                   <TextField fx:id="years" prefHeight="26.0" prefWidth="55.0" promptText="Years" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                       <GridPane.margin>
                                           <Insets />
@@ -82,10 +80,12 @@
                                           <Insets left="79.0" />
                                       </GridPane.margin>
                                   </TextField>
-                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Interest rate" GridPane.rowIndex="3" />
                                   <TextField fx:id="interest" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repayment type" wrappingWidth="115.85670471191406" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                   <ComboBox fx:id="repaymentType" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <Label text="Loan amount" GridPane.rowIndex="1" />
+                              <Label text="Time to repay" GridPane.rowIndex="2" />
+                              <Label text="Interest rate" GridPane.rowIndex="3" />
+                              <Label text="Repayment type" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               </children>
                           </GridPane>
                           <TabPane prefHeight="347.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -156,32 +156,32 @@
                                     <children>
                                         <Label text="Loan amount" GridPane.rowIndex="2">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label text="Years" GridPane.rowIndex="3">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label text="Months" GridPane.rowIndex="4">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label text="Monthly payments" GridPane.rowIndex="5">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label text="Total payments" GridPane.rowIndex="7">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label text="Total interest" GridPane.rowIndex="6">
                                             <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="1.0" />
                                             </GridPane.margin>
                                         </Label>
                                         <Label fx:id="loanAmountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -214,6 +214,7 @@
                                                 <Insets left="10.0" />
                                             </GridPane.margin>
                                         </Label>
+                                    <Pane fx:id="paneCSS" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
                               <PieChart fx:id="pieChart" />
