@@ -117,6 +117,8 @@ public class Controller {
     @FXML
     private MenuItem jcalPrint;
     @FXML
+    private MenuItem JCalPref;
+    @FXML
     private AnchorPane jcalAnchor;
     private double loanAmountText = 0;
     private double monthsText = 0;
@@ -1351,6 +1353,24 @@ public class Controller {
                     break;
             }
         });
-
+        
+        JCalPref.setOnAction(event -> {
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/JCal-pref.fxml"));
+            } catch (IOException e) {
+                logger.catching(Level.FATAL, e);
+            }
+            
+            String css = Controller.class.getResource("/JCal-pref.css").toExternalForm();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(css);
+            stage.getIcons().add(new Image("/JCal-logo.png"));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        });
     }
 }

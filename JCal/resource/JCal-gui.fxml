@@ -35,7 +35,7 @@
                     <items>
                   <MenuItem fx:id="jcalPrint" mnemonicParsing="false" text="Print" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preference" />
+                  <MenuItem fx:id="JCalPref" mnemonicParsing="false" text="Preference" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="jcalClose" mnemonicParsing="false" text="Close" />
                     </items>
