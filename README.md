@@ -11,9 +11,9 @@ Mortgage calculator based on Java
 
 ![JCal](https://www.dropbox.com/s/aqvfysrecetxkzf/mort-non.png?raw=1)
 
-* Themes
+* Themes - Dark theme
 
-<img src="https://www.dropbox.com/s/blpvicm8xxlgy8p/darktheme.png?raw=1" alt="Dark theme" width="200">
+<img src="https://www.dropbox.com/s/blpvicm8xxlgy8p/darktheme.png?raw=1" alt="Dark theme" width="300">
 
 * An example loan of 10,000 for 5 years at an interest rate of 5% per annam.
 
