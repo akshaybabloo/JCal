@@ -15,7 +15,6 @@
  *  with this program; if not, write to the Free Software Foundation, Inc.,
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
 package com.gollahalli.gui;
 
 import com.gollahalli.api.Calculate;
@@ -60,8 +59,6 @@ import javafx.scene.image.Image;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 
 /**
  * This class is the main controller for JCal-gui.
@@ -151,13 +148,13 @@ public class Controller {
 
     public void initialize() {
         General g = new General();
-        
+
         if (g.isMacOS()) {
             JCal_menu.useSystemMenuBarProperty().set(true);
-            AnchorPane.setTopAnchor(JCal_TabPane, 0.0);
+            AnchorPane.setTopAnchor(JCal_TabPane, -17.0);
             JCal_separator.setVisible(false);
         }
-        
+
         logger.info("controller started");
         if (!new File(g.getRoot() + "/.JCal/JCal.properties").exists()) {
             logger.error("JCal.properties not found");
@@ -189,7 +186,6 @@ public class Controller {
 
         pieChart.setLabelLineLength(10);
         pieChart.setLegendSide(Side.RIGHT);
-
 
         repaymentType.getItems().addAll("Yearly", "Monthly", "Fortnightly", "Weekly");//, "Bi-Monthly", "Quarterly", "Daily");
 
@@ -392,7 +388,6 @@ public class Controller {
 //                    }
 //
 //                    break;
-
                 case "Weekly":
                     logger.info("Weekly payments selected");
 
@@ -612,13 +607,12 @@ public class Controller {
 // ****************************** PRINTING *************************************
         jcalPrint.setOnAction(event -> {
             String switcher = null;
-            try{
+            try {
                 switcher = repaymentType.getValue().toString();
-            }
-            catch(NullPointerException ex){
+            } catch (NullPointerException ex) {
                 logger.catching(Level.FATAL, ex);
             }
-            
+
             loanAmountText = 0;
             monthsText = 0;
             yearsText = 0;
@@ -1110,7 +1104,6 @@ public class Controller {
         });
 
 // ******************************** UNIT CONVERSION ***********************************
-
         typeSelector.getItems().addAll("Temperature", "Weight");
 
         typeSelector.setOnAction(event -> {
@@ -1130,7 +1123,6 @@ public class Controller {
                         String convertSelectorText;
                         try {
                             convertSelectorText = convertSelector.getValue().toString();
-
 
                             switch (convertSelectorText) {
 
